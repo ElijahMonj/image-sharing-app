@@ -1,10 +1,13 @@
+
+
 import {MdOutlineHome,MdOutlineSearch,MdOutlineExplore,MdOutlineNotifications,MdOutlineMessage,MdOutlineAddBox,MdOutlineAccountCircle,MdOutlineSettings,MdOutlineLogout} from 'react-icons/md'
 const UtilityBar = () => {
     return ( 
         <>
         {/*lg*/}
-        <ul className="w-1/5 xl:w-auto hidden lg:block menu p-2 bg-base-100 text-base-content menu-lg h-auto min-h-screen">
-            <a className="btn btn-ghost normal-case text-xl ms-auto me-auto">daisyUI</a>
+        <div className='w-1/6 hidden lg:block'>
+        <ul className="menu p-2 bg-base-100 text-base-content menu-lg h-auto min-h-screen fixed">
+            <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">daisyUI</a>
             {/* Sidebar content here */}
                 <li>
                     <a>
@@ -50,9 +53,11 @@ const UtilityBar = () => {
                     </a>
                 </li>
         </ul>
+        </div>
+        
         {/*md*/}
-        <ul className="w-1/5 w-auto lg:hidden md:block hidden menu p-2 bg-base-100 text-base-content menu-lg h-auto min-h-screen">
-            <a className="btn btn-ghost normal-case text-xl ms-auto me-auto">XD</a>
+        <ul className="w-auto lg:hidden md:block hidden menu p-2 bg-base-100 text-base-content menu-lg h-auto min-h-screen z-50">
+            <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">XD</a>
             {/* Sidebar content here */}
             <li>
                     <a>
@@ -104,6 +109,7 @@ const UtilityBar = () => {
         <div className="drawer-side">
             <label htmlFor="my-drawer" className="drawer-overlay"></label>
             <ul className="menu p-4 w-auto h-auto min-h-screen menu bg-base-200 text-base-content">
+            <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">daisyUI</a>
             {/* Sidebar content here */}
             <li>
                     <a>

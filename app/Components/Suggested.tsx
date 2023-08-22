@@ -1,6 +1,7 @@
+
 const Suggested = () => {
     return ( 
-        <ul className="max-w-md mt-20 p-4">
+        <ul className="max-w-md p-4">
             <h1>Suggested</h1>
             <div className="divider"></div> 
                 <li className="pb-3 sm:pb-4">

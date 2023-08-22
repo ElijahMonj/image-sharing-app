@@ -1,3 +1,4 @@
+
 import Image from 'next/image'
 import NavigationBar from './Components/NavigationBar'
 import UtilityBar from './Components/UtilityBar';
@@ -6,15 +7,23 @@ import Newsfeed from './Components/Newsfeed/Newsfeed';
 
 export default function Home() {
   return ( 
-    <div className="flex justify-between">
+
+    <>
+    <NavigationBar/>
+    <div className="flex justify-between w-full">
+        
         <UtilityBar/> 
-        <div className="lg:w-4/5 w-full">
-            <NavigationBar/>
+        <div className="w-full lg:w-3/6">
+            
             <Newsfeed/>
         </div>
-        <div className="w-1/5 xl:w-auto hidden lg:block">
-            <Suggested/>
+        <div className="w-1/6 hidden lg:block">
+            <div className='top-0 right-0 fixed mt-20'>
+                <Suggested/>
+            </div>        
         </div>
+        
   </div>
+  </>
  );
 }
