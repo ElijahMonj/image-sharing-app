@@ -15,7 +15,7 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = ({
     src
 }) => {
     return ( 
-        <div className="bg-base-300 grid lg:w-96 md:w-96 sm:w-96 w-full">
+        <div className="grid lg:w-96 md:w-96 sm:w-96 w-full">
             
                 <div className="flex items-center py-3 w-full">
                     <Image
@@ -26,7 +26,7 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = ({
                     />
                     <div className="ml-3">
                         <span className="text-sm font-semibold antialiased block leading-tight">8fact</span>
-                        <span className="text-gray-600 text-xs block">Asheville, North Carolina</span>
+                        <span className="text-xs block">Asheville, North Carolina</span>
                     </div>
                 </div>
                 <Image
@@ -37,16 +37,16 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = ({
                 />
                 <div className="flex items-center justify-between mx-4 mt-3 mb-2">
                     <div className="flex gap-5">
-                        <BsHeart className="h-6 w-6" stroke="currentColor"/>
-                        <BsChat className="h-6 w-6" stroke="currentColor"/>
-                        <PiPaperPlaneTilt className="h-6 w-6" stroke="currentColor"/>
+                        <BsHeart className="h-6 w-6 hover:cursor-pointer hover:fill-secondary" />
+                        <BsChat className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
+                        <PiPaperPlaneTilt className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
                     </div>
                     <div className="flex">
-                        <BsBookmark className="h-6 w-6" stroke="currentColor"/>
+                        <BsBookmark className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
                     </div>
                 </div>
                 <div className="font-semibold text-sm mx-4 mt-2 mb-4">92,372 likes</div>
-            
+                <div className="divider"></div> 
         </div>
      );
 }

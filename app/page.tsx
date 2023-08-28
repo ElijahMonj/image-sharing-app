@@ -1,29 +1,19 @@
 
-import Image from 'next/image'
-import NavigationBar from './Components/NavigationBar'
-import UtilityBar from './Components/UtilityBar';
-import Suggested from './Components/Suggested';
-import Newsfeed from './Components/Newsfeed/Newsfeed';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from './authOptions';
+import Dashboard from './Dashboard';
+import AccountPage from './Components/Account/AccountPage';
+import { Toaster } from 'react-hot-toast';
 
-export default function Home() {
+export default async function Home() {
+  const session=await getServerSession(authOptions)
   return ( 
 
     <>
-    <NavigationBar/>
-    <div className="flex justify-between w-full">
-        
-        <UtilityBar/> 
-        <div className="w-full lg:w-3/6">
-            
-            <Newsfeed/>
-        </div>
-        <div className="w-1/6 hidden lg:block">
-            <div className='top-0 right-0 fixed mt-20'>
-                <Suggested/>
-            </div>        
-        </div>
-        
-  </div>
-  </>
+    { 
+        session ? <Dashboard/>:<AccountPage/>
+    }
+    <Toaster />
+    </>
  );
 }

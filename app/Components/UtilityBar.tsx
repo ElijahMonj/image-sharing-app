@@ -1,6 +1,7 @@
-
-
+'use client'
+import { useSession, signIn, signOut } from "next-auth/react"
 import {MdOutlineHome,MdOutlineSearch,MdOutlineExplore,MdOutlineNotifications,MdOutlineMessage,MdOutlineAddBox,MdOutlineAccountCircle,MdOutlineSettings,MdOutlineLogout} from 'react-icons/md'
+
 const UtilityBar = () => {
     return ( 
         <>
@@ -48,7 +49,7 @@ const UtilityBar = () => {
                     </a>
                 </li>
                 <li>
-                    <a>
+                    <a onClick={() => signOut()}>
                     <MdOutlineLogout className="h-6 w-6" stroke="currentColor"/> Logout
                     </a>
                 </li>
