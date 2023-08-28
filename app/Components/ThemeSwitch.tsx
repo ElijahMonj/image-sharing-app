@@ -18,7 +18,7 @@ const ThemeSwitch = () => {
     console.log("Theme switched.")
     }, [theme])
     function themeIcon(){
-        if(theme==="black"){
+        if(theme==="business"){
             return (
                 <MdOutlineDarkMode className="h-7 w-7" stroke="currentColor"/>
             )
@@ -30,11 +30,11 @@ const ThemeSwitch = () => {
         }
     }
     function swapTheme(){
-        if(theme==="black"){
+        if(theme==="business"){
             setTheme("corporate")
         }
         if(theme==="corporate"){
-            setTheme("black")
+            setTheme("business")
         }
     }
     return ( 

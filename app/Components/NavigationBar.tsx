@@ -1,9 +1,17 @@
-
+'use client'
 import Image from "next/image";
 import Newsfeed from "./Newsfeed/Newsfeed";
 import ThemeSwitch from "./ThemeSwitch";
+import { useEffect } from "react";
 
-export default function NavigationBar() {
+interface NavigationBarProps{
+  data:any
+}
+
+const NavigationBar:React.FC<NavigationBarProps> = ({data}) => {
+  useEffect(() => {
+    console.log(data)
+  });
     return (
       <>
        <div className="navbar bg-base-100 fixed">
@@ -28,3 +36,5 @@ export default function NavigationBar() {
   
     );
   }
+
+export default NavigationBar
