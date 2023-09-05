@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import prisma from "@/app/libs/prismadb"
 import bcrypt from 'bcrypt';
-
+import DefaultAvatar from '@/public/images/defaultAvatar.jpg'
 export async function POST(request:Request){
     
     try {
@@ -22,6 +22,7 @@ export async function POST(request:Request){
             data:{            
                 name,
                 email,
+                image:'/../images/defaultAvatar.jpg',
                 password:hashedPassword,    
             }
         })

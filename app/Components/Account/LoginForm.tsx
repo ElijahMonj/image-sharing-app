@@ -35,7 +35,6 @@ const LoginForm = () => {
     }
     return ( 
         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-                <button onClick={()=>toast.success('Logged in!')} type='button'>Test</button>
                 <div>
                     <label htmlFor="email" className="block mb-2 text-sm font-medium">Email</label>
                     <input type="email" name="email" id="email" 
@@ -45,7 +44,7 @@ const LoginForm = () => {
                 </div>
                 <div>
                     <label htmlFor="password" className="block mb-2 text-sm font-medium">Password</label>
-                    <input type="password" name="password" id="password" placeholder="••••••••" 
+                    <input type="password" name="password" id="password" placeholder="Enter your password" 
                     onChange={(e)=>setPassword(e.target.value)}
                     value={password}
                     className="sm:text-sm rounded-sm block w-full p-3"required/>

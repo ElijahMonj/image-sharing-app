@@ -1,56 +1,61 @@
 'use client'
 import { useSession, signIn, signOut } from "next-auth/react"
 import {MdOutlineHome,MdOutlineSearch,MdOutlineExplore,MdOutlineNotifications,MdOutlineMessage,MdOutlineAddBox,MdOutlineAccountCircle,MdOutlineSettings,MdOutlineLogout} from 'react-icons/md'
-
-const UtilityBar = () => {
+import Image from "next/image"
+import Link from "next/link"
+interface UtilityBarProps{
+    data:any
+  }
+  const UtilityBar:React.FC<UtilityBarProps> = ({data}) => {
+   
     return ( 
         <>
         {/*lg*/}
-        <div className='w-1/6 hidden lg:block'>
+        <div className='w-1/6 hidden lg:block z-50'>
         <ul className="menu p-2 bg-base-100 text-base-content menu-lg h-auto min-h-screen fixed">
             <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">daisyUI</a>
             {/* Sidebar content here */}
                 <li>
-                    <a>
-                    <MdOutlineHome className="h-6 w-6" stroke="currentColor"/>
+                    <Link href={'/'}>
+                    <MdOutlineHome className="h-8 w-8" stroke="currentColor"/>
                     Home
+                    </Link>
+                </li>
+                <li>
+                    <a>
+                    <MdOutlineExplore className="h-8 w-8" stroke="currentColor"/>    Explore
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineExplore className="h-6 w-6" stroke="currentColor"/>    Explore
+                    <MdOutlineNotifications className="h-8 w-8" stroke="currentColor"/>  Notifications
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineNotifications className="h-6 w-6" stroke="currentColor"/>  Notifications
+                    <MdOutlineMessage className="h-8 w-8" stroke="currentColor"/> Messages
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineMessage className="h-6 w-6" stroke="currentColor"/> Messages
+                    <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"/> Create
                     </a>
                 </li>
                 <li>
-                    <a>
-                    <MdOutlineAddBox className="h-6 w-6" stroke="currentColor"/> Create
-                    </a>
-                </li>
-                <li>
-                    <a>
-                    <MdOutlineAccountCircle className="h-6 w-6" stroke="currentColor"/> Profile
-                    </a>
+                    <Link href={'/profile'}>
+                    <Image className="rounded-full" width={32} height={32} src={data?.image as string} alt="user avatar"/> Profile
+                    </Link>
                 </li>
 
                 <div className="divider"></div> 
                 <li>
                     <a>
-                    <MdOutlineSettings className="h-6 w-6" stroke="currentColor"/> Settings
+                    <MdOutlineSettings className="h-8 w-8" stroke="currentColor"/> Settings
                     </a>
                 </li>
                 <li>
                     <a onClick={() => signOut()}>
-                    <MdOutlineLogout className="h-6 w-6" stroke="currentColor"/> Logout
+                    <MdOutlineLogout className="h-8 w-8" stroke="currentColor"/> Logout
                     </a>
                 </li>
         </ul>
@@ -62,45 +67,45 @@ const UtilityBar = () => {
             {/* Sidebar content here */}
             <li>
                     <a>
-                    <MdOutlineHome className="h-6 w-6" stroke="currentColor"/>
+                    <MdOutlineHome className="h-8 w-8" stroke="currentColor"/>
                     
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineExplore className="h-6 w-6" stroke="currentColor"/>    
+                    <MdOutlineExplore className="h-8 w-8" stroke="currentColor"/>    
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineNotifications className="h-6 w-6" stroke="currentColor"/>  
+                    <MdOutlineNotifications className="h-8 w-8" stroke="currentColor"/>  
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineMessage className="h-6 w-6" stroke="currentColor"/> 
+                    <MdOutlineMessage className="h-8 w-8" stroke="currentColor"/> 
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineAddBox className="h-6 w-6" stroke="currentColor"/> 
+                    <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"/> 
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineAccountCircle className="h-6 w-6" stroke="currentColor"/> 
+                    <Image className="rounded-full" width={32} height={32} src={data?.image as string} alt="user avatar"/>
                     </a>
                 </li>
 
                 <div className="divider"></div> 
                 <li>
                     <a>
-                    <MdOutlineSettings className="h-6 w-6" stroke="currentColor"/> 
+                    <MdOutlineSettings className="h-8 w-8" stroke="currentColor"/> 
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineLogout className="h-6 w-6" stroke="currentColor"/> 
+                    <MdOutlineLogout className="h-8 w-8" stroke="currentColor"/> 
                     </a>
                 </li>
         </ul>
@@ -109,50 +114,50 @@ const UtilityBar = () => {
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-side">
             <label htmlFor="my-drawer" className="drawer-overlay"></label>
-            <ul className="menu p-4 w-auto h-auto min-h-screen menu bg-base-200 text-base-content">
+            <ul className="menu p-4 w-auto h-auto min-h-screen bg-base-200 text-base-content">
             <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">daisyUI</a>
             {/* Sidebar content here */}
             <li>
                     <a>
-                    <MdOutlineHome className="h-6 w-6" stroke="currentColor"/>
+                    <MdOutlineHome className="h-8 w-8" stroke="currentColor"/>
                     Home
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineExplore className="h-6 w-6" stroke="currentColor"/>    Explore
+                    <MdOutlineExplore className="h-8 w-8" stroke="currentColor"/>    Explore
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineNotifications className="h-6 w-6" stroke="currentColor"/>  Notifications
+                    <MdOutlineNotifications className="h-8 w-8" stroke="currentColor"/>  Notifications
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineMessage className="h-6 w-6" stroke="currentColor"/> Messages
+                    <MdOutlineMessage className="h-8 w-8" stroke="currentColor"/> Messages
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineAddBox className="h-6 w-6" stroke="currentColor"/> Create
+                    <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"/> Create
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineAccountCircle className="h-6 w-6" stroke="currentColor"/> Profile
+                    <Image className="rounded-full" width={32} height={32} src={data?.image as string} alt="user avatar"/> Profile
                     </a>
                 </li>
 
                 <div className="divider"></div> 
                 <li>
                     <a>
-                    <MdOutlineSettings className="h-6 w-6" stroke="currentColor"/> Settings
+                    <MdOutlineSettings className="h-8 w-8" stroke="currentColor"/> Settings
                     </a>
                 </li>
                 <li>
                     <a>
-                    <MdOutlineLogout className="h-6 w-6" stroke="currentColor"/> Logout
+                    <MdOutlineLogout className="h-8 w-8" stroke="currentColor"/> Logout
                     </a>
                 </li>
             

@@ -15,7 +15,7 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = ({
     src
 }) => {
     return ( 
-        <div className="grid lg:w-96 md:w-96 sm:w-96 w-full">
+        <div className="grid lg:w-128 md:w-118 sm:w-96 w-full">
             
                 <div className="flex items-center py-3 w-full">
                     <Image
@@ -31,9 +31,9 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = ({
                 </div>
                 <Image
                 src={src}
-                style={{objectFit: "cover",maxHeight:"36rem"}}
+                style={{objectFit: "cover",maxHeight:"45rem"}}
                 alt="post"
-                className='rounded-sm lg:w-96 md:w-96 sm:w-96 w-full'
+                className='rounded-sm lg:w-128 md:w-118 sm:w-96 w-full'
                 />
                 <div className="flex items-center justify-between mx-4 mt-3 mb-2">
                     <div className="flex gap-5">

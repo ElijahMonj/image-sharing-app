@@ -8,9 +8,9 @@ const Dashboard = async () => {
     return ( 
         <>
             <NavigationBar data={currentUser}/>
-            <div className="flex justify-between w-full">
+            <div className="flex justify-between w-full z-50">
             
-            <UtilityBar/> 
+            <UtilityBar data={currentUser}/> 
             <div className="w-full lg:w-3/6">
                 <Newsfeed/>
             </div>
