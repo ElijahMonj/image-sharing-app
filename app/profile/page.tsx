@@ -13,9 +13,9 @@ const Profile = async () => {
             <div className="flex justify-between w-full">  
                 <UtilityBar data={currentUser}/> 
                 <div className="w-full">
-                    <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto mt-16 bg-base-200">
+                    <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto mt-16">
                         <ProfileHeader data={currentUser}/>
-                        <div className="divider mb-0"></div>
+                        <div className="divider mb-0 "></div>
                             <ProfileContent/>
                     </div>            
                 </div>

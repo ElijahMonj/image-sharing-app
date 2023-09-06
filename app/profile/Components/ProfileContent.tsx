@@ -3,6 +3,8 @@ import { useState } from 'react';
 import {BsBookmark,BsImages,BsPersonBadge} from 'react-icons/bs'
 import Posts from './Posts';
 import clsx from "clsx";
+import Saved from './Saved';
+import Tagged from './Tagged';
 
 const ProfileContent = () => {
     const [content,setContent]=useState("posts")
@@ -14,12 +16,12 @@ const ProfileContent = () => {
         }
         if (content==='saved'){
             return (
-                <div>Saved</div>
+                <Saved/>
             )
         }
         if(content==='tagged'){
             return (
-                <div>Tagged</div>
+                <Tagged/>
             )
         }
 
