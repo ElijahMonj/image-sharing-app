@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         
         if (!credentials?.email||!credentials?.password){
-          console.log("invalid: 1")
+        
           throw new Error('Invalid Credentials');
         }
         //if no credentials recieved, throw error
@@ -45,8 +45,7 @@ export const authOptions: NextAuthOptions = {
         });
         //find user in db using email
         if(!user||!user?.password){
-          console.log(user)
-          console.log("invalid: 2")
+          
           throw new Error('Invalid Credentials');
         }
         //if the user has no password or no user found, no account created using credentials
@@ -56,13 +55,11 @@ export const authOptions: NextAuthOptions = {
         );
         //compare password
         if(!isCorrectPassword){
-          console.log("invalid: 3")
+         
           throw new Error('Invalid Credentials');
         }
         //check if password matches using bcrypt
-        console.log("---------")
-        console.log(user)
-        console.log("_------------")
+       
         return user;
         //finally authorize user
       }

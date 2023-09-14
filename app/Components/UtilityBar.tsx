@@ -3,6 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import {MdOutlineHome,MdOutlineSearch,MdOutlineExplore,MdOutlineNotifications,MdOutlineMessage,MdOutlineAddBox,MdOutlineAccountCircle,MdOutlineSettings,MdOutlineLogout} from 'react-icons/md'
 import Image from "next/image"
 import Link from "next/link"
+import CreatePostModal from "./CreatePostModal"
 interface UtilityBarProps{
     data:any
   }
@@ -37,8 +38,11 @@ interface UtilityBarProps{
                     </a>
                 </li>
                 <li>
-                    <a>
-                    <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"/> Create
+                   {/*@ts-ignore*/}
+                    <a onClick={()=>document.getElementById('create_post_modal').showModal()}>
+                    <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"
+                    
+                    /> Create
                     </a>
                 </li>
                 <li>
@@ -164,6 +168,8 @@ interface UtilityBarProps{
             </ul>
         </div>
         </div>
+
+        <CreatePostModal/>
         </>
      );
 }

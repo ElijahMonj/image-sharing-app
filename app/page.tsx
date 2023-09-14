@@ -13,6 +13,7 @@ export default async function Home() {
     { 
         session ? <Dashboard/>:<AccountPage/>
     }
+    
     <Toaster />
     </>
  );

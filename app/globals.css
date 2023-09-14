@@ -12,3 +12,10 @@ details > summary {
 *{
   box-sizing: border-box;
 }
+
+#createPost{
+  resize: none;
+}
+#createPost:focus{
+  outline:none;
+}

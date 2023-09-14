@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import {MdOutlineDarkMode,MdOutlineWbSunny} from 'react-icons/md'
 const ThemeSwitch = () => {
     // @ts-ignore
-    
     const [theme,setTheme] = useState<any>(localStorage.getItem("theme") ? localStorage.getItem("theme"): "corporate");
     useEffect(() => {
         if (typeof window !== 'undefined') {
