@@ -11,6 +11,28 @@ const getCurrentUser=async()=>{
             return link
         }
     }
+    async function checkAccount(userData:any){
+        const accountUser = await prisma.account.findUnique({
+             where:{
+                  email: userData.email as string
+              }
+         })
+        if(!accountUser){
+            const newAccountUser=await prisma.account.create({
+                data:{            
+                    name:userData.name,
+                    email:userData.email,
+                    image:userData.image,
+                    followers:[],
+                    following:[]
+                }
+            })
+            return newAccountUser
+        }else{
+            return accountUser
+        }
+    }
+   
     try {
         
         const session = await getServerSession(authOptions)
@@ -31,15 +53,6 @@ const getCurrentUser=async()=>{
                 }
             })
             if(!currentSocialUser){
-                
-                const imageURL = ()=>{
-                    if(session?.user?.image?.includes('google')){
-                        return "GALING SA GOOGLE"
-                    }else{
-                        return "di galing sa google"
-                    }
-                }
-
 
                 const newSocialUser=await prisma.socialUser.create({
                     data:{            
@@ -48,16 +61,16 @@ const getCurrentUser=async()=>{
                         image:getBetterImage(session.user.image)
                     }
                 })
-                console.log("Signed in with social:")
-                console.log(newSocialUser);
-                return newSocialUser
+                return checkAccount(newSocialUser)
+                
             }
-            return currentSocialUser
+            return checkAccount(currentSocialUser)
+            
         }
         if(!currentUser){
             return null
         }
-        return currentUser;
+        return checkAccount(currentUser)
     } catch (error:any) {
         return null
     }
