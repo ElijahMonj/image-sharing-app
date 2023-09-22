@@ -6,15 +6,20 @@ export async function POST(request:Request){
         
         const body=await request.json();
         const{
-            authorId,
+            author,
             caption,
             tagged,
             image,
+            
         }=body;
 
         const post=await prisma.post.create({
             data:{            
-                authorId,
+                author:{
+                    connect:{
+                        id:author
+                    }
+                },
                 caption,
                 tagged,
                 image,
