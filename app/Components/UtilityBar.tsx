@@ -3,12 +3,20 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import {MdOutlineHome,MdOutlineSearch,MdOutlineExplore,MdOutlineNotifications,MdOutlineMessage,MdOutlineAddBox,MdOutlineAccountCircle,MdOutlineSettings,MdOutlineLogout} from 'react-icons/md'
 import Image from "next/image"
 import Link from "next/link"
-import CreatePostModal from "./CreatePostModal"
+import CreatePostModal from "./CreatePost/CreatePostModal"
+import { CldUploadButton } from "next-cloudinary"
+import { useState } from "react"
 interface UtilityBarProps{
     data:any
   }
   const UtilityBar:React.FC<UtilityBarProps> = ({data}) => {
-   
+    const [image,setImage]=useState('');
+   const handleUpload=(result:any)=>{
+    setImage(result?.info?.secure_url)
+    //@ts-ignore
+    
+    document.getElementById('create_post_modal').showModal()
+   }
     return ( 
         <>
         {/*lg*/}
@@ -38,12 +46,16 @@ interface UtilityBarProps{
                     </a>
                 </li>
                 <li>
-                   {/*@ts-ignore*/}
-                    <a onClick={()=>document.getElementById('create_post_modal').showModal()}>
+                    <CldUploadButton             
+                          options={{maxFiles:1}}
+                          onUpload={handleUpload}
+                          uploadPreset='rfrpttac'
+                          >
+                    {/*<a onClick={()=>document.getElementById('create_post_modal').showModal()}>*/}
                     <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"
                     
                     /> Create
-                    </a>
+                    </CldUploadButton>
                 </li>
                 <li>
                     <Link href={'/profile'}>
@@ -169,7 +181,7 @@ interface UtilityBarProps{
         </div>
         </div>
 
-        <CreatePostModal/>
+        <CreatePostModal user={data} image={image}/>
         </>
      );
 }

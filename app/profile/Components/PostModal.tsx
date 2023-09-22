@@ -1,16 +1,13 @@
 import Image from 'next/image'
-import Picture from '@/public/test/1by1.jpg'
-import Phone from '@/public/test/phone.jpg'
-import Desktop from '@/public/test/desktop.jpg'
-import Long from "@/public/test/long.jpg";
+
 interface PostModalProps {
-    postId:any
-    data:any
+    
+    post:any
 }
 
-const PostModal:React.FC<PostModalProps> = ({postId,data}) => {
+const PostModal:React.FC<PostModalProps> = ({post}) => {
     return ( 
-        <dialog id={postId} className="modal">
+        <dialog id={post.id} className="modal">
             
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
@@ -19,9 +16,11 @@ const PostModal:React.FC<PostModalProps> = ({postId,data}) => {
                     <div className="flex flex-col lg:flex-row place-items-center">
                         <div className='grid lg:w-max w-full'>
                         <Image 
-                                src={Phone}
+                                src={post.image}
                                 style={{objectFit:"contain",maxHeight:"50rem"}}
                                 alt="post"
+                                width={999}
+                                height={999}
                                 className='flex-grow rounded-sm w-full'/>
                         </div>
                        

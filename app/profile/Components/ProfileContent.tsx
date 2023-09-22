@@ -6,12 +6,16 @@ import clsx from "clsx";
 import Saved from './Saved';
 import Tagged from './Tagged';
 
-const ProfileContent = () => {
+interface ProfileContentProps{
+    posts:any
+}
+
+const ProfileContent:React.FC<ProfileContentProps> = ({posts}) => {
     const [content,setContent]=useState("posts")
     function contentType(){
         if (content==='posts'){
             return (
-                <Posts/>
+                <Posts posts={posts}/>
             )
         }
         if (content==='saved'){
