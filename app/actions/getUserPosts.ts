@@ -21,7 +21,7 @@ const getUserPosts = async () =>{
             where: {
                 authorId:getUserId?.id
               },
-            include:{
+              include:{
                 author:true
             }
         })

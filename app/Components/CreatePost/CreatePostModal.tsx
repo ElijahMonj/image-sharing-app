@@ -27,8 +27,9 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
       axios.post('/api/post',data)
         .catch(()=>toast.error('Something went wrong!'))
         .finally(()=> {
-            setPostButtonDisabled(false)
-            toast.success('Post created!')   
+            setPostButtonDisabled(false);
+            document.getElementById('closePostModalBtn')?.click()
+            toast.success('Post created!');
         })
     }
     
@@ -53,12 +54,7 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
                           <button type="button" onClick={()=>setOpenTag(true)} className="btn btn-sm btn-ghost inline-flex justify-center items-center p-2 rounded cursor-pointer">
                                 <FaUserTag className="h-4 w-4" />
                               <span className="sr-only">Tag a user</span>
-                          </button>
-                          
-                          
-                               
-                          
-                         
+                          </button>         
                       
                   </div>
                    <button type="submit" className="btn btn-sm w-full" disabled={postButtonDisabled} onClick={handleSubmit}>
@@ -68,12 +64,12 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
             </form>
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" id='closePostModalBtn'>✕</button>
             </form>
           </div>
         )}
 
-      
+
       </div>
     </dialog>
      );

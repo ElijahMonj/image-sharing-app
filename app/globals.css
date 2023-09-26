@@ -19,3 +19,8 @@ details > summary {
 #createPost:focus{
   outline:none;
 }
+
+#commentdiv{
+  height: 100%;
+  min-height: 100%;
+}
