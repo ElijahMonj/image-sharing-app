@@ -4,11 +4,14 @@ import PostModal from '../../Components/PostModal/PostModal';
 import { useState } from 'react';
 interface PostsProps{
     posts:any
+    currentUser:any
 }
-const Posts:React.FC<PostsProps> = ({posts}) => {
+const Posts:React.FC<PostsProps> = ({posts,currentUser}) => {
     const [currentPost,setCurrentPost]=useState(0);
+    const [commentInput,setCommentInput]=useState('');
     function handlePostsModal(post:any){
         setCurrentPost(post)
+        setCommentInput('')
          // @ts-ignore
         document?.getElementById(`post_modal`)?.showModal()
     }
@@ -48,7 +51,7 @@ const Posts:React.FC<PostsProps> = ({posts}) => {
                 );
                 
             })} 
-             <PostModal post={currentPost}/>
+             <PostModal post={currentPost} commentInput={commentInput} setCommentInput={setCommentInput} currentUser={currentUser}/>
             
         </div>
      );

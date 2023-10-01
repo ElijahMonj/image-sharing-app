@@ -18,7 +18,7 @@ const Profile = async () => {
                     <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto mt-16">
                         <ProfileHeader data={currentUser}/>
                         <div className="divider mb-0 "></div>
-                            <ProfileContent posts={userPosts}/>
+                            <ProfileContent posts={userPosts} currentUser={currentUser} />
                     </div>            
                 </div>
             </div>

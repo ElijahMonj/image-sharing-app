@@ -8,14 +8,15 @@ import Tagged from './Tagged';
 
 interface ProfileContentProps{
     posts:any
+    currentUser:any
 }
 
-const ProfileContent:React.FC<ProfileContentProps> = ({posts}) => {
+const ProfileContent:React.FC<ProfileContentProps> = ({posts,currentUser}) => {
     const [content,setContent]=useState("posts")
     function contentType(){
         if (content==='posts'){
             return (
-                <Posts posts={posts}/>
+                <Posts posts={posts} currentUser={currentUser}/>
             )
         }
         if (content==='saved'){

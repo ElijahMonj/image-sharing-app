@@ -2,11 +2,14 @@ import Image from 'next/image'
 import Comments from './Comments';
 
 interface PostModalProps {
-    
+    commentInput:any
     post:any
+    setCommentInput:any
+    currentUser:any
 }
 
-const PostModal:React.FC<PostModalProps> = ({post}) => {
+const PostModal:React.FC<PostModalProps> = ({post,commentInput,setCommentInput,currentUser}) => {
+    
     return ( 
         <dialog id={'post_modal'} className="modal">
             
@@ -27,7 +30,7 @@ const PostModal:React.FC<PostModalProps> = ({post}) => {
                         </div>
                        
                         <div className="grid w-96 lg:max-w-96 card bg-base-300 rounded-box">
-                            <Comments data={post}/>
+                            <Comments data={post} commentInput={commentInput} setCommentInput={setCommentInput} currentUser={currentUser}/>
                         </div>
                     </div>
                     
