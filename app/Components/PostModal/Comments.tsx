@@ -5,9 +5,10 @@ import {BsChat,BsBookmark,BsHeart} from 'react-icons/bs'
 import {PiPaperPlaneTilt} from 'react-icons/pi'
 import {BiHappy} from 'react-icons/bi'
 import EmojiPicker from 'emoji-picker-react';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import {toast} from 'react-hot-toast'
 import axios from 'axios';
+import CommentData from './CommentData';
 interface CommentsProps{
     data:any
     setCommentInput:any
@@ -17,25 +18,34 @@ interface CommentsProps{
 const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,currentUser}) => {
     const [emojiOpen,setEmojiOpen]=useState(false);
     const [isLoading,setIsLoading]=useState(false)
-    function handlePostComment(){
+    function handlePostComment(e:FormEvent){
+        e.preventDefault();
+        setIsLoading(true)
         const commentData = {
             authorId:currentUser.id,
             post:data.id,
             commentText:commentInput
         }
-        console.log(commentData)
-        // axios.post('/api/comment',commentData).then(()=> console.log("commenting..."))
-        // .catch(()=>toast.error('Something went wrong!'))
-        // .finally(()=> {
-        //     setIsLoading(false)
-        //     toast.success('Comment Posted!')   
-        // })
+       
+        axios.post('/api/comment',commentData).then(()=> console.log("commenting..."))
+        .catch(()=>toast.error('Something went wrong!'))
+        .finally(()=> {
+            setIsLoading(false)
+            toast.success('Comment Posted!')   
+        })
     }
+   
     return ( 
         <div className='h-full flex flex-col justify-between divide-y bg-base-100'>
             <div className="flex justify-between grow-0 p-4">
-                <div className='grid place-content-center'>
-                    <Avatar size={30} src={data?.author?.image}/>
+                <div className='flex gap-3'>
+                    <div className=''>
+                        <Avatar size={30} src={data?.author?.image}/>
+                    </div>
+                    <div className='font-medium m-auto'>
+                        Elijah
+                    </div>
+                    
                 </div>    
                 <div className='grid place-content-center'>
                     <SlOptions className="h-4 w-4 hover:cursor-pointer hover:fill-secondary"/>
@@ -47,17 +57,13 @@ const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,cur
                 <div className='relative w-full h-full'>
                 <div className='absolute overflow-y-auto left-0 right-0 top-0 bottom-0'>
                    
-                    <div className='mb-2'>
-                        <div className="flex items-center">
-                            <p className="inline-flex items-center mr-3 text-sm font-semibold gap-2">
-                                <Avatar size={4} src={data?.author?.image}/>
-                                Michael Gough</p>
-                            <p className="text-sm"><div>Feb. 8, 2022</div></p>
-                        </div>
-                        <p>XD XD XDXDXDXD  XDXDX X XDDX XD XDDX DX DXDX DX XD DXDXDX</p>
-                    </div>
+                    
+
+                    <CommentData postData={data} currentUser={currentUser}/>
+                    
                 </div>
                 </div>
+                
                 
            
             </div>
@@ -84,7 +90,7 @@ const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,cur
                     <BiHappy className='h-5 w-5 '/>
                 </button>
                 
-                <input type="text" placeholder="Type here" id='postCommentInput' 
+                <input type="text" placeholder="Add a comment..." id='postCommentInput' 
                 onChange={(e)=>setCommentInput(e.target.value)}
                 value={commentInput}
                 disabled={isLoading}

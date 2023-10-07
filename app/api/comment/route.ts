@@ -6,27 +6,24 @@ export async function POST(request:Request){
         
         const body=await request.json();
         const{
-            author,
-            caption,
-            tagged,
-            image,
-            
+            authorId,
+            post,
+            commentText,
         }=body;
 
-        const post=await prisma.post.create({
+        const comment=await prisma.comment.create({
             data:{            
-                author:{
+                post:{
                     connect:{
-                        id:author
+                        id:post
                     }
                 },
-                caption,
-                tagged,
-                image,
+                authorId,
+                commentText,
                 likes:[] 
             }
         })
-        return NextResponse.json(post);
+        return NextResponse.json(comment);
         
     } catch (error) {
         console.log(error,'POST_ERROR')

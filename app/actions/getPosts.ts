@@ -12,7 +12,8 @@ const getPosts = async () =>{
         }
         const posts = await prisma.post.findMany({
             include:{
-                author:true
+                author:true,
+                comments:true
             }
         })
 
