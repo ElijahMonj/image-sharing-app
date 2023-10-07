@@ -45,6 +45,7 @@ model Post{
   tagged String[]
   image String
   likes String[]
+
   comments Comment[]
 }
 

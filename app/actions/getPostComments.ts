@@ -4,33 +4,22 @@ import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server"
 import getSession from './getSession';
 
-const getUserPosts = async () =>{
+const getPostComments = async (postId:string) =>{
     try {
         const session = await getSession() 
-
         if(!session?.user?.email){
             return null;
         }
-        const getUserId = await prisma.account.findUnique({
+        const comments = await prisma.comment.findMany({
             where:{
-                email:session?.user?.email
+                postId:postId
             }
         })
-        
-        const posts = await prisma.post.findMany({
-            where: {
-                authorId:getUserId?.id
-              },
-              include:{
-                author:true,
-                comments:true
-            }
-        })
-        
-        return posts
+
+        return comments
     } catch (error:any) {
         return null
     }
     
 }
-export default getUserPosts;
+export default getPostComments;
