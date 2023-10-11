@@ -5,7 +5,7 @@ import {BsChat,BsBookmark,BsHeart} from 'react-icons/bs'
 import {PiPaperPlaneTilt} from 'react-icons/pi'
 import {BiHappy} from 'react-icons/bi'
 import EmojiPicker from 'emoji-picker-react';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import {toast} from 'react-hot-toast'
 import axios from 'axios';
 import CommentData from './CommentData';
@@ -17,7 +17,10 @@ interface CommentsProps{
 }
 const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,currentUser}) => {
     const [emojiOpen,setEmojiOpen]=useState(false);
-    const [isLoading,setIsLoading]=useState(false)
+    const [isLoading,setIsLoading]=useState(false);
+    useEffect(() => {
+        
+      }, [commentInput]);
     function handlePostComment(e:FormEvent){
         e.preventDefault();
         setIsLoading(true)
@@ -31,6 +34,7 @@ const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,cur
         .catch(()=>toast.error('Something went wrong!'))
         .finally(()=> {
             setIsLoading(false)
+            setCommentInput('')
             toast.success('Comment Posted!')   
         })
     }
@@ -59,7 +63,7 @@ const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,cur
                    
                     
 
-                    <CommentData postData={data} currentUser={currentUser}/>
+                    <CommentData postData={data} currentUser={currentUser} isLoading={isLoading}/>
                     
                 </div>
                 </div>

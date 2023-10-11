@@ -9,12 +9,7 @@ interface PostsProps{
 const Posts:React.FC<PostsProps> = ({posts,currentUser}) => {
     const [currentPost,setCurrentPost]=useState(0);
     const [commentInput,setCommentInput]=useState('');
-    function handlePostsModal(post:any){
-        setCurrentPost(post)
-        setCommentInput('')
-         // @ts-ignore
-        document?.getElementById(`post_modal`)?.showModal()
-    }
+    
     return ( 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
              {/*@ts-ignore*/}
@@ -23,7 +18,10 @@ const Posts:React.FC<PostsProps> = ({posts,currentUser}) => {
                    
                  <div className="overflow-hidden cursor-pointer relative group" key={post.id} 
                  onClick={()=>{
-                    handlePostsModal(post)
+                    setCurrentPost(post)
+                    setCommentInput('')
+                     // @ts-ignore
+                    document?.getElementById(`post_modal`)?.showModal()
                  }}>
                     <div className="z-50 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out cursor-pointer 
                     absolute from-black/80 to-transparent bg-gradient-to-t inset-x-0 -bottom-2 pt-30 text-white flex items-end">
