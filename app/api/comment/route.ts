@@ -18,7 +18,12 @@ export async function POST(request:Request){
                         id:post
                     }
                 },
-                authorId,
+                author:{
+                    connect:{
+                        id:authorId
+                    }
+                },
+
                 commentText,
                 likes:[] 
             }

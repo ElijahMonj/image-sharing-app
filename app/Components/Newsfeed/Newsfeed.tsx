@@ -13,7 +13,7 @@ const Newsfeed:React.FC<NewsfeedProps> = ({posts}) => {
     useEffect(() => {
         console.log(posts)
       });
-      const post=posts[0];
+      
     return ( 
         <div className="flex flex-col w-full items-center h-min m-auto mt-20"> 
                 {/*@ts-ignore*/}

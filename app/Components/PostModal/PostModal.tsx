@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Comments from './Comments';
-
+import defaultAvatar from '@/public/images/defaultAvatar.jpg'
 interface PostModalProps {
     commentInput:any
     post:any
@@ -21,7 +21,7 @@ const PostModal:React.FC<PostModalProps> = ({post,commentInput,setCommentInput,c
                     <div className="flex flex-col lg:flex-row place-items-center items-stretch">
                         <div className='grid lg:w-max w-full'>
                         <Image 
-                                src={post.image}
+                                src={post.image ? post.image : defaultAvatar}
                                 style={{objectFit:"contain",maxHeight:"50rem"}}
                                 alt="post"
                                 width={999}
