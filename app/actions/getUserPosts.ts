@@ -4,7 +4,7 @@ import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server"
 import getSession from './getSession';
 
-const getUserPosts = async () =>{
+const getUserPosts = async (userId:string) =>{
     try {
         const session = await getSession() 
 
@@ -19,7 +19,7 @@ const getUserPosts = async () =>{
         
         const posts = await prisma.post.findMany({
             where: {
-                authorId:getUserId?.id
+                authorId:userId
               },
               include:{
                 author:true,

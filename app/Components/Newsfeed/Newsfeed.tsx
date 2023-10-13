@@ -4,33 +4,30 @@ import Phone from '@/public/test/phone.jpg'
 import Desktop from '@/public/test/desktop.jpg'
 import NewsfeedCard from "./NewsfeedCard";
 import Long from "@/public/test/long.jpg";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import convertDate from '@/app/actions/convertDate';
+import PostModal from '../PostModal/PostModal';
 
 interface NewsfeedProps{
     posts:any
+    currentUser:any
 }
-const Newsfeed:React.FC<NewsfeedProps> = ({posts}) => {
-    useEffect(() => {
-        console.log(posts)
-      });
-      
+const Newsfeed:React.FC<NewsfeedProps> = ({posts,currentUser}) => {
+    const [currentPost,setCurrentPost]=useState(0);
+    const [commentInput,setCommentInput]=useState('');
+    
     return ( 
         <div className="flex flex-col w-full items-center h-min m-auto mt-20"> 
                 {/*@ts-ignore*/}
                 {posts.map(post => (
-                    <NewsfeedCard 
+                    <NewsfeedCard
+                    setCurrentPost={setCurrentPost}
+                    setCommentInput={setCommentInput} 
                     key={post.id}
-                    likes={post.likes.length}
-                    email={post.author.email}
-                    caption={post.caption}
-                    tagged={"beta"}
-                    image={post.image}
-                    authorName={post.author.name}
-                    authorImage={post.author.image}
-                    id={post.id}
+                    data={post}
                     />
                 ))} 
-
+                <PostModal post={currentPost} commentInput={commentInput} setCommentInput={setCommentInput} currentUser={currentUser}/>
                 
                             
         </div>

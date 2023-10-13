@@ -12,7 +12,7 @@ const CommentData:React.FC<CommentDataProps> = ({postData,currentUser,isLoading}
     const [comments,setComments]=useState<any>("loading")
    
     useEffect(() => {
-        setComments('loading')
+        setComments("loading")
         axios.get(`/api/postcomments/${postData.id}`)
         .then(res => {
             const data = res.data;
@@ -20,7 +20,14 @@ const CommentData:React.FC<CommentDataProps> = ({postData,currentUser,isLoading}
             setComments(data)
         })
       }, [postData]);
-
+      useEffect(() => {
+        axios.get(`/api/postcomments/${postData.id}`)
+        .then(res => {
+            const data = res.data;
+            console.log(data)
+            setComments(data)
+        })
+      }, [isLoading,postData]);
       if(comments=="loading"){
         return (
             <div className='w-full h-full flex items-center justify-center'>
@@ -41,7 +48,7 @@ const CommentData:React.FC<CommentDataProps> = ({postData,currentUser,isLoading}
             <div className='mb-2' key={comment.id}>
             <div className="flex items-center">
                 <span className="inline-flex items-center mr-3 text-sm font-semibold gap-2">
-                    <Avatar size={4} src={comment?.author?.image}/>
+                    <Avatar width={24} height={24} src={comment?.author?.image}/>
                     {comment?.author?.name}</span>
                 <span className="text-sm"><div>Feb. 8, 2022</div></span>
             </div>

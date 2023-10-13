@@ -6,6 +6,7 @@ import Link from "next/link"
 import CreatePostModal from "./CreatePost/CreatePostModal"
 import { CldUploadButton } from "next-cloudinary"
 import { useState } from "react"
+import Avatar from "./Avatar"
 interface UtilityBarProps{
     data:any
   }
@@ -58,8 +59,15 @@ interface UtilityBarProps{
                     </CldUploadButton>
                 </li>
                 <li>
-                    <Link href={'/profile'}>
-                    <Image className="rounded-full" width={32} height={32} src={data?.image as string} alt="user avatar"/> Profile
+                    <Link href={`/profile/${data.id}`}>
+                    <div className="w-8">
+                    <Avatar 
+                    width={256}
+                    height={32}
+                    src={data?.image as string}
+                    />
+                    </div>
+                    Profile
                     </Link>
                 </li>
 
@@ -81,11 +89,11 @@ interface UtilityBarProps{
         <ul className="w-auto lg:hidden md:block hidden menu p-2 bg-base-100 text-base-content menu-lg h-auto min-h-screen z-50">
             <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">XD</a>
             {/* Sidebar content here */}
-            <li>
-                    <a>
+                <li>
+                 <Link href={'/'}>
                     <MdOutlineHome className="h-8 w-8" stroke="currentColor"/>
                     
-                    </a>
+                    </Link>
                 </li>
                 <li>
                     <a>
@@ -103,14 +111,28 @@ interface UtilityBarProps{
                     </a>
                 </li>
                 <li>
-                    <a>
-                    <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"/> 
-                    </a>
+                    <CldUploadButton             
+                          options={{maxFiles:1}}
+                          onUpload={handleUpload}
+                          uploadPreset='rfrpttac'
+                          >
+                    {/*<a onClick={()=>document.getElementById('create_post_modal').showModal()}>*/}
+                    <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"
+                    
+                    />
+                    </CldUploadButton>
                 </li>
                 <li>
-                    <a>
-                    <Image className="rounded-full" width={32} height={32} src={data?.image as string} alt="user avatar"/>
-                    </a>
+                <Link href={`/profile/${data.id}`}>
+                    <div className="w-8">
+                    <Avatar 
+                    width={256}
+                    height={32}
+                    src={data?.image as string}
+                    />
+                    </div>
+                    
+                    </Link>
                 </li>
 
                 <div className="divider"></div> 
@@ -120,7 +142,8 @@ interface UtilityBarProps{
                     </a>
                 </li>
                 <li>
-                    <a>
+                    <a onClick={() => signOut()}>
+                    
                     <MdOutlineLogout className="h-8 w-8" stroke="currentColor"/> 
                     </a>
                 </li>
@@ -134,10 +157,10 @@ interface UtilityBarProps{
             <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">daisyUI</a>
             {/* Sidebar content here */}
             <li>
-                    <a>
+            <Link href={'/'}>
                     <MdOutlineHome className="h-8 w-8" stroke="currentColor"/>
                     Home
-                    </a>
+                    </Link>
                 </li>
                 <li>
                     <a>
@@ -155,14 +178,28 @@ interface UtilityBarProps{
                     </a>
                 </li>
                 <li>
-                    <a>
-                    <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"/> Create
-                    </a>
+                <CldUploadButton             
+                          options={{maxFiles:1}}
+                          onUpload={handleUpload}
+                          uploadPreset='rfrpttac'
+                          >
+                    {/*<a onClick={()=>document.getElementById('create_post_modal').showModal()}>*/}
+                    <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"
+                    
+                    /> Create
+                    </CldUploadButton>
                 </li>
                 <li>
-                    <a>
-                    <Image className="rounded-full" width={32} height={32} src={data?.image as string} alt="user avatar"/> Profile
-                    </a>
+                <Link href={`/profile/${data.id}`}>
+                    <div className="w-8">
+                    <Avatar 
+                    width={256}
+                    height={32}
+                    src={data?.image as string}
+                    />
+                    </div>
+                    Profile
+                    </Link>
                 </li>
 
                 <div className="divider"></div> 
@@ -172,7 +209,7 @@ interface UtilityBarProps{
                     </a>
                 </li>
                 <li>
-                    <a>
+                    <a onClick={() => signOut()}>
                     <MdOutlineLogout className="h-8 w-8" stroke="currentColor"/> Logout
                     </a>
                 </li>

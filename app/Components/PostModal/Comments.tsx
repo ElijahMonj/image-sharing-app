@@ -18,9 +18,7 @@ interface CommentsProps{
 const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,currentUser}) => {
     const [emojiOpen,setEmojiOpen]=useState(false);
     const [isLoading,setIsLoading]=useState(false);
-    useEffect(() => {
-        
-      }, [commentInput]);
+   
     function handlePostComment(e:FormEvent){
         e.preventDefault();
         setIsLoading(true)
@@ -43,11 +41,11 @@ const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,cur
         <div className='h-full flex flex-col justify-between divide-y bg-base-100'>
             <div className="flex justify-between grow-0 p-4">
                 <div className='flex gap-3'>
-                    <div className=''>
-                        <Avatar size={30} src={data?.author?.image}/>
+                    <div className='w-8'>
+                        <Avatar width={256} height={32} src={data?.author?.image}/>
                     </div>
                     <div className='font-medium m-auto'>
-                        Elijah
+                        {data?.author?.name}
                     </div>
                     
                 </div>    
