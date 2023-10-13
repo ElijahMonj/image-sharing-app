@@ -35,7 +35,7 @@ model Account{
   saved String[]
   followers String[]
   following String[]
-
+  theme String @default("corporate")
   comments Comment[]
 }
 
@@ -47,6 +47,7 @@ model Post{
   tagged String[]
   image String
   likes String[]
+  createdAt DateTime @default(now())
 
   comments Comment[]
 }
@@ -58,5 +59,6 @@ model Comment{
   post Post @relation(fields: [postId],references: [id])
   postId String @db.ObjectId
   commentText String
+  createdAt DateTime @default(now())
   likes String[]
 }
