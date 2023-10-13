@@ -1,39 +1,42 @@
 'use client'
 
+import axios from "axios";
 import { useEffect, useState } from "react";
 import {MdOutlineDarkMode,MdOutlineWbSunny} from 'react-icons/md'
-const ThemeSwitch = () => {
+interface ThemeSwitchProps{
+    theme:string
+    id:string
+}
+const ThemeSwitch:React.FC<ThemeSwitchProps> = ({theme,id}) => {
     // @ts-ignore
-    const [theme,setTheme] = useState<any>(localStorage.getItem("theme") ? localStorage.getItem("theme"): "corporate");
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            // @ts-ignore
-            localStorage.setItem("theme",theme);
-            const localTheme = localStorage.getItem("theme")
-            // @ts-ignore
-            document.querySelector("html")?.setAttribute("data-theme", localTheme)
-          }
-    
-    console.log("Theme switched.")
-    }, [theme])
+    const [currentTheme,setCurrentTheme]=useState(theme)
+    useEffect(() => { 
+        const data ={
+            id:id,
+            theme:currentTheme
+        }  
+        axios.post('/api/theme',data)
+        console.log("Theme set to: "+currentTheme)
+        document.querySelector("html")?.setAttribute("data-theme", currentTheme)
+    }, [currentTheme, id])
     function themeIcon(){
-        if(theme==="business"){
+        if(currentTheme==="business"){
             return (
                 <MdOutlineDarkMode className="h-7 w-7" stroke="currentColor"/>
             )
         }
-        if(theme==="corporate"){
+        if(currentTheme==="corporate"){
             return(
                 <MdOutlineWbSunny className="h-7 w-7" stroke="currentColor"/>
             )
         }
     }
     function swapTheme(){
-        if(theme==="business"){
-            setTheme("corporate")
+        if(currentTheme==="business"){
+            setCurrentTheme("corporate")
         }
-        if(theme==="corporate"){
-            setTheme("business")
+        if(currentTheme==="corporate"){
+            setCurrentTheme("business")
         }
     }
     return ( 

@@ -7,13 +7,6 @@ import Form from "./Form";
 
 const AccountPage = () => {
     
-        // useEffect(() => {      
-        //     // @ts-ignore
-        //     const localTheme = localStorage.getItem("theme")
-        //     // @ts-ignore
-        //     document.querySelector("html")?.setAttribute("data-theme", localTheme)
-        //     console.log("Theme switched.")
-        //  }, [])
 
     return ( 
         <>

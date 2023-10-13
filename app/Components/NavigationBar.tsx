@@ -28,7 +28,7 @@ const NavigationBar:React.FC<NavigationBarProps> = ({data}) => {
         
         </div>
         <div className="navbar-end">
-        <ThemeSwitch/>
+        <ThemeSwitch theme={data.theme} id={data.id}/>
         </div>
       </div>
     
