@@ -22,7 +22,7 @@ const ProfileHeader:React.FC<ProfileHeaderProps> = ({data,isCurrentUser}) => {
                    {data.name}
                 </div>
                 <div className="w-full flex justify-between">
-                    <div className="flex justify-center flex-col text-slate-500 lg:text-sm text-xs overflow-hidden">{data.email}asdasdasdasdasd</div> 
+                    <div className="flex justify-center flex-col text-slate-500 lg:text-sm text-xs overflow-hidden">{data.email}</div> 
                                   
                 </div>
                 
@@ -39,7 +39,7 @@ const ProfileHeader:React.FC<ProfileHeaderProps> = ({data,isCurrentUser}) => {
                     </div>  
                 
                 <div className="mt-2">
-                    <p className="text-sm hidden lg:block md:block sm:block">{data.bio} {isCurrentUser.toString()}</p>
+                    <p className="text-sm hidden lg:block md:block sm:block">{data.bio}</p>
                 </div>
             </div>
            
