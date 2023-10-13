@@ -12,9 +12,9 @@ const Dashboard = async () => {
             <NavigationBar data={currentUser}/>
             <div className="flex justify-between w-full z-50">
             
-            <UtilityBar data={currentUser}/> 
+            <UtilityBar data={currentUser} /> 
             <div className="w-full lg:w-3/6">
-                <Newsfeed posts={posts}/>
+                <Newsfeed posts={posts} currentUser={currentUser}/>
             </div>
             <div className="w-1/6 hidden lg:block">
                 <div className='top-0 right-0 fixed mt-20'>

@@ -29,6 +29,7 @@ model Account{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String?
   email String? @unique
+  bio String @default("No information given.")
   image String?
   posts Post[]
   tagged String[]

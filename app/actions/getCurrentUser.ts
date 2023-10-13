@@ -16,7 +16,11 @@ const getCurrentUser=async()=>{
         const accountUser = await prisma.account.findUnique({
              where:{
                   email: userData.email as string
+              },
+              include:{ 
+                    posts:true
               }
+              
          })
         if(!accountUser){
             const newAccountUser=await prisma.account.create({
@@ -26,7 +30,8 @@ const getCurrentUser=async()=>{
                     image:userData.image,
                     followers:[],
                     following:[]
-                }
+                },
+                
             })
             return newAccountUser
         }else{
