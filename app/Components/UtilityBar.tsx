@@ -32,9 +32,9 @@ interface UtilityBarProps{
                     </Link>
                 </li>
                 <li>
-                    <a>
+                    <Link href={'/explore'}>
                     <MdOutlineExplore className="h-8 w-8" stroke="currentColor"/>    Explore
-                    </a>
+                    </Link>
                 </li>
                 <li>
                     <a>
@@ -73,9 +73,9 @@ interface UtilityBarProps{
 
                 <div className="divider"></div> 
                 <li>
-                    <a>
+                    <Link href={'/settings'}>
                     <MdOutlineSettings className="h-8 w-8" stroke="currentColor"/> Settings
-                    </a>
+                    </Link>
                 </li>
                 <li>
                     <a onClick={() => signOut()}>
