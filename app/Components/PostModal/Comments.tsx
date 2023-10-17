@@ -56,7 +56,7 @@ const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,cur
             
             <div className='grow-0 p-4'>{data.caption}</div>
             <div className='grow p-4'>
-                <div className='relative w-full h-full'>
+                <div className='relative w-full lg:h-full h-64'>
                 <div className='absolute overflow-y-auto left-0 right-0 top-0 bottom-0'>
                    
                     

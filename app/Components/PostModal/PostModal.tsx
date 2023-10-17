@@ -29,7 +29,7 @@ const PostModal:React.FC<PostModalProps> = ({post,commentInput,setCommentInput,c
                                 className='flex-grow rounded-sm w-full'/>
                         </div>
                        
-                        <div className="grid w-96 lg:max-w-96 card bg-base-300 rounded-box">
+                        <div className="grid lg:max-w-96 card bg-base-300 rounded-box">
                             <Comments data={post} commentInput={commentInput} setCommentInput={setCommentInput} currentUser={currentUser}/>
                         </div>
                     </div>
