@@ -21,8 +21,9 @@ interface UtilityBarProps{
     return ( 
         <>
         {/*lg*/}
-        <div className='w-1/6 hidden lg:block z-50'>
-        <ul className="menu p-2 bg-base-100 text-base-content menu-lg h-auto min-h-screen fixed">
+        <div className='w-1/6 hidden lg:block z-40 h-screen'>
+        <ul className="menu p-2 bg-base-100 text-base-content menu-lg h-screen fixed border-r-2 border-neutral-400">
+            <div className="h-1/2">
             <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">daisyUI</a>
             {/* Sidebar content here */}
                 <li>
@@ -70,8 +71,10 @@ interface UtilityBarProps{
                     Profile
                     </Link>
                 </li>
+            </div>
+            
 
-                <div className="divider"></div> 
+                <div className="h-1/2 flex flex-col justify-end">
                 <li>
                     <Link href={'/settings'}>
                     <MdOutlineSettings className="h-8 w-8" stroke="currentColor"/> Settings
@@ -82,11 +85,14 @@ interface UtilityBarProps{
                     <MdOutlineLogout className="h-8 w-8" stroke="currentColor"/> Logout
                     </a>
                 </li>
+                </div> 
+                
         </ul>
         </div>
         
         {/*md*/}
-        <ul className="w-auto lg:hidden md:block hidden menu p-2 bg-base-100 text-base-content menu-lg h-auto min-h-screen z-50">
+        <ul className="w-auto lg:hidden md:block hidden menu p-2 text-base-content menu-lg min-h-screen z-40 fixed border-r-2">
+            <div className="h-1/2">
             <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">XD</a>
             {/* Sidebar content here */}
                 <li>
@@ -135,7 +141,9 @@ interface UtilityBarProps{
                     </Link>
                 </li>
 
-                <div className="divider"></div> 
+            </div>
+            
+            <div className="h-1/2 flex flex-col justify-end">
                 <li>
                     <a>
                     <MdOutlineSettings className="h-8 w-8" stroke="currentColor"/> 
@@ -147,9 +155,10 @@ interface UtilityBarProps{
                     <MdOutlineLogout className="h-8 w-8" stroke="currentColor"/> 
                     </a>
                 </li>
+                </div>
         </ul>
         {/*mobile*/}
-        <div className="drawer md:hidden absolute z-50">
+        <div className="drawer md:hidden absolute z-40">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-side">
             <label htmlFor="my-drawer" className="drawer-overlay"></label>

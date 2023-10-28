@@ -8,7 +8,7 @@ import Phone from '@/public/test/phone.jpg'
 import Desktop from '@/public/test/desktop.jpg'
 import convertDate from '@/app/actions/convertDate'
 import Avatar from '../Avatar'
-
+import Link from "next/link"
 interface NewsfeedCardProps{
     data:any
     setCurrentPost:any
@@ -31,7 +31,7 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = ({
                     </div>
                    
                     <div className="ml-3">
-                        <span className="text-sm font-semibold antialiased block leading-tight">{data.author.name}</span>
+                        <Link href={`/profile/${data.author.id}`} className="text-sm font-semibold antialiased block leading-tight">{data.author.name}</Link>
                         <span className="text-xs block">{convertDate(data.createdAt)}</span>
                     </div>
                 </div>

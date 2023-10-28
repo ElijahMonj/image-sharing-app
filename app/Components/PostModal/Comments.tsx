@@ -58,16 +58,12 @@ const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,cur
             <div className='grow p-4'>
                 <div className='relative w-full lg:h-full h-64'>
                 <div className='absolute overflow-y-auto left-0 right-0 top-0 bottom-0'>
-                   
-                    
+        
 
                     <CommentData postData={data} currentUser={currentUser} isLoading={isLoading}/>
                     
                 </div>
-                </div>
-                
-                
-           
+                </div>       
             </div>
              
              <div className='grow-0 px-4 py-2'>
