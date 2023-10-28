@@ -24,16 +24,12 @@ const user = async ({params}:{params:IParams}) => {
     }
     return ( 
          <>
-            <NavigationBar data={currentUser}/>
-            <div className="flex justify-between w-full">  
-                <UtilityBar data={currentUser}/> 
-                <div className="w-full">
-                    <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto mt-16">
-                        <ProfileHeader data={checkUser()} isCurrentUser={params.profileId==currentUser?.id}/>
-                        <div className="divider mb-0 "></div>
-                            <ProfileContent posts={userPosts} currentUser={currentUser} />
-                    </div>            
-                </div>
+            <div className="w-full">
+                <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto mt-16">
+                    <ProfileHeader data={checkUser()} isCurrentUser={params.profileId==currentUser?.id}/>
+                    <div className="divider mb-0 "></div>
+                        <ProfileContent posts={userPosts} currentUser={currentUser} />
+                </div>            
             </div>
         </>
      );

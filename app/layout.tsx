@@ -1,6 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import HeaderNav from './HeaderNav'
+import { Suspense } from 'react'
+import LoadingSkeleton from './Components/LoadingSkeleton'
+import SideNav from './SideNav'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,9 +18,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
+  return (  
     <html lang="en" data-theme="corporate">
-      <body className={inter.className}>{children}</body>
+      
+      <body className={inter.className}>
+        <HeaderNav/>
+        <div className="flex justify-between w-full">  
+            <SideNav/> 
+            <Suspense fallback={<LoadingSkeleton/>}>
+            {children}
+            </Suspense>
+        </div>     
+        </body>
     </html>
   )
 }

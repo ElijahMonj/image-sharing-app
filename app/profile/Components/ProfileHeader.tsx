@@ -1,4 +1,6 @@
+'use client'
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import {AiOutlineEdit} from 'react-icons/ai'
 
 interface ProfileHeaderProps{
@@ -6,7 +8,21 @@ interface ProfileHeaderProps{
     isCurrentUser:boolean
 }
 const ProfileHeader:React.FC<ProfileHeaderProps> = ({data,isCurrentUser}) => {
-   
+   const [isFollowing,setIsFollowing]=useState(false);
+   useEffect(() => {
+    
+  });
+  function actionButton(){
+    if(isFollowing){
+        return (
+            <button className="btn lg:btn-sm md:btn-sm btn-xs">Unfollow</button>
+        )
+    }else{
+        return (
+            <button className="btn lg:btn-sm md:btn-sm btn-xs">Follow</button>
+        )
+    }
+  }
     return ( 
         <>
         <div className="w-full flex">
@@ -32,8 +48,8 @@ const ProfileHeader:React.FC<ProfileHeaderProps> = ({data,isCurrentUser}) => {
                         <p className="lg:text-sm text-xs text-center flex flex-col justify-center">{data.followers.length} Followers</p>
                         {isCurrentUser ? 
                         <button className="btn lg:btn-sm md:btn-sm btn-xs">Edit</button>
-                        : 
-                        <button className="btn lg:btn-sm md:btn-sm btn-xs">Follow</button>
+                        :  
+                            {actionButton}
                         }
                         
                     </div>  
