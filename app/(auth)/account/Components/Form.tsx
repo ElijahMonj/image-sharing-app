@@ -1,3 +1,4 @@
+'use client'
 import {MdFacebook} from 'react-icons/md'
 import {AiFillGoogleCircle,AiFillGithub} from 'react-icons/ai'
 import { FormEvent, useState } from 'react';

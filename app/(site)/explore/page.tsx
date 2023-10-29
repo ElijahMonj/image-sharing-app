@@ -1,7 +1,7 @@
-import NavigationBar from "../Components/NavigationBar";
-import UtilityBar from "../Components/UtilityBar";
-import getCurrentUser from "../actions/getCurrentUser";
-import getPosts from "../actions/getPosts";
+import NavigationBar from "../../Components/NavigationBar";
+import UtilityBar from "../../Components/UtilityBar";
+import getCurrentUser from "../../actions/getCurrentUser";
+import getPosts from "../../actions/getPosts";
 import Grid from "./grid";
 
 const Explore = async () => {

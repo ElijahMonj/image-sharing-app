@@ -1,12 +1,13 @@
-
-import Image from 'next/image';
-import PostModal from '../../Components/PostModal/PostModal';
-import { useState } from 'react';
-interface PostsProps{
+'use client'
+import { useState } from "react";
+import Image from 'next/image'
+import PostModal from "../../Components/PostModal/PostModal";
+interface GridProps{
     posts:any
     currentUser:any
 }
-const Posts:React.FC<PostsProps> = ({posts,currentUser}) => {
+
+const Grid:React.FC<GridProps> = ({posts,currentUser}) => {
     const [currentPost,setCurrentPost]=useState(0);
     const [commentInput,setCommentInput]=useState('');
     
@@ -55,4 +56,4 @@ const Posts:React.FC<PostsProps> = ({posts,currentUser}) => {
      );
 }
  
-export default Posts;
+export default Grid;

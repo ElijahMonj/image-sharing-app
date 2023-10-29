@@ -30,7 +30,7 @@ const LoginForm = () => {
         })
         .finally(()=>{
             setIsLoading(false)
-            router.refresh()
+            router.push('/')
         })
     }
     return ( 
