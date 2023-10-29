@@ -92,7 +92,7 @@ const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,cur
                 onChange={(e)=>setCommentInput(e.target.value)}
                 value={commentInput}
                 disabled={isLoading}
-                className="input input-ghost input-sm w-full max-w-xs" />
+                className="input input-ghost input-sm w-full" />
                 <button className='btn btn-ghost btn-sm'
                 onClick={handlePostComment}
                 disabled={isLoading}

@@ -3,7 +3,9 @@ import { FormEvent, useState } from 'react';
 import axios from 'axios';
 import {toast} from 'react-hot-toast'
 import { signIn } from 'next-auth/react';
+import { useRouter } from "next/navigation";
 const RegisterForm = () => {
+    const router = useRouter();
     const [isLoading,setIsLoading]=useState<boolean>(false);
     const [name,setName]=useState<undefined|string>("")
     const [email,setEmail]=useState<undefined|string>("")
@@ -20,7 +22,8 @@ const RegisterForm = () => {
         .catch(()=>toast.error('Something went wrong!'))
         .finally(()=> {
             setIsLoading(false)
-            toast.success('Account succesfully created!')   
+            toast.success('Account succesfully created!')
+            router.push('/')   
         })
     }
     return ( 

@@ -1,13 +1,19 @@
-'use client'
 
-import { useEffect, useState } from "react";
+import {redirect} from 'next/navigation'
 import Image from "next/image"
 import Brand from "@/public/test/phone.jpg"
-import Form from "./Form";
+import Form from "@/app/(auth)/account/Components/Form";
+import { getServerSession } from 'next-auth/next';
+import { Toaster } from 'react-hot-toast';
+import { authOptions } from "@/app/authOptions";
 
-const AccountPage = () => {
-    
 
+
+export default async function AccountPage () {
+    const session=await getServerSession(authOptions)
+    if(session){
+        redirect('/')
+    }
     return ( 
         <>
         <section className="lg:h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
@@ -21,9 +27,9 @@ const AccountPage = () => {
                 </div>
             </div>
         </section>
+        <Toaster />
         </>
-   
+         
      );
 }
  
-export default AccountPage;
