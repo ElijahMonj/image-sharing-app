@@ -1,27 +1,58 @@
 'use client'
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import {AiOutlineEdit} from 'react-icons/ai'
-
+import axios from "axios";
+import toast from "react-hot-toast";
 interface ProfileHeaderProps{
     data:any
+    currentUser:any
     isCurrentUser:boolean
-}
-const ProfileHeader:React.FC<ProfileHeaderProps> = ({data,isCurrentUser}) => {
-   const [isFollowing,setIsFollowing]=useState(false);
-   useEffect(() => {
     
-  });
-  function actionButton(){
-    if(isFollowing){
-        return (
-            <button className="btn lg:btn-sm md:btn-sm btn-xs">Unfollow</button>
-        )
-    }else{
-        return (
-            <button className="btn lg:btn-sm md:btn-sm btn-xs">Follow</button>
-        )
+}
+const ProfileHeader:React.FC<ProfileHeaderProps> = ({data,isCurrentUser,currentUser}) => {
+   const [isFollowing,setIsFollowing]=useState(false);
+   const [isLoading,setIsLoading]=useState(false);
+   useEffect(() => {
+        axios.get(`/api/getfollowingusers/${currentUser.id}`)
+        .then(res => {
+            const resultData = res.data;
+            console.log(resultData)
+            if(resultData.includes(data.id)){
+                setIsFollowing(true)
+             }else{
+                 setIsFollowing(false)
+             }  
+        })
+    });
+  function follow(){
+    setIsLoading(true)
+    const followData={
+        followingUser:data.id,
+        followerUser:currentUser.id
     }
+    axios.post('/api/addfollow',followData).then(()=> console.log("following..."))
+        .catch(()=>toast.error('Something went wrong!'))
+        .finally(()=> {
+            setIsLoading(false)
+            toast.success(data.name+" is now followed!")   
+        })
+   
+  }
+  function unfollow(){
+    setIsLoading(true)
+    const followData={
+        followingUser:data.id,
+        followerUser:currentUser.id
+    }
+    axios.post('/api/removefollow',followData).then(()=> console.log("unfollowing..."))
+        .catch(()=>toast.error('Something went wrong!'))
+        .finally(()=> {
+            setIsLoading(false)
+            toast.success(data.name+" is now unfollowed.")   
+        })
+   
   }
     return ( 
         <>
@@ -47,9 +78,13 @@ const ProfileHeader:React.FC<ProfileHeaderProps> = ({data,isCurrentUser}) => {
                         <p className="lg:text-sm text-xs text-center flex flex-col justify-center">{data.following.length} Following</p>
                         <p className="lg:text-sm text-xs text-center flex flex-col justify-center">{data.followers.length} Followers</p>
                         {isCurrentUser ? 
-                        <button className="btn lg:btn-sm md:btn-sm btn-xs">Edit</button>
+                        <Link className="btn lg:btn-sm md:btn-sm btn-xs" href="/settings">Edit</Link>
                         :  
-                            {actionButton}
+                        <>
+                         {isFollowing ? <button className="btn lg:btn-sm md:btn-sm btn-xs" onClick={unfollow} disabled={isLoading}>Unfollow</button> 
+                                      : <button className="btn lg:btn-sm md:btn-sm btn-xs" onClick={follow} disabled={isLoading}>Follow</button>}
+                        </>
+                           
                         }
                         
                     </div>  
