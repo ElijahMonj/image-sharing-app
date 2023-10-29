@@ -1,7 +1,8 @@
 import NavigationBar from "@/app/Components/NavigationBar";
-import getCurrentUser from "../actions/getCurrentUser";
+
 import UtilityBar from "@/app/Components/UtilityBar";
 import SettingsTabs from "./components/SettingsTabs";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
 const Settings = async () => {
     const currentUser = await getCurrentUser();

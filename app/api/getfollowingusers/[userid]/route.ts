@@ -2,27 +2,24 @@
 import { NextResponse } from 'next/server';
 import prisma from "@/app/libs/prismadb"
 interface IParams{
-  postId?: string;
+    userid?: string;
 }
 export async function GET( request: Request,
   { params }: { params: IParams }){
-    const {postId}=params;
+    const {userid}=params;
     
     
   try {
-    if((!postId)||(postId=='undefined')){
-      
-      return new NextResponse("loading");
+    if(!userid){
+      return new NextResponse("Invalid Request");
     }
-      const comments = await prisma.comment.findMany({
+      const user = await prisma.account.findUnique({
           where:{
-              postId:postId
+              id:userid
           },
-          include:{
-            author:true,
-          }
+         
       })
-    return NextResponse.json(comments);
+    return NextResponse.json(user?.following);
       
   } catch (error) {
       return new NextResponse('Internal Error', {status:500});
