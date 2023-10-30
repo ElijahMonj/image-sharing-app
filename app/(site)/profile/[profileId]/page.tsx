@@ -1,23 +1,21 @@
-import NavigationBar from "@/app/Components/NavigationBar";
-import UtilityBar from "@/app/Components/UtilityBar";
+
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ProfileHeader from "../Components/ProfileHeader";
 import ProfileContent from "../Components/ProfileContent";
 import getUserPosts from "@/app/actions/getUserPosts";
 import getUser from "@/app/actions/getUser";
 import { Toaster } from "react-hot-toast";
-import getFollowingUsers from "@/app/actions/getFollowingUsers";
+
 
 interface IParams {
     profileId: string;
 };
 
-
 const user = async ({params}:{params:IParams}) => {
     const currentUser = await getCurrentUser();
     const userPosts = await getUserPosts(params.profileId);
     const userData = await getUser(params.profileId);
-    const followingUsers = await getFollowingUsers();
+    
     function checkUser(){
         if(params.profileId==currentUser?.id){
             return currentUser
