@@ -10,13 +10,9 @@ export default async function Home() {
     const session=await getServerSession(authOptions)
     return ( 
       
-      <>
-      
-      { 
-          session ? <Dashboard/>:<Dashboard/>
-      }
-      
-      <Toaster />
+      <> 
+        <Dashboard/>
+        <Toaster />
       </>
    );
   }
