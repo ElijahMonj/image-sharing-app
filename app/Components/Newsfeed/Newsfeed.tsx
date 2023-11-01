@@ -5,7 +5,7 @@ import NewsfeedCard from "./NewsfeedCard";
 import { useEffect, useState } from 'react';
 
 import PostModal from '../PostModal/PostModal';
-import { getNewsfeedPosts } from '@/app/actions/getNewsfeedPosts'
+import { getNewsfeedPosts } from '@/app/actions/server/getNewsfeedPosts'
 import LoadingSkeleton from "../LoadingSkeleton";
 interface NewsfeedProps{
     currentUser:any
@@ -36,7 +36,8 @@ const Newsfeed:React.FC<NewsfeedProps> = ({currentUser}) => {
                         {posts.map(post => (
                             <NewsfeedCard
                             setCurrentPost={setCurrentPost}
-                            setCommentInput={setCommentInput} 
+                            setCommentInput={setCommentInput}
+                            currentUser={currentUser} 
                             key={post.id}
                             data={post}
                             />

@@ -1,23 +1,31 @@
 'use client'
 import Image from 'next/image'
 import {AiOutlineHeart} from 'react-icons/ai'
-import {BsChat,BsBookmark,BsHeart} from 'react-icons/bs'
+import {BsChat,BsBookmark,BsHeart,BsFillHeartFill} from 'react-icons/bs'
 import {PiPaperPlaneTilt} from 'react-icons/pi'
-import Picture from '@/public/test/1by1.jpg'
-import Phone from '@/public/test/phone.jpg'
-import Desktop from '@/public/test/desktop.jpg'
+import { like,unlike } from '@/app/actions/server/interactions'
 import convertDate from '@/app/actions/convertDate'
 import Avatar from '../Avatar'
 import Link from "next/link"
+import { useState,useEffect } from 'react'
 interface NewsfeedCardProps{
     data:any
     setCurrentPost:any
     setCommentInput:any
+    currentUser:any
 }
 
 const NewsfeedCard:React.FC<NewsfeedCardProps> = ({
-    setCurrentPost,setCommentInput,data
+    setCurrentPost,setCommentInput,data,currentUser
 }) => {
+    const likeData=like.bind(null,data.id,currentUser.id)
+    const unlikeData=unlike.bind(null,data.id,currentUser.id)
+    const [isLiked,setIsLiked]=useState(false)
+    useEffect(() => {
+        if(data.likes.includes(currentUser.id)){
+            setIsLiked(true)
+        }
+    },[data.likes, currentUser.id]);
     return ( 
         <div className="grid lg:w-128 md:w-118 sm:w-96 w-full">
             
@@ -46,7 +54,23 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = ({
                 />
                 <div className="flex items-center justify-between mt-3 mb-2 mx-1">
                     <div className="flex gap-5">
-                        <BsHeart className="h-6 w-6 hover:cursor-pointer hover:fill-secondary" />
+                        {isLiked ? 
+                        <form action={unlikeData}>
+                            <label>
+                            <input type="submit" className='hidden'/>
+                                <BsFillHeartFill className="h-6 w-6 hover:cursor-pointer fill-red-500"/>
+                            </label>
+                        </form>
+                        :
+                        <form action={likeData}>
+                            <label>
+                            <input type="submit" className='hidden'/>
+                                <BsHeart className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
+                            </label>
+                        </form>
+                        }
+                         
+                        
                         <BsChat className="h-6 w-6 hover:cursor-pointer hover:fill-secondary" 
                          onClick={()=>{
                             setCurrentPost(data)

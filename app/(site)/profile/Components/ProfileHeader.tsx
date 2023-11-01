@@ -12,7 +12,7 @@ interface ProfileHeaderProps{
     
 }
 const ProfileHeader:React.FC<ProfileHeaderProps> = ({data,isCurrentUser,currentUser}) => {
-   const [isFollowing,setIsFollowing]=useState(false);
+   const [isFollowing,setIsFollowing]=useState<any>('loading');
    const [isLoading,setIsLoading]=useState(false);
    useEffect(() => {
         axios.get(`/api/getfollowingusers/${currentUser.id}`)
@@ -81,8 +81,14 @@ const ProfileHeader:React.FC<ProfileHeaderProps> = ({data,isCurrentUser,currentU
                         <Link className="btn lg:btn-sm md:btn-sm btn-xs" href="/settings">Edit</Link>
                         :  
                         <>
-                         {isFollowing ? <button className="btn lg:btn-sm md:btn-sm btn-xs" onClick={unfollow} disabled={isLoading}>Unfollow</button> 
-                                      : <button className="btn lg:btn-sm md:btn-sm btn-xs" onClick={follow} disabled={isLoading}>Follow</button>}
+                         {isFollowing =='loading' ? <button className="btn lg:btn-sm md:btn-sm btn-xs">
+                         <span className="loading loading-dots loading-sm"></span></button> :
+                            <>
+                                {isFollowing ? 
+                                <button className="btn lg:btn-sm md:btn-sm btn-xs" onClick={unfollow} disabled={isLoading}>Unfollow</button> 
+                                : <button className="btn lg:btn-sm md:btn-sm btn-xs" onClick={follow} disabled={isLoading}>Follow</button>}
+                            </>
+                        }
                         </>
                            
                         }
