@@ -1,9 +1,8 @@
-import NavigationBar from "../Components/NavigationBar";
-import UtilityBar from "../Components/UtilityBar";
+
 import Suggested from '../Components/Suggested';
 import Newsfeed from '../Components/Newsfeed/Newsfeed';
 import getCurrentUser from "../actions/getCurrentUser";
-import getPosts from "../actions/getPosts";
+
 const Dashboard = async () => {
     const currentUser = await getCurrentUser();
 

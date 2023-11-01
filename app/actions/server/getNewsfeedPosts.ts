@@ -1,6 +1,6 @@
 'use server'
 import prisma from "@/app/libs/prismadb";
-import getSession from "./getSession";
+import getSession from "../getSession";
 
  
 export async function getNewsfeedPosts() {
@@ -14,7 +14,7 @@ export async function getNewsfeedPosts() {
                 email:session?.user?.email
            }
         })
-        console.log(user?.following)
+       
         const posts = await prisma.post.findMany({
             where:{
                 authorId: {in: user?.following }
@@ -24,7 +24,7 @@ export async function getNewsfeedPosts() {
                 comments:true
             }
         })
-        console.log(posts)
+        
         return posts
     } catch (error:any) {
         return null

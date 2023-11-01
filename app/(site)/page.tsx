@@ -7,7 +7,7 @@ import { authOptions } from '../authOptions';
 import Dashboard from './Dashboard';
 
 export default async function Home() {
-    const session=await getServerSession(authOptions)
+    
     return ( 
       
       <> 
