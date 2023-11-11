@@ -1,5 +1,4 @@
-import {getServerSession} from 'next-auth';
-import { authOptions } from '@/app/authOptions'
+
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server"
 import getSession from './getSession'
@@ -12,6 +11,7 @@ const getCurrentUser=async()=>{
             return link
         }
     }
+     {/*
     async function checkAccount(userData:any){
         const accountUser = await prisma.account.findUnique({
              where:{
@@ -29,16 +29,21 @@ const getCurrentUser=async()=>{
                     email:userData.email,
                     image:userData.image,
                     followers:[],
-                    following:[]
+                    following:[],
+                    saved:[],
+                    tagged:[]
                 },
                 
             })
+            console.log("New account user created:")
+            console.log(newAccountUser)
             return newAccountUser
         }else{
             return accountUser
         }
     }
-   
+    */}
+    {/* 
     try {
         
         const session = await getSession()
@@ -51,13 +56,15 @@ const getCurrentUser=async()=>{
                 email: session.user.email as string
             }
         });
-        if(session&&!currentUser){
+        if((session)&&(!currentUser)){
             
-            const currentSocialUser =await prisma.socialUser.findUnique({
+            const currentSocialUser = await prisma.socialUser.findUnique({
                 where:{
                     email:session.user.email
                 }
             })
+            console.log("Meron bang laman sa scoailuser?")
+            console.log(currentSocialUser)
             if(!currentSocialUser){
 
                 const newSocialUser=await prisma.socialUser.create({
@@ -67,6 +74,8 @@ const getCurrentUser=async()=>{
                         image:getBetterImage(session.user.image)
                     }
                 })
+                console.log("New Social User Created")
+                console.log(newSocialUser)
                 return checkAccount(newSocialUser)
                 
             }
@@ -77,6 +86,29 @@ const getCurrentUser=async()=>{
             return null
         }
         return checkAccount(currentUser)
+    } catch (error:any) {
+        return null
+    }
+    */}
+    try {
+        const session = await getSession();
+
+        if(!session?.user?.email){
+            return null;
+        }
+        const currentUser = await prisma.user.findUnique({
+            where:{
+                email: session.user.email as string
+            },
+            include:{
+                posts:true
+            }
+        });
+
+        if(!currentUser){
+            return null
+        }
+        return currentUser;
     } catch (error:any) {
         return null
     }

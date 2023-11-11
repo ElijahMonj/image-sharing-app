@@ -6,7 +6,7 @@ export async function POST(request:Request){
         
         const body=await request.json();
         const {id,theme}=body;
-        const updatedTheme = await prisma.account.update({
+        const updatedTheme = await prisma.user.update({
             where: {
                 id: id,
             },

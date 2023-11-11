@@ -7,7 +7,7 @@ export async function POST(request:Request){
         const body=await request.json();
         const{followingUser,followerUser}=body;
 
-        const addFollowers =await prisma.account.update({
+        const addFollowers =await prisma.user.update({
             where:{
                 id:followingUser
             },
@@ -17,7 +17,7 @@ export async function POST(request:Request){
                 }
             }
         })
-        const addFollowing =await prisma.account.update({
+        const addFollowing =await prisma.user.update({
             where:{
                 id:followerUser
             },

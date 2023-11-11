@@ -12,7 +12,7 @@ const getUser=async(userId:string)=>{
         if(!session?.user?.email){
             return null;
         }
-        const userData = await prisma.account.findUnique({
+        const userData = await prisma.user.findUnique({
             where:{
                 id: userId
             },

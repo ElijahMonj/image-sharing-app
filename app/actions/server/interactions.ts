@@ -15,7 +15,7 @@ export async function like(postId:string,likerId:string){
             }
         }
     })
-    revalidatePath('/');
+    revalidatePath('/')
 }
 export async function unlike(postId:string,likerId:string){
     console.log("unliking")
@@ -35,8 +35,41 @@ export async function unlike(postId:string,likerId:string){
             likes: currentLikes
         }
     })
-    console.log(currentLikes)
-    revalidatePath('/');
+    revalidatePath('/')
 }
 
+export async function save(postId:string,userId:string){
+    console.log("saving")
+    await prisma.user.update({
+        where:{
+            id:userId
+        },
+        data:{
+            saved:{
+                push:postId
+            }
+        }
+    })
+    revalidatePath('/')
+}
+export async function unsave(postId:string,userId:string){
+    console.log("unsaving")
+    const user = await prisma.user.findUnique({
+        where:{
+            id:userId
+        }
+    })
+    const currentSaves:any = user?.saved 
+    const index = currentSaves.indexOf(postId);
+    currentSaves.splice(index, 1);
+    await prisma.user.update({
+        where:{
+            id:userId
+        },
+        data:{
+            saved: currentSaves
+        }
+    })
+    revalidatePath('/')
+}
  

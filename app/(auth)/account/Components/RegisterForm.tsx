@@ -18,6 +18,7 @@ const RegisterForm = () => {
             email:email,
             password:password,
         }
+        console.log(email)
         axios.post('/api/register',data).then(()=> signIn('credentials', data))
         .catch(()=>toast.error('Something went wrong!'))
         .finally(()=> {

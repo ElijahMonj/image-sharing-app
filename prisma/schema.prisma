@@ -10,14 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  email String @unique
-  image String?
-  password String
-}
-
 model SocialUser{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String?
@@ -25,24 +17,49 @@ model SocialUser{
   image String?
 }
 
-model Account{
+model User{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String?
   email String? @unique
-  bio String @default("No information given.")
+  emailVerified   DateTime?
+  password String?
   image String?
-  posts Post[]
-  tagged String[]
-  saved String[]
-  followers String[]
-  following String[]
+  
+  tagged String[] @default([])
+  saved String[] @default([])
+  followers String[] @default([])
+  following String[] @default([])
+
+  bio String @default("No information given.")
   theme String @default("corporate")
+  
+  posts Post[]
   comments Comment[]
+  accounts Account[]
+}
+
+model Account {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String   @db.ObjectId
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.String
+  access_token       String?  @db.String
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.String
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }
 
 model Post{
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  author Account @relation(fields: [authorId],references: [id])
+  author User @relation(fields: [authorId],references: [id])
   authorId String @db.ObjectId
   caption String?
   tagged String[]
@@ -55,7 +72,7 @@ model Post{
 
 model Comment{
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  author Account @relation(fields: [authorId],references: [id])
+  author User @relation(fields: [authorId],references: [id])
   authorId String @db.ObjectId
   post Post @relation(fields: [postId],references: [id])
   postId String @db.ObjectId

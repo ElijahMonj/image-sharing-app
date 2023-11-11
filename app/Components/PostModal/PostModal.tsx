@@ -1,17 +1,42 @@
+
+import prisma from "@/app/libs/prismadb";
 import Image from 'next/image'
 import Comments from './Comments';
 import defaultAvatar from '@/public/images/defaultAvatar.jpg'
+
+
 interface PostModalProps {
-    commentInput:any
-    post:any
-    setCommentInput:any
+    postId:string
     currentUser:any
 }
 
-const PostModal:React.FC<PostModalProps> = ({post,commentInput,setCommentInput,currentUser}) => {
-    
+const PostModal:React.FC<PostModalProps> = async ({currentUser,postId}) => {
+
+    const user = await prisma.user.findUnique({
+        where:{
+            id:currentUser.id
+        }
+    })
+    const post = await prisma.post.findUnique({
+        where:{
+            id:postId
+        },
+        include:{
+            author:true,
+            comments:true
+        }
+    })
+    const postComments = await prisma.comment.findMany({
+        where:{
+            postId:post?.id
+        }, 
+        include:{
+            author:true,
+        }
+    })
+
     return ( 
-        <dialog id={'post_modal'} className="modal">
+        <dialog id={`post_modal_${postId}`} className="modal">
             
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
@@ -20,17 +45,22 @@ const PostModal:React.FC<PostModalProps> = ({post,commentInput,setCommentInput,c
                     
                     <div className="flex flex-col lg:flex-row place-items-center items-stretch">
                         <div className='grid lg:w-max w-full'>
-                        <Image 
-                                src={post.image ? post.image : defaultAvatar}
-                                style={{objectFit:"contain",maxHeight:"50rem"}}
-                                alt="post"
-                                width={999}
-                                height={999}
-                                className='flex-grow rounded-sm w-full'/>
+                            
+                            <Image 
+                            src={post?.image ? post?.image : defaultAvatar}
+                            style={{objectFit:"contain",maxHeight:"50rem"}}
+                            alt="post"
+                            width={999}
+                            height={999}
+                            className='flex-grow rounded-sm w-full'/>
+                            
+                        
                         </div>
                        
                         <div className="grid lg:max-w-96 card bg-base-300 rounded-box">
-                            <Comments data={post} commentInput={commentInput} setCommentInput={setCommentInput} currentUser={currentUser}/>
+                        
+                            <Comments postData={post} postComments={postComments} currentUser={user}/>
+                        
                         </div>
                     </div>
                     

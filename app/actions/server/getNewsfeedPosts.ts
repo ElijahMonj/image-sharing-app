@@ -1,4 +1,4 @@
-'use server'
+
 import prisma from "@/app/libs/prismadb";
 import getSession from "../getSession";
 
@@ -9,7 +9,7 @@ export async function getNewsfeedPosts() {
         if(!session?.user?.email){
             return null;
         }
-        const user = await prisma.account.findUnique({
+        const user = await prisma.user.findUnique({
            where:{
                 email:session?.user?.email
            }
