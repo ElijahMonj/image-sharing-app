@@ -40,8 +40,8 @@ const Form = () => {
                 <div className="divider">or continue with:</div>
                 <div className="grid grid-cols-3 place-content-center">
                     <button className="btn btn-sm"><MdFacebook className="h-4 w-4"/>Facebook</button>
-                    <button className="btn btn-sm"><AiFillGoogleCircle className="h-4 w-4"/>Google</button>
-                    <button className="btn btn-sm"><AiFillGithub className="h-4 w-4"/>Github</button>
+                    <button className="btn btn-sm"  onClick={()=>signIn("google")}><AiFillGoogleCircle className="h-4 w-4"/>Google</button>
+                    <button className="btn btn-sm" onClick={()=>signIn("github")}><AiFillGithub className="h-4 w-4"/>Github</button>
                 </div>
                 <p className="text-sm font-light text-center">
                     Already have an account? <a onClick={()=>setIsRegister(false)} className="font-medium hover:underline cursor-pointer">Sign-in</a>

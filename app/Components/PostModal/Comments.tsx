@@ -1,51 +1,54 @@
-
+'use client'
 import {SlOptions} from 'react-icons/sl'
 import Avatar from '../Avatar';
-import {BsChat,BsBookmark,BsHeart} from 'react-icons/bs'
+import {BsChat,BsBookmark,BsHeart, BsFillHeartFill, BsFillBookmarkFill} from 'react-icons/bs'
 import {PiPaperPlaneTilt} from 'react-icons/pi'
 import {BiHappy} from 'react-icons/bi'
-import EmojiPicker from 'emoji-picker-react';
-import { FormEvent, useEffect, useState } from 'react';
-import {toast} from 'react-hot-toast'
-import axios from 'axios';
-import CommentData from './CommentData';
+import { like, unlike, save,unsave } from '@/app/actions/server/interactions';
+import { newComment } from '@/app/actions/server/newComment';
+import { experimental_useOptimistic as useOptimistic, useRef } from 'react';
+import convertDate from '@/app/actions/convertDate';
+
 interface CommentsProps{
-    data:any
-    setCommentInput:any
-    commentInput:any
+    postData:any
     currentUser:any
+    postComments:any
 }
-const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,currentUser}) => {
-    const [emojiOpen,setEmojiOpen]=useState(false);
-    const [isLoading,setIsLoading]=useState(false);
-   
-    function handlePostComment(e:FormEvent){
-        e.preventDefault();
-        setIsLoading(true)
-        const commentData = {
-            authorId:currentUser.id,
-            post:data.id,
-            commentText:commentInput
-        }
+const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments}) => {
        
-        axios.post('/api/comment',commentData).then(()=> console.log("commenting..."))
-        .catch(()=>toast.error('Something went wrong!'))
-        .finally(()=> {
-            setIsLoading(false)
-            setCommentInput('')
-            toast.success('Comment Posted!')   
-        })
-    }
-   
+    const dislikePost = unlike.bind(null,postData.id,currentUser.id)
+    const likePost = like.bind(null,postData.id,currentUser.id)
+    const savePost = save.bind(null,postData.id,currentUser.id)
+    const unsavePost = unsave.bind(null,postData.id,currentUser.id)
+    const addComment = newComment.bind(null,postData.id,currentUser.id)
+    
+    const ref =useRef<HTMLFormElement>(null)
+    const [optimisticComments,addOptimisticComments] = useOptimistic(postComments,(state, newCmmt)=>{
+        return [...state, newCmmt]
+    })
+    const [optimisticLikes,addOptimisticLikes]=useOptimistic(postData.likes,(state, newLiker)=>{
+        if(newLiker=="disliking"){
+           
+            const index = state.indexOf(newLiker);
+            state.splice(index, 1);
+            console.log(state)
+            console.log(state.length)
+            return [state]
+        }else{
+            return [...state, newLiker]
+        }
+        
+    })
+
     return ( 
         <div className='h-full flex flex-col justify-between divide-y bg-base-100'>
             <div className="flex justify-between grow-0 p-4">
                 <div className='flex gap-3'>
                     <div className='w-8'>
-                        <Avatar width={256} height={32} src={data?.author?.image}/>
+                        <Avatar width={256} height={32} src={postData?.author?.image}/>
                     </div>
                     <div className='font-medium m-auto'>
-                        {data?.author?.name}
+                        {postData?.author?.name}
                     </div>
                     
                 </div>    
@@ -54,14 +57,23 @@ const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,cur
                 </div>
             </div>
             
-            <div className='grow-0 p-4'>{data.caption}</div>
+            <div className='grow-0 p-4'>{postData.caption}</div>
             <div className='grow p-4'>
                 <div className='relative w-full lg:h-full h-64'>
                 <div className='absolute overflow-y-auto left-0 right-0 top-0 bottom-0'>
-        
-
-                    <CommentData postData={data} currentUser={currentUser} isLoading={isLoading}/>
-                    
+                <div>
+                    {optimisticComments.map((comment:any) => (
+                    <div className='mb-2' key={comment.id}>
+                    <div className="flex items-center">
+                        <span className="inline-flex items-center mr-3 text-sm font-semibold gap-2">
+                            <Avatar width={24} height={24} src={comment?.author?.image}/>
+                            {comment?.author?.name}</span>
+                        <span className="text-xs"><div>{convertDate(comment.createdAt)}</div></span>
+                    </div>
+                    <span className='text-sm'>{comment.commentText}</span>
+                    </div>
+                ))} 
+                </div>           
                 </div>
                 </div>       
             </div>
@@ -69,35 +81,77 @@ const Comments:React.FC<CommentsProps> = ({data,setCommentInput,commentInput,cur
              <div className='grow-0 px-4 py-2'>
                 <div className="flex items-center justify-between">
                     <div className="flex gap-5">
-                        <BsHeart className="h-6 w-6 hover:cursor-pointer hover:fill-secondary" />
+                    {optimisticLikes.includes(currentUser.id) ? 
+                        <form action={async () =>{
+                            addOptimisticLikes("disliking")
+                            await dislikePost()
+                            }}>
+                            <label>
+                            <input type="submit" className='hidden'/>
+                                <BsFillHeartFill className="h-6 w-6 hover:cursor-pointer fill-red-500"/>
+                            </label>
+                        </form>
+                        :
+                        <form action={async () =>{
+                            addOptimisticLikes(currentUser.id)
+                            await likePost()
+                            }}>
+                            <label>
+                            <input type="submit" className='hidden'/>
+                                <BsHeart className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
+                            </label>
+                        </form>
+                        }
                         <BsChat className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
                         <PiPaperPlaneTilt className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
                     </div>
                     <div className="flex">
-                        <BsBookmark className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
+                    {currentUser.saved.includes(postData.id) ? 
+                        <form action={unsavePost}>
+                            <label>
+                            <input type="submit" className='hidden'/>
+                                <BsFillBookmarkFill className="h-6 w-6 hover:cursor-pointer fill-base-content"/>
+                            </label>
+                        </form>
+                        :
+                        <form action={savePost}>
+                            <label>
+                            <input type="submit" className='hidden'/>
+                                <BsBookmark className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
+                            </label>
+                        </form>
+                        }
                     </div>
                 </div>
-                <div>
+                <div className='text-sm'>
+                    {!optimisticLikes ? <>{optimisticLikes.length}</> : <>{optimisticLikes.length}</>}
                     Likes
+                    
                 </div>
              </div>
-            
-           
-            <div className='flex w-full grow-0 p-4 join gap-1'>
-                <button className='btn btn-ghost btn-sm p-1'>
-                    <BiHappy className='h-5 w-5 '/>
-                </button>
-                
-                <input type="text" placeholder="Add a comment..." id='postCommentInput' 
-                onChange={(e)=>setCommentInput(e.target.value)}
-                value={commentInput}
-                disabled={isLoading}
-                className="input input-ghost input-sm w-full" />
-                <button className='btn btn-ghost btn-sm'
-                onClick={handlePostComment}
-                disabled={isLoading}
-                >Post</button>
-            </div>
+             <form ref={ref} className='flex w-full grow-0 p-4 join gap-1' action={async (formData) =>{
+                ref.current?.reset()
+                addOptimisticComments({
+                    id: Math.random(),
+                    commentText: formData.get(`comment_${postData.id}`) as string,
+                    createdAt: new Date(),
+                    author : {
+                        image: currentUser.image,
+                        name:currentUser.name
+                    }
+                })
+                await addComment(formData)
+                }}>
+                    <button className='btn btn-ghost btn-sm p-1'>
+                        <BiHappy className='h-5 w-5 '/>
+                    </button>
+                    
+                    <input type="text" name={`comment_${postData.id}`} 
+                    placeholder="Add a comment..." id='postCommentInput' className="input input-ghost input-sm w-full" required />
+                    <button className='btn btn-ghost btn-sm'
+                    type='submit'
+                    >Post</button>
+            </form>
         </div>
      );
 }

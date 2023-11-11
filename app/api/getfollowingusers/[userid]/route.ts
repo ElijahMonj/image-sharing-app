@@ -13,7 +13,7 @@ export async function GET( request: Request,
     if(!userid){
       return new NextResponse("Invalid Request");
     }
-      const user = await prisma.account.findUnique({
+      const user = await prisma.user.findUnique({
           where:{
               id:userid
           },

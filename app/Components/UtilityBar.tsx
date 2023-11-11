@@ -24,7 +24,7 @@ interface UtilityBarProps{
         <div className='w-1/6 hidden lg:block z-40 h-screen'>
         <ul className="menu p-2 bg-base-100 text-base-content menu-lg h-screen fixed border-r-2 border-neutral-400">
             <div className="h-1/2">
-            <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">daisyUI</a>
+            <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">Eksdigram</a>
             {/* Sidebar content here */}
                 <li>
                     <Link href={'/'}>

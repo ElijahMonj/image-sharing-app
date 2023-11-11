@@ -7,7 +7,7 @@ export async function POST(request:Request){
         const body=await request.json();
         const{followingUser,followerUser}=body;
         //removing id from follower array
-        const unfollowingUser=await prisma.account.findUnique({
+        const unfollowingUser=await prisma.user.findUnique({
             where:{
                 id:followingUser
             }
@@ -15,7 +15,7 @@ export async function POST(request:Request){
         const currentFollowers:any = unfollowingUser?.followers 
         const index = currentFollowers.indexOf(followerUser);
         const x = currentFollowers.splice(index, 1);
-        const removeFollowers =await prisma.account.update({
+        const removeFollowers =await prisma.user.update({
             where:{
                 id:followingUser
             },
@@ -24,7 +24,7 @@ export async function POST(request:Request){
             }
         })
          //removing id from following array
-         const user=await prisma.account.findUnique({
+         const user=await prisma.user.findUnique({
             where:{
                 id:followerUser
             }
@@ -32,7 +32,7 @@ export async function POST(request:Request){
         const currentFollowing:any = user?.following 
         const i = currentFollowing.indexOf(followingUser);
         const remove = currentFollowing.splice(i, 1);
-        const removeFollowing =await prisma.account.update({
+        const removeFollowing =await prisma.user.update({
             where:{
                 id:followerUser
             },
