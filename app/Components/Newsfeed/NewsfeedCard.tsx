@@ -8,6 +8,7 @@ import { useState,useEffect } from 'react'
 import { getPost, getSave } from '@/app/actions/server/getPost'
 import NewsfeedActions from './NewsfeedActions'
 import prisma from "@/app/libs/prismadb";
+import PostModal from '../PostModal/PostModal'
 interface NewsfeedCardProps{
     postId:string
     currentUser:any
@@ -28,7 +29,7 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = async ({ postId,currentUser }) 
 
     return ( 
         <div className="grid lg:w-128 md:w-118 sm:w-96 w-full">
-            
+                <PostModal currentUser={currentUser} postId={postId}/> 
                 <div className="flex items-center py-3 w-full">
                     <div className='w-8'>
                     <Avatar 
@@ -52,9 +53,10 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = async ({ postId,currentUser }) 
                 alt="post"
                
                 />
-                <NewsfeedActions postId={postId} currentUser={currentUser}/>
+
+                <NewsfeedActions postData={data} currentUser={currentUser}/>
                 
-                <div className="font-semibold text-sm mt-2 mx-1">{data?.likes.length} likes</div>
+                
                 <div className="text-sm mt-2 mx-1">
                     <span className='font-semibold me-1'>{data?.author.email}</span>
                     {data?.caption}

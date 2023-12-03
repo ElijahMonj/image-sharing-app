@@ -4,8 +4,14 @@ import getSession from "../getSession";
 import { revalidatePath } from "next/cache";
 
 export async function like(postId:string,likerId:string){
-    console.log("liking")
-    await prisma.post.update({
+    const post = await prisma.post.findUnique({
+        where:{
+            id:postId
+        }
+    })
+    if(!post?.likes.includes(likerId)){
+        console.log("liking")
+        await prisma.post.update({
         where:{
             id:postId
         },
@@ -15,6 +21,8 @@ export async function like(postId:string,likerId:string){
             }
         }
     })
+    }
+    
     revalidatePath('/')
 }
 export async function unlike(postId:string,likerId:string){
@@ -39,8 +47,14 @@ export async function unlike(postId:string,likerId:string){
 }
 
 export async function save(postId:string,userId:string){
-    console.log("saving")
-    await prisma.user.update({
+    const user = await prisma.user.findUnique({
+        where:{
+            id:userId
+        }
+    })
+    if(!user?.saved.includes(postId)){
+        console.log("saving")
+        await prisma.user.update({
         where:{
             id:userId
         },
@@ -50,6 +64,7 @@ export async function save(postId:string,userId:string){
             }
         }
     })
+    }
     revalidatePath('/')
 }
 export async function unsave(postId:string,userId:string){
