@@ -18,6 +18,11 @@ const Newsfeed:React.FC<NewsfeedProps> = async ({currentUser}) => {
             comments:true
         }
     })
+    const user = await prisma.user.findUnique({
+        where:{
+            id:currentUser.id
+        }
+    })
     //const currentPost='loading';
     
     
@@ -29,7 +34,7 @@ const Newsfeed:React.FC<NewsfeedProps> = async ({currentUser}) => {
                     <> 
                         {posts?.map(post => (
                             <NewsfeedCard
-                            currentUser={currentUser} 
+                            currentUser={user} 
                             key={post.id}
                             postId={post.id}
                             />

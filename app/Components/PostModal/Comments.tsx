@@ -6,7 +6,7 @@ import {PiPaperPlaneTilt} from 'react-icons/pi'
 import {BiHappy} from 'react-icons/bi'
 import { like, unlike, save,unsave } from '@/app/actions/server/interactions';
 import { newComment } from '@/app/actions/server/newComment';
-import { experimental_useOptimistic as useOptimistic, useRef } from 'react';
+import { experimental_useOptimistic as useOptimistic, useRef, useState } from 'react';
 import convertDate from '@/app/actions/convertDate';
 
 interface CommentsProps{
@@ -26,20 +26,29 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments}) =
     const [optimisticComments,addOptimisticComments] = useOptimistic(postComments,(state, newCmmt)=>{
         return [...state, newCmmt]
     })
-    const [optimisticLikes,addOptimisticLikes]=useOptimistic(postData.likes,(state, newLiker)=>{
-        if(newLiker=="disliking"){
-           
-            const index = state.indexOf(newLiker);
+    const [optimisticLikes,addOptimisticLikes]=useOptimistic(postData.likes,(state, isLiking)=>{
+        if(!isLiking){       
+            const index = state.indexOf(currentUser.id);
+            state.splice(index, 1);
+            
+            return state
+        }else{
+            
+            return [...state, currentUser.id]
+        }
+    })
+    const [optimisticSave,addOptimisticSave]=useOptimistic(currentUser.saved,(state, isSaving)=>{
+        if(!isSaving){       
+            const index = state.indexOf(postData.id);
             state.splice(index, 1);
             console.log(state)
-            console.log(state.length)
-            return [state]
+            return state
         }else{
-            return [...state, newLiker]
+            console.log([...state, postData.id])
+            return [...state, postData.id]
         }
-        
     })
-
+    
     return ( 
         <div className='h-full flex flex-col justify-between divide-y bg-base-100'>
             <div className="flex justify-between grow-0 p-4">
@@ -83,7 +92,8 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments}) =
                     <div className="flex gap-5">
                     {optimisticLikes.includes(currentUser.id) ? 
                         <form action={async () =>{
-                            addOptimisticLikes("disliking")
+                            
+                            addOptimisticLikes(false)
                             await dislikePost()
                             }}>
                             <label>
@@ -93,7 +103,8 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments}) =
                         </form>
                         :
                         <form action={async () =>{
-                            addOptimisticLikes(currentUser.id)
+                            
+                            addOptimisticLikes(true)
                             await likePost()
                             }}>
                             <label>
@@ -106,15 +117,23 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments}) =
                         <PiPaperPlaneTilt className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
                     </div>
                     <div className="flex">
-                    {currentUser.saved.includes(postData.id) ? 
-                        <form action={unsavePost}>
+                    {optimisticSave.includes(postData.id) ? 
+                        <form action={async () =>{
+                            
+                            addOptimisticSave(false)
+                            await unsavePost()
+                            }}>
                             <label>
                             <input type="submit" className='hidden'/>
                                 <BsFillBookmarkFill className="h-6 w-6 hover:cursor-pointer fill-base-content"/>
                             </label>
                         </form>
                         :
-                        <form action={savePost}>
+                        <form action={async () =>{
+                            
+                            addOptimisticSave(true)
+                            await savePost()
+                            }}>
                             <label>
                             <input type="submit" className='hidden'/>
                                 <BsBookmark className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
@@ -124,9 +143,7 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments}) =
                     </div>
                 </div>
                 <div className='text-sm'>
-                    {!optimisticLikes ? <>{optimisticLikes.length}</> : <>{optimisticLikes.length}</>}
-                    Likes
-                    
+                   {optimisticLikes.length} Likes
                 </div>
              </div>
              <form ref={ref} className='flex w-full grow-0 p-4 join gap-1' action={async (formData) =>{

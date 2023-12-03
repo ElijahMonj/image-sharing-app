@@ -1,103 +1,67 @@
-import prisma from "@/app/libs/prismadb";
-import { revalidatePath } from "next/cache";
-import {BsChat,BsBookmark,BsHeart,BsFillHeartFill,BsFillBookmarkFill} from 'react-icons/bs'
+'use client'
+
+import {BsBookmark,BsHeart,BsFillHeartFill,BsFillBookmarkFill} from 'react-icons/bs'
 import {PiPaperPlaneTilt} from 'react-icons/pi'
 import OpenModal from "./OpenModal";
-import PostModal from "../PostModal/PostModal";
+import { experimental_useOptimistic as useOptimistic } from 'react';
+import { like, save, unlike, unsave } from "@/app/actions/server/interactions";
+
 interface NewsfeedActionsProps{
-    postId:string
+    postData:any
     currentUser:any
 }
 
-const NewsfeedActions:React.FC<NewsfeedActionsProps> = async ({postId,currentUser}) => {
-    const post = await prisma.post.findUnique({
-        where:{
-            id:postId
+const NewsfeedActions:React.FC<NewsfeedActionsProps> = ({postData,currentUser}) => {
+    
+    const dislikePost = unlike.bind(null,postData.id,currentUser.id)
+    const likePost = like.bind(null,postData.id,currentUser.id)
+    const savePost = save.bind(null,postData.id,currentUser.id)
+    const unsavePost = unsave.bind(null,postData.id,currentUser.id)
+    
+    const [optimisticLikes,addOptimisticLikes]=useOptimistic(postData.likes,(state, isLiking)=>{
+        if(!isLiking){       
+            const index = state.indexOf(currentUser.id);
+            state.splice(index, 1);
+            console.log(state.includes(currentUser.id))
+            return state
+        }else{
+            console.log([...state, currentUser.id])
+            return [...state, currentUser.id]
         }
     })
-    const user = await prisma.user.findUnique({
-        where:{
-            id:currentUser.id
+    const [optimisticSave,addOptimisticSave]=useOptimistic(currentUser.saved,(state, isSaving)=>{
+        if(!isSaving){       
+            const index = state.indexOf(postData.id);
+            state.splice(index, 1);
+            console.log(state)
+            return state
+        }else{
+            console.log([...state, postData.id])
+            return [...state, postData.id]
         }
     })
-    const isLiked = post?.likes.includes(currentUser.id)
-    const isSaved = user?.saved.includes(postId);
-    const dislike = async (formData:FormData)=>{
-        'use server';
-        console.log("disliking...")
-        
-        const currentLikes:any = post?.likes 
-        const index = currentLikes.indexOf(currentUser.id);
-        const x = currentLikes.splice(index, 1);
-        const unlike = await prisma.post.update({
-            where:{
-                id:postId
-            },
-            data:{
-                likes: currentLikes
-            }
-        })
-        revalidatePath('/')
-    }
-    const like = async (formData:FormData) =>{
-        'use server';
-        await prisma.post.update({
-            where:{
-                id:postId
-            },
-            data:{
-                likes:{
-                    push:currentUser.id
-                }
-            }
-        })
-        revalidatePath('/')
-    }
-
-    const save = async ()=>{
-        'use server'
-        await prisma.user.update({
-            where:{
-                id:currentUser.id
-            },
-            data:{
-                saved:{
-                    push:postId
-                }
-            }
-        })
-        revalidatePath('/')
-    }
-    const unsave = async ()=>{
-        'use server'
-        console.log("unsaving")
-        
-        const currentSaves:any = user?.saved 
-        const index = currentSaves.indexOf(postId);
-        currentSaves.splice(index, 1);
-        await prisma.user.update({
-            where:{
-                id:currentUser.id
-            },
-            data:{
-                saved: currentSaves
-            }
-        })
-        revalidatePath('/')
-    }
 
     return ( 
+        <>
         <div className="flex items-center justify-between mt-3 mb-2 mx-1">
                     <div className="flex gap-5">
-                        {isLiked ? 
-                        <form action={dislike}>
+                    {optimisticLikes.includes(currentUser.id) ? 
+                        <form action={async () =>{
+                            
+                            addOptimisticLikes(false)
+                            await dislikePost()
+                            }}>
                             <label>
                             <input type="submit" className='hidden'/>
                                 <BsFillHeartFill className="h-6 w-6 hover:cursor-pointer fill-red-500"/>
                             </label>
                         </form>
                         :
-                        <form action={like}>
+                        <form action={async () =>{
+                            
+                            addOptimisticLikes(true)
+                            await likePost()
+                            }}>
                             <label>
                             <input type="submit" className='hidden'/>
                                 <BsHeart className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
@@ -106,21 +70,29 @@ const NewsfeedActions:React.FC<NewsfeedActionsProps> = async ({postId,currentUse
                         }
                          
                         
-                        <OpenModal postId={postId} currentUser={currentUser}/>
-                        <PostModal currentUser={currentUser} postId={postId}/>  
+                        <OpenModal postId={postData.id} currentUser={currentUser}/>
+                         
                         <PiPaperPlaneTilt className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
                     </div>
                     <div className="flex">
                         
-                        {isSaved ? 
-                        <form action={unsave}>
+                    {optimisticSave.includes(postData.id) ? 
+                        <form action={async () =>{
+                            
+                            addOptimisticSave(false)
+                            await unsavePost()
+                            }}>
                             <label>
                             <input type="submit" className='hidden'/>
                                 <BsFillBookmarkFill className="h-6 w-6 hover:cursor-pointer fill-base-content"/>
                             </label>
                         </form>
                         :
-                        <form action={save}>
+                        <form action={async () =>{
+                            
+                            addOptimisticSave(true)
+                            await savePost()
+                            }}>
                             <label>
                             <input type="submit" className='hidden'/>
                                 <BsBookmark className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
@@ -129,6 +101,8 @@ const NewsfeedActions:React.FC<NewsfeedActionsProps> = async ({postId,currentUse
                         }
                     </div>
                 </div>
+                <div className="font-semibold text-sm mt-2 mx-1">{optimisticLikes.length} likes</div>
+                </>
      );
 }
  
