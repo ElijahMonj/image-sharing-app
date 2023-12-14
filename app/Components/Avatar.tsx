@@ -7,7 +7,6 @@ interface AvatarProps{
 }
 const Avatar:React.FC<AvatarProps> = ({width,height,src}) => {
 
-
     return ( 
         
             <div className="rounded-full">

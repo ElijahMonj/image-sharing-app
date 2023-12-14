@@ -1,9 +1,8 @@
 
 import NewsfeedCard from "./NewsfeedCard";
-import PostModal from '../PostModal/PostModal';
-
+import { GoPersonAdd } from "react-icons/go";
 import prisma from "@/app/libs/prismadb";
-import LoadingSkeleton from "../LoadingSkeleton";
+
 interface NewsfeedProps{
     currentUser:any
 }
@@ -30,7 +29,13 @@ const Newsfeed:React.FC<NewsfeedProps> = async ({currentUser}) => {
         <div className="flex flex-col w-full items-center h-min m-auto mt-20"> 
                
                 
-                    {posts?.length==0 ? <div>no posts</div> : 
+                    {posts?.length==0 ? 
+                    <div className="flex flex-col w-96">
+                        <div className="grid card rounded-box place-items-center ">
+                            <GoPersonAdd size={120} className="text-secondary ms-7"/></div>                       
+                        <div className="grid card rounded-box place-items-center text-center text-secondary">Your feed is empty, start following your favorite people!</div>
+                    </div> 
+                  : 
                     <> 
                         {posts?.map(post => (
                             <NewsfeedCard
