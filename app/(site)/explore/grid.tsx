@@ -4,6 +4,7 @@ import PostModal from "../../Components/PostModal/PostModal";
 import React from 'react';
 import PostCard from '../profile/Components/PostCard';
 import prisma from "@/app/libs/prismadb";
+import Empty from './Empty';
 interface GridProps{
     currentUser:any
 }
@@ -22,18 +23,25 @@ const Grid:React.FC<GridProps> = async ({currentUser}) => {
     })
     
     return ( 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
-             {/*@ts-ignore*/}
-            {posts.map(post => {
-                return (
-                <React.Fragment key={post.id}>
-                    <PostCard post={post}/>
-                    <PostModal currentUser={currentUser} postId={post.id}/> 
-                </React.Fragment> 
-                );
-                
-            })} 
-        </div>
+        <>
+            {posts.length==0 ?
+                <Empty/>
+                :
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+                    {/*@ts-ignore*/}
+                    {posts.map(post => {
+                        return (
+                        <React.Fragment key={post.id}>
+                            <PostCard post={post}/>
+                            <PostModal currentUser={currentUser} postId={post.id}/> 
+                        </React.Fragment> 
+                        );
+                        
+                    })} 
+                </div>
+            }
+        </>
+        
      );
 }
  

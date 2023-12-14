@@ -1,17 +1,22 @@
 'use client'
-import Image from "next/image";
-import Newsfeed from "./Newsfeed/Newsfeed";
-import ThemeSwitch from "./ThemeSwitch";
-import { useEffect } from "react";
 
+import ThemeSwitch from "./ThemeSwitch";
+import { FormEvent, useEffect, useState } from "react";
+import { useRouter } from 'next/navigation'
 interface NavigationBarProps{
   data:any
 }
 
 const NavigationBar:React.FC<NavigationBarProps> = ({data}) => {
+  const router = useRouter()
   useEffect(() => {
     console.log(data)
   });
+  const [search,setSearch] = useState('');
+  function handleSubmit(e: FormEvent){
+    e.preventDefault()
+    router.push('/search/'+search)
+  }
     return (
       <>
       
@@ -23,8 +28,8 @@ const NavigationBar:React.FC<NavigationBarProps> = ({data}) => {
         </div>
         <div className="navbar-center">
         
-          <form method="GET">
-            <input type="text" placeholder="Search" className="input input-bordered input-sm w-full max-w-xs" />  
+          <form onSubmit={handleSubmit}>
+            <input type="text" placeholder="Search" className="input input-bordered input-sm w-full max-w-xs" value={search} onChange={(e)=>{setSearch(e.target.value)}}/>  
           </form>
         
         </div>

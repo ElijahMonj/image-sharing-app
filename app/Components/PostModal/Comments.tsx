@@ -8,6 +8,7 @@ import { like, unlike, save,unsave } from '@/app/actions/server/interactions';
 import { newComment } from '@/app/actions/server/newComment';
 import { experimental_useOptimistic as useOptimistic, useRef, useState } from 'react';
 import convertDate from '@/app/actions/convertDate';
+import Link from 'next/link';
 
 interface CommentsProps{
     postData:any
@@ -56,9 +57,8 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments}) =
                     <div className='w-8'>
                         <Avatar width={256} height={32} src={postData?.author?.image}/>
                     </div>
-                    <div className='font-medium m-auto'>
-                        {postData?.author?.name}
-                    </div>
+                    <Link href={`/profile/${postData?.author.id}`} className="font-medium m-auto">{postData?.author.name}</Link>
+                    
                     
                 </div>    
                 <div className='grid place-content-center'>
