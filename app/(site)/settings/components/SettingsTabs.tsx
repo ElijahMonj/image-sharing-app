@@ -2,24 +2,24 @@
 import { useState } from 'react';
 import {BsBookmark,BsImages,BsPersonBadge} from 'react-icons/bs'
 
-import clsx from "clsx";
+import General from './General';
 
 
 interface SettingsTabsProps{
-   
+   currentUser:any
 }
 
-const SettingsTabs:React.FC<SettingsTabsProps> = ({}) => {
+const SettingsTabs:React.FC<SettingsTabsProps> = ({currentUser}) => {
     const [content,setContent]=useState("general")
     function contentType(){
         if (content==='general'){
             return (
-                <div>General</div>
+                <General currentUser={currentUser}/>
             )
         }
         if (content==='account'){
             return (
-                <div>Emailpsw</div>
+                <div>Emailpaasw</div>
             )
         }
         
@@ -45,7 +45,7 @@ const SettingsTabs:React.FC<SettingsTabsProps> = ({}) => {
                 <BsBookmark className="me-1"/>Account
             </button> 
         </div>
-        <div>
+        <div className='w-full'>
           {contentType()}
         </div>
         
