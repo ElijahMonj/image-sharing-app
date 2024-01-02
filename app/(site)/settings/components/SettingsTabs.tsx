@@ -1,9 +1,9 @@
 'use client'
 import { useState } from 'react';
-import {BsBookmark,BsImages,BsPersonBadge} from 'react-icons/bs'
-
+import { BsShieldCheck } from "react-icons/bs";
 import General from './General';
-
+import { TbUserEdit } from "react-icons/tb";
+import Account from './Account';
 
 interface SettingsTabsProps{
    currentUser:any
@@ -19,7 +19,7 @@ const SettingsTabs:React.FC<SettingsTabsProps> = ({currentUser}) => {
         }
         if (content==='account'){
             return (
-                <div>Emailpaasw</div>
+                <Account currentUser={currentUser}/>
             )
         }
         
@@ -34,7 +34,7 @@ const SettingsTabs:React.FC<SettingsTabsProps> = ({currentUser}) => {
                     setContent('general')
                 }
             }}>
-                <BsImages className="me-1"/>General
+                <TbUserEdit className="me-1"/>General
             </button> 
             <button className={content === 'account' ? 'tab tab-active w-full' : 'tab w-full'} 
             onClick={()=>{
@@ -42,7 +42,7 @@ const SettingsTabs:React.FC<SettingsTabsProps> = ({currentUser}) => {
                     setContent('account')
                 }
             }}>
-                <BsBookmark className="me-1"/>Account
+                <BsShieldCheck className="me-1"/>Account
             </button> 
         </div>
         <div className='w-full'>
