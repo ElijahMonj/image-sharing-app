@@ -1,5 +1,6 @@
 
 import Image from "next/image"
+import Link from "next/link";
 
 interface ModalFollowersProps{
     currentUser:any
@@ -8,17 +9,20 @@ interface ModalFollowersProps{
 
 const ModalFollowers:React.FC<ModalFollowersProps> = ({data,currentUser}) => {
     const followers=data;
-    console.log(followers)
-    const numbers = [1, 2, 3, 4, 5];
+    
     return ( 
         <dialog id="modalfollowers" className="modal modal-bottom sm:modal-middle">
             <div className="modal-box">
-                <h3 className="font-bold text-lg">Followeras</h3>
+                <h3 className="font-bold text-lg">Followers</h3>
                 <ul className="menu rounded-box divide-y">
-                    {/*@ts-ignore*/}
+                   
+                    {followers.length==0 ? 
+                    <div>There are no current followers of this user.</div> :
+                    <>
+                     {/*@ts-ignore*/}
                     {followers.map((f) =>
                         <li key={f.id}>
-                        <div className="flex items-center space-x-4">
+                        <Link className="flex items-center space-x-4" href={'/profile/'+f.id}>
                             <div className="flex-shrink-0">
                                 <Image className="w-8 h-8 rounded-full" width={32} height={32} src={f?.image as string} alt="Neil image"/>
                             </div>
@@ -27,15 +31,15 @@ const ModalFollowers:React.FC<ModalFollowersProps> = ({data,currentUser}) => {
                                 {f.name}
                                 </p>
                                 <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                asdfasdfasd
+                                {f.email}
                                 </p>
                             </div>
                             <div className="badge badge-primary">View</div>
-                        </div>
+                        </Link>
                         </li>
                     )}
-                 
-
+                    </>
+                    }
                 </ul>
             </div>
             <form method="dialog" className="modal-backdrop">

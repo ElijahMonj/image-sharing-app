@@ -18,13 +18,13 @@ const ProfileContent:React.FC<ProfileContentProps> = ({posts,currentUser,savedPo
     return ( 
         <>
         <Tabs />
-        <div id='postSection' className=''>
+        <div id='postSection' className='hidden'>
             <Posts posts={posts} currentUser={currentUser}/>
         </div>
-        <div id='savedSection' className=''>
+        <div id='savedSection' className='hidden'>
             <Saved posts={posts} currentUser={currentUser} savedPosts={savedPosts}/>
         </div>
-        <div id='taggedSection' className=''>
+        <div id='taggedSection' className='hidden'>
             <Tagged/>
         </div>
         </>
