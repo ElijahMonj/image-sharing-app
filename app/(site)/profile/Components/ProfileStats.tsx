@@ -56,7 +56,7 @@ const ProfileStats:React.FC<ProfileStatsProps> = ({data,currentUser,isCurrentUse
                    }
                 </>     
                 }
-                <ModalFollowing/>
+                <ModalFollowing currentUser={currentUser} data={following}/>
                 <ModalFollowers currentUser={currentUser} data={followers}/>
         </div> 
      );
