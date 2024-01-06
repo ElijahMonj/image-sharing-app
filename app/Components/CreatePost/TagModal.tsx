@@ -1,28 +1,31 @@
-import { Dispatch, SetStateAction, FunctionComponent, useState } from 'react';
+import { Dispatch, SetStateAction, FunctionComponent, useState, useEffect } from 'react';
 import {MdPersonSearch} from 'react-icons/md'
-import Select from './Select';
+
+import axios from 'axios';
+import Avatar from '../Avatar';
+
 
 interface TagModalProps{
     setOpenTag:Dispatch<SetStateAction<boolean>>;
+    currentUser:any
 }
 
-const TagModal:React.FC<TagModalProps> = ({setOpenTag}) => {
+const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser}) => {
     const [searchInput,setSearchInput]=useState('')
-   
-    const mockUsers=[
-        {
-            id:"10x10mjsdk",
-            name:"Juswa"
-        },
-        {
-            id:"20x10mjsdk",
-            name:"Jerik"
-        },
-        {
-            id:"33x10mjsdk",
-            name:"Jesun"
-        }
-    ]
+    const [users,setUsers]=useState<any[]>([])
+    
+    useEffect(() => {
+        axios.get("/api/getuser").then((data) => {
+          
+          setUsers(data?.data);
+          
+        });
+      }, []);
+     
+      useEffect(() => {
+        console.log(searchInput)
+       
+      }, [searchInput]);
     return ( 
         <div className='flex flex-col'>
             <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -38,12 +41,19 @@ const TagModal:React.FC<TagModalProps> = ({setOpenTag}) => {
                     
                 </div>
                 <div className='h-32 overflow-auto'>
-                    <ul className="menu menu-sm bg-base-200 w-full rounded-box ">
-                        <li><a onClick={()=>setSearchInput("Item 1")}>Item 1</a></li> 
-                        <li><a>Item 1</a></li>
-                        <li><a>Item 1</a></li>
-                        <li><a>Item 1</a></li>
-                                            
+                    <ul className="menu bg-base-200 w-full rounded-box ">
+                    {users?.filter((uList) =>
+                            uList.name?.toLowerCase().includes(searchInput)
+                        )
+                        ?.map((u) => 
+                        <li key={u.id}>
+                            <a>
+                            <Avatar width={24} height={24} src={u?.image}/>
+                            {u.name}
+                            </a>
+                        </li>
+                        )
+                    }                                 
                     </ul>
                 </div>
                 

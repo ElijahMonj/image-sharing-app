@@ -3,12 +3,14 @@ import {FaUserTag,FaImage} from 'react-icons/fa'
 import TagModal from './TagModal';
 import {toast} from 'react-hot-toast'
 import axios from 'axios';
-import { CldUploadButton } from 'next-cloudinary';
+
 interface CreatePostModalProps{
   user:any,
   image:string
 }
 const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
+    
+    
     const [imageUpload,setImageUpload] =useState('');
     const [postButtonDisabled,setPostButtonDisabled]=useState(false);
     const [caption,setCaption]=useState('')
@@ -38,7 +40,7 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
       <div className="modal-box">
         <h4 className="font-bold text-lg">Create a new post</h4>
         {openTag &&(
-          <TagModal setOpenTag={setOpenTag}/>
+          <TagModal setOpenTag={setOpenTag} currentUser={user}/>
           //<div onClick={()=>setOpenTag(false)}>open tag</div>
         )}
         {!openTag &&(
