@@ -1,11 +1,10 @@
 
 import Image from 'next/image'
-import { like,save,unlike, unsave } from '@/app/actions/server/interactions'
+
 import convertDate from '@/app/actions/convertDate'
 import Avatar from '../Avatar'
 import Link from "next/link"
-import { useState,useEffect } from 'react'
-import { getPost, getSave } from '@/app/actions/server/getPost'
+
 import NewsfeedActions from './NewsfeedActions'
 import prisma from "@/app/libs/prismadb";
 import PostModal from '../PostModal/PostModal'
@@ -25,22 +24,38 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = async ({ postId,currentUser }) 
             comments:true
         }
     })
-    
+    let taggedUser:any;
+    if(data?.tagged.length==0){
+        taggedUser=false
+    }else{
+        taggedUser = await prisma.user.findUnique({
+            where:{
+                id:data?.tagged[0]
+            }
+        })
+    }
 
     return ( 
         <div className="grid lg:w-128 md:w-118 sm:w-96 w-full">
                 <PostModal currentUser={currentUser} postId={postId}/> 
                 <div className="flex items-center py-3 w-full">
                     <div className='w-8'>
+                    <Link href={`/profile/${data?.author.id}`} >
                     <Avatar 
                     width={256}
                     height={32}
                     src={data?.author.image as string}
                     />
+                    </Link>
                     </div>
                    
                     <div className="ml-3">
-                        <Link href={`/profile/${data?.author.id}`} className="text-sm font-semibold antialiased block leading-tight">{data?.author.name}</Link>
+                        <div className='flex'>
+                        <Link href={`/profile/${data?.author.id}`} className="text-sm font-semibold antialiased block leading-tight me-1">{data?.author.name}</Link>
+                        {taggedUser ? 
+                        <div className="text-sm antialiased block leading-tight"> is with {<Link href={`/profile/${taggedUser?.id}`} className="font-semibold">{taggedUser?.name}</Link>}</div> 
+                        : <></>}
+                        </div>
                         <span className="text-xs block">{convertDate(data?.createdAt as Date)}</span>
                     </div>
                 </div>

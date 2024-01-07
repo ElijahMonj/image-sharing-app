@@ -34,7 +34,17 @@ const PostModal:React.FC<PostModalProps> = async ({currentUser,postId}) => {
             author:true,
         }
     })
-
+    let taggedUser;
+    if(post?.tagged.length==0){
+        taggedUser=false
+    }else{
+        taggedUser = await prisma.user.findUnique({
+            where:{
+                id:post?.tagged[0]
+            }
+        })
+    }
+     
     return ( 
         <dialog id={`post_modal_${postId}`} className="modal">
             
@@ -59,7 +69,7 @@ const PostModal:React.FC<PostModalProps> = async ({currentUser,postId}) => {
                        
                         <div className="grid lg:max-w-96 card bg-base-300 rounded-box">
                         
-                            <Comments postData={post} postComments={postComments} currentUser={user}/>
+                            <Comments postData={post} postComments={postComments} currentUser={user} isTagged={taggedUser}/>
                         
                         </div>
                     </div>
