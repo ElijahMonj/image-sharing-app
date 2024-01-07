@@ -7,10 +7,11 @@ import Avatar from '../Avatar';
 
 interface TagModalProps{
     setOpenTag:Dispatch<SetStateAction<boolean>>;
+    setTaggedUser:Dispatch<SetStateAction<any>>;
     currentUser:any
 }
 
-const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser}) => {
+const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser}) => {
     const [searchInput,setSearchInput]=useState('')
     const [users,setUsers]=useState<any[]>([])
     
@@ -46,7 +47,10 @@ const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser}) => {
                             uList.name?.toLowerCase().includes(searchInput)
                         )
                         ?.map((u) => 
-                        <li key={u.id}>
+                        <li key={u.id} onClick={()=>{
+                            setTaggedUser(u)
+                            setOpenTag(false)
+                        }}>
                             <a>
                             <Avatar width={24} height={24} src={u?.image}/>
                             {u.name}

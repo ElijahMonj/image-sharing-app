@@ -6,7 +6,7 @@ import {PiPaperPlaneTilt} from 'react-icons/pi'
 import {BiHappy} from 'react-icons/bi'
 import { like, unlike, save,unsave } from '@/app/actions/server/interactions';
 import { newComment } from '@/app/actions/server/newComment';
-import { experimental_useOptimistic as useOptimistic, useRef, useState } from 'react';
+import { useEffect, experimental_useOptimistic as useOptimistic, useRef, useState } from 'react';
 import convertDate from '@/app/actions/convertDate';
 import Link from 'next/link';
 
@@ -14,8 +14,9 @@ interface CommentsProps{
     postData:any
     currentUser:any
     postComments:any
+    isTagged:any
 }
-const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments}) => {
+const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isTagged}) => {
        
     const dislikePost = unlike.bind(null,postData.id,currentUser.id)
     const likePost = like.bind(null,postData.id,currentUser.id)
@@ -49,16 +50,23 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments}) =
             return [...state, postData.id]
         }
     })
-    
+    useEffect(() => {
+        console.log("Post:"+postData?.caption)
+        console.log(isTagged)
+      });
     return ( 
         <div className='h-full flex flex-col justify-between divide-y bg-base-100'>
             <div className="flex justify-between grow-0 p-4">
-                <div className='flex gap-3'>
-                    <div className='w-8'>
-                        <Avatar width={256} height={32} src={postData?.author?.image}/>
+                <div className='flex'>
+                    <div className='w-8 me-2'>
+                        <Link href={`/profile/${postData?.author.id}`}>
+                            <Avatar width={256} height={32} src={postData?.author?.image}/>
+                        </Link>
                     </div>
-                    <Link href={`/profile/${postData?.author.id}`} className="font-medium m-auto">{postData?.author.name}</Link>
-                    
+                    <Link href={`/profile/${postData?.author.id}`} className="font-bold m-auto me-1">{postData?.author.name}</Link>
+                    {isTagged ? 
+                    <div className="m-auto me-5">is with {<Link href={`/profile/${isTagged?.id}`} className="font-bold">{isTagged?.name}</Link>}</div> 
+                    : <></>}
                     
                 </div>    
                 <div className='grid place-content-center'>
@@ -113,7 +121,7 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments}) =
                             </label>
                         </form>
                         }
-                        <BsChat className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
+                        <BsChat className="h-6 w-6 hover:cursor-pointer hover:fill-secondary" onClick={()=>document?.getElementById(`commentInput_${postData.id}`)?.focus()}/>
                         <PiPaperPlaneTilt className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
                     </div>
                     <div className="flex">
@@ -164,7 +172,7 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments}) =
                     </button>
                     
                     <input type="text" name={`comment_${postData.id}`} 
-                    placeholder="Add a comment..." id='postCommentInput' className="input input-ghost input-sm w-full" required />
+                    placeholder="Add a comment..." id={`commentInput_${postData.id}`} className="input input-ghost input-sm w-full" required />
                     <button className='btn btn-ghost btn-sm'
                     type='submit'
                     >Post</button>
