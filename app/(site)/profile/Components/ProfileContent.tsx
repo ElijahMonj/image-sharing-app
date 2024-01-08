@@ -11,9 +11,10 @@ interface ProfileContentProps{
     posts:any
     currentUser:any
     savedPosts:any
+    taggedPosts:any
 }
 
-const ProfileContent:React.FC<ProfileContentProps> = ({posts,currentUser,savedPosts}) => {
+const ProfileContent:React.FC<ProfileContentProps> = ({posts,currentUser,savedPosts,taggedPosts}) => {
     
     return ( 
         <>
@@ -22,10 +23,10 @@ const ProfileContent:React.FC<ProfileContentProps> = ({posts,currentUser,savedPo
             <Posts posts={posts} currentUser={currentUser}/>
         </div>
         <div id='savedSection' className='hidden'>
-            <Saved posts={posts} currentUser={currentUser} savedPosts={savedPosts}/>
+            <Saved currentUser={currentUser} savedPosts={savedPosts}/>
         </div>
         <div id='taggedSection' className='hidden'>
-            <Tagged/>
+            <Tagged taggedPosts={taggedPosts} currentUser={currentUser}/>
         </div>
         </>
      );
