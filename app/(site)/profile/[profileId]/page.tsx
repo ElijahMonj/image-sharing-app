@@ -39,14 +39,22 @@ const user = async ({params}:{params:IParams}) => {
           comments:true
         }
     })
-    
+    const taggedPosts = await prisma.post.findMany({
+        where: {
+            tagged: { has: currentUser?.id },
+        },
+        include:{
+          author:true,
+          comments:true
+        }
+    })
     return ( 
          <>
             <div className="w-full">
                 <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto mt-16">
                     <ProfileHeader data={userData} isCurrentUser={params.profileId==currentUser?.id} currentUser={currentUser} />
                     <div className="divider mb-0 "></div>
-                        <ProfileContent posts={userPosts} currentUser={currentUser} savedPosts={savedPosts}/>
+                        <ProfileContent posts={userPosts} currentUser={currentUser} savedPosts={savedPosts} taggedPosts={taggedPosts}/>
                 </div>            
             </div>
             <Toaster />

@@ -34,7 +34,7 @@ const ModalFollowers:React.FC<ModalFollowersProps> = ({data,currentUser}) => {
                                 {f.email}
                                 </p>
                             </div>
-                            <div className="badge badge-primary">View</div>
+                            <div className="badge badge-neutral">View</div>
                         </Link>
                         </li>
                     )}

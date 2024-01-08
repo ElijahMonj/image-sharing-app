@@ -5,11 +5,10 @@ import { CiBookmarkPlus } from "react-icons/ci";
 import PostCard from './PostCard';
 import React from 'react';
 interface SavedProps{
-    posts:any
     currentUser:any
     savedPosts:any
 }
-const Saved:React.FC<SavedProps> = ({posts,currentUser,savedPosts}) => {
+const Saved:React.FC<SavedProps> = ({currentUser,savedPosts}) => {
     
     return ( 
         <>        
