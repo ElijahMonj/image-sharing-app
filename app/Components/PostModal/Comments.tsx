@@ -122,7 +122,9 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isT
                         </form>
                         }
                         <BsChat className="h-6 w-6 hover:cursor-pointer hover:fill-secondary" onClick={()=>document?.getElementById(`commentInput_${postData.id}`)?.focus()}/>
-                        <PiPaperPlaneTilt className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
+                        <PiPaperPlaneTilt className="h-6 w-6 hover:cursor-pointer hover:fill-secondary" 
+                        //@ts-ignore
+                        onClick={()=>document?.getElementById(`share_${postData.id}`)?.showModal()}/>
                     </div>
                     <div className="flex">
                     {optimisticSave.includes(postData.id) ? 
@@ -167,9 +169,9 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isT
                 })
                 await addComment(formData)
                 }}>
-                    <button className='btn btn-ghost btn-sm p-1'>
+                    <div className='btn btn-ghost btn-sm p-1'>
                         <BiHappy className='h-5 w-5 '/>
-                    </button>
+                    </div>
                     
                     <input type="text" name={`comment_${postData.id}`} 
                     placeholder="Add a comment..." id={`commentInput_${postData.id}`} className="input input-ghost input-sm w-full" required />

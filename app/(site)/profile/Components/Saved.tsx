@@ -22,7 +22,7 @@ const Saved:React.FC<SavedProps> = ({currentUser,savedPosts}) => {
                 :
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
                  {/*@ts-ignore*/}
-                {savedPosts.map(post => {
+                {savedPosts.reverse().map(post => {
                     return (
                     <React.Fragment key={post.id}>
                         <PostCard post={post}/>
