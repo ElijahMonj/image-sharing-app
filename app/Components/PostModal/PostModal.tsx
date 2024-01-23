@@ -3,6 +3,7 @@ import prisma from "@/app/libs/prismadb";
 import Image from 'next/image'
 import Comments from './Comments';
 import defaultAvatar from '@/public/images/defaultAvatar.jpg'
+import ShareModal from "../ShareModal";
 
 
 interface PostModalProps {
@@ -47,7 +48,7 @@ const PostModal:React.FC<PostModalProps> = async ({currentUser,postId}) => {
      
     return ( 
         <dialog id={`post_modal_${postId}`} className="modal">
-            
+                
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
                 </form>
@@ -76,6 +77,7 @@ const PostModal:React.FC<PostModalProps> = async ({currentUser,postId}) => {
                     
                    
                 </div>
+                <ShareModal currentUser={currentUser} postId={postId}/> 
             </dialog>
      );
 }

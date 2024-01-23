@@ -22,7 +22,6 @@ const Newsfeed:React.FC<NewsfeedProps> = async ({currentUser}) => {
             id:currentUser.id
         }
     })
-    //const currentPost='loading';
     
     
     return ( 
@@ -37,7 +36,7 @@ const Newsfeed:React.FC<NewsfeedProps> = async ({currentUser}) => {
                     </div> 
                   : 
                     <> 
-                        {posts?.map(post => (
+                        {posts?.reverse().map(post => (
                             <NewsfeedCard
                             currentUser={user} 
                             key={post.id}

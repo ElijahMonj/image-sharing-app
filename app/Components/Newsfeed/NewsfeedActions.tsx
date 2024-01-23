@@ -1,7 +1,7 @@
 'use client'
 
 import {BsBookmark,BsHeart,BsFillHeartFill,BsFillBookmarkFill} from 'react-icons/bs'
-import {PiPaperPlaneTilt} from 'react-icons/pi'
+
 import OpenModal from "./OpenModal";
 import { experimental_useOptimistic as useOptimistic } from 'react';
 import { like, save, unlike, unsave } from "@/app/actions/server/interactions";
@@ -72,7 +72,7 @@ const NewsfeedActions:React.FC<NewsfeedActionsProps> = ({postData,currentUser}) 
                         
                         <OpenModal postId={postData.id} currentUser={currentUser}/>
                          
-                        <PiPaperPlaneTilt className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"/>
+                        
                     </div>
                     <div className="flex">
                         

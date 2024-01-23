@@ -8,6 +8,7 @@ import Link from "next/link"
 import NewsfeedActions from './NewsfeedActions'
 import prisma from "@/app/libs/prismadb";
 import PostModal from '../PostModal/PostModal'
+import ShareModal from '../ShareModal'
 interface NewsfeedCardProps{
     postId:string
     currentUser:any
@@ -38,6 +39,7 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = async ({ postId,currentUser }) 
     return ( 
         <div className="grid lg:w-128 md:w-118 sm:w-96 w-full">
                 <PostModal currentUser={currentUser} postId={postId}/> 
+                 
                 <div className="flex items-center py-3 w-full">
                     <div className='w-8'>
                     <Link href={`/profile/${data?.author.id}`} >
