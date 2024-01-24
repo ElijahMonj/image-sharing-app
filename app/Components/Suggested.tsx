@@ -32,14 +32,14 @@ const Suggested = async () => {
                                 </Link>
                             </div>
                             <div className="flex-1 min-w-0">
-                                <Link href={`/profile/${u?.id}`} className="text-sm font-medium truncate">
+                                <Link href={`/profile/${u?.id}`} className="text-md font-bold truncate">
                                     {u.name}
                                 </Link>
-                                <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                <p className="text-sm truncate">
                                 {u?.email}
                                 </p>
                             </div>
-                            <Link href={`/profile/${u?.id}`} className="badge badge-neutral">View</Link>
+                            <Link href={`/profile/${u?.id}`} className="btn btn-xs btn-neutral">View</Link>
                         </div>
                     </li>
                 ))} 

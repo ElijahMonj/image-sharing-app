@@ -8,6 +8,7 @@ import prisma from "@/app/libs/prismadb";
 import Empty from "./Empty";
 import Image from "next/image";
 import Link from "next/link";
+import Avatar from "@/app/Components/Avatar";
 interface IParams {
     query: string;
 };
@@ -38,7 +39,7 @@ const Search = async ({params}:{params:IParams}) => {
          <>
             <div className="w-full">
                 <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto mt-16">
-                    <div>Search: {params.query}</div>
+                    
                     <>
                     {(posts.length==0 && users.length==0) ? 
                         <Empty/>
@@ -46,32 +47,38 @@ const Search = async ({params}:{params:IParams}) => {
                         <>
                         {users.length==0 ? <></>:
                         <>
-                            <div>People</div>
+                            <div className="w-full text-xs mb-1">People</div>
                             {users.map(user => {
                                 return (
-                                    <div key={user.id} className="w-full bg-secondary flex">
-                                        <div className="flex-shrink-0">
+                                    <div key={user.id} className="w-full bg-base-200 flex my-1 p-3 gap-2 rounded-lg">
+                                        <div className="flex-shrink-0 w-12">
                                             <Link href={'/profile/'+user.id}>
-                                            <Image className="w-12 h-12 rounded-full" width={32} height={32} src={user?.image as string} alt="User Avatar"/>
+                                            <Avatar 
+                                            width={256}
+                                            height={32}
+                                            src={user?.image as string}
+                                            />
                                             </Link>
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-medium truncate">
+                                            <p className="font-bold truncate">
                                             {user.name}
                                             </p>
-                                            <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                            <p className="text-sm">
                                             {user.email}
                                             </p>
                                         </div>
-                                        <Link className="badge badge-neutral" href={'/profile/'+user.id}>View</Link>
+                                        <Link className="btn btn-xs btn-neutral m-auto" href={'/profile/'+user.id}>View</Link>
                                     </div>
                                 );
                             })} 
+                            <div className="divider"></div>
                         </>
                         }
                         {posts.length==0 ? <></>:
                         <>
-                        <div>Posts</div>
+                        
+                        <div className="w-full text-xs mb-1">Posts</div>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
                             {/*@ts-ignore*/}
                             {posts.map(post => {
@@ -84,6 +91,7 @@ const Search = async ({params}:{params:IParams}) => {
                                 
                             })} 
                         </div>
+                        <div className="divider"></div>
                         </>
                         }
                         
