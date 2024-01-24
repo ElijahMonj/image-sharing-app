@@ -55,7 +55,7 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isT
         console.log(isTagged)
       });
     return ( 
-        <div className='h-full flex flex-col justify-between divide-y bg-base-100'>
+        <div className='h-full flex flex-col justify-between bg-base-100'>
             <div className="flex justify-between grow-0 p-4">
                 <div className='flex'>
                     <div className='w-8 me-2'>

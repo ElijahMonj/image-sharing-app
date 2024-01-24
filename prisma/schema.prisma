@@ -80,3 +80,7 @@ model Comment{
   createdAt DateTime @default(now())
   likes String[]
 }
+
+model Notification{
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+}

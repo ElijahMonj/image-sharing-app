@@ -55,7 +55,7 @@ const PostModal:React.FC<PostModalProps> = async ({currentUser,postId}) => {
                 <div className="modal-box w-11/12 lg:w-max max-w-7xl h-auto p-0">
                     
                     <div className="flex flex-col lg:flex-row place-items-center items-stretch">
-                        <div className='grid lg:w-max w-full'>
+                        <div className='grid lg:w-max w-full bg-slate-950'>
                             
                             <Image 
                             src={post?.image ? post?.image : defaultAvatar}
@@ -63,7 +63,7 @@ const PostModal:React.FC<PostModalProps> = async ({currentUser,postId}) => {
                             alt="post"
                             width={999}
                             height={999}
-                            className='flex-grow rounded-sm w-full'/>
+                            className='flex-grow rounded-sm w-full my-auto'/>
                             
                         
                         </div>
