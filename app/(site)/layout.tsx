@@ -5,6 +5,7 @@ import HeaderNav from '../HeaderNav'
 import { Suspense } from 'react'
 import LoadingSkeleton from '../Components/LoadingSkeleton'
 import SideNav from '../SideNav'
+import Notifications from '../Components/Notifications'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,13 +23,14 @@ export default function RootLayout({
     <html lang="en" data-theme="corporate">
       
       <body className={inter.className}>
-        <HeaderNav/>
+        <HeaderNav/><Notifications/> 
         <div className="flex justify-between w-full">  
             <SideNav/> 
             <Suspense fallback={<LoadingSkeleton/>}>
             {children}
             </Suspense>
-        </div>     
+        </div>
+            
         </body>
     </html>
   )

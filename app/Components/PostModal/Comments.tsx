@@ -17,7 +17,7 @@ interface CommentsProps{
     isTagged:any
 }
 const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isTagged}) => {
-       
+    //NOTIFICATION   
     const dislikePost = unlike.bind(null,postData.id,currentUser.id)
     const likePost = like.bind(null,postData.id,currentUser.id)
     const savePost = save.bind(null,postData.id,currentUser.id)
@@ -50,10 +50,7 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isT
             return [...state, postData.id]
         }
     })
-    useEffect(() => {
-        console.log("Post:"+postData?.caption)
-        console.log(isTagged)
-      });
+    
     return ( 
         <div className='h-full flex flex-col justify-between bg-base-100'>
             <div className="flex justify-between grow-0 p-4">

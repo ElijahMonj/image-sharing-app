@@ -6,7 +6,7 @@ interface ShareModalProps{
 
 const ShareModal:React.FC<ShareModalProps> = async ({currentUser,postId}) => {
     return ( 
-    
+    //NOTIFICATION 
         <dialog id={`share_${postId}`} className="modal modal-bottom sm:modal-middle">
             <div className="modal-box">
                 <form method="dialog">
