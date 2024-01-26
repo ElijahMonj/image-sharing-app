@@ -78,7 +78,7 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = async ({ postId,currentUser }) 
                     <span className='font-semibold me-1'>{data?.author.email}</span>
                     {data?.caption}
                 </div>
-                <div className="text-sm mt-2 cursor-pointer mx-1">View all comments</div>
+                
                 <div className="divider"></div> 
         </div>
      );

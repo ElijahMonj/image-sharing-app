@@ -7,6 +7,7 @@ import CreatePostModal from "./CreatePost/CreatePostModal"
 import { CldUploadButton } from "next-cloudinary"
 import { useState } from "react"
 import Avatar from "./Avatar"
+import Notifications from "./Notifications"
 interface UtilityBarProps{
     data:any
   }
@@ -38,7 +39,8 @@ interface UtilityBarProps{
                     </Link>
                 </li>
                 <li>
-                    <a>
+                    {/*@ts-ignore*/}
+                    <a onClick={()=>document?.getElementById('notification_modal')?.showModal()}>
                     <MdOutlineNotifications className="h-8 w-8" stroke="currentColor"/>  Notifications
                     </a>
                 </li>
@@ -228,6 +230,7 @@ interface UtilityBarProps{
         </div>
 
         <CreatePostModal user={data} image={image}/>
+        
         </>
      );
 }

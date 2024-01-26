@@ -1,12 +1,11 @@
-import NavigationBar from "@/app/Components/NavigationBar";
-import UtilityBar from "@/app/Components/UtilityBar";
+
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import React from "react";
 import PostCard from "../../profile/Components/PostCard";
 import PostModal from "@/app/Components/PostModal/PostModal";
 import prisma from "@/app/libs/prismadb";
 import Empty from "./Empty";
-import Image from "next/image";
+
 import Link from "next/link";
 import Avatar from "@/app/Components/Avatar";
 interface IParams {

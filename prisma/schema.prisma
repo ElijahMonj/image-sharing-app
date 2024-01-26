@@ -36,6 +36,7 @@ model User{
   posts Post[]
   comments Comment[]
   accounts Account[]
+  notifications Notification[]
 }
 
 model Account {
@@ -83,4 +84,11 @@ model Comment{
 
 model Notification{
     id String @id @default(auto()) @map("_id") @db.ObjectId
+    owner User @relation(fields: [ownerId],references: [id])
+    ownerId String @db.ObjectId
+    userName String
+    userImage String
+    createdAt DateTime @default(now())
+    type String
+    seen Boolean
 }
