@@ -17,7 +17,7 @@ interface CommentsProps{
     isTagged:any
 }
 const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isTagged}) => {
-    //NOTIFICATION   
+       
     const dislikePost = unlike.bind(null,postData.id,currentUser.id)
     const likePost = like.bind(null,postData.id,currentUser.id)
     const savePost = save.bind(null,postData.id,currentUser.id)

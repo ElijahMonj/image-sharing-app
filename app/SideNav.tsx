@@ -1,4 +1,4 @@
-import NavigationBar from "./Components/NavigationBar";
+
 import UtilityBar from "./Components/UtilityBar";
 import getCurrentUser from "./actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
