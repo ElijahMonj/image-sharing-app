@@ -1,6 +1,5 @@
 'use server'
 import prisma from "@/app/libs/prismadb";
-import getSession from "../getSession";
 import { revalidatePath } from "next/cache";
 
 export async function like(postId:string,likerId:string){
@@ -20,9 +19,24 @@ export async function like(postId:string,likerId:string){
                 push:likerId
             }
         }
-    })
+        })
+        const liker = await prisma.user.findUnique({
+            where:{
+                id:likerId
+            }
+        })
+        await prisma.notification.create({
+            data: {
+                ownerId:post?.authorId as string,
+                userName:liker?.name as string,
+                userImage:liker?.image as string,
+                link:`/post/${postId}`,
+                type:"like",
+            },
+          })
     }
     
+    //NOTIFICATION
     revalidatePath('/')
 }
 export async function unlike(postId:string,likerId:string){

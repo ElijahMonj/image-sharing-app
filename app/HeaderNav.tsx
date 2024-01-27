@@ -1,12 +1,17 @@
 import NavigationBar from "./Components/NavigationBar";
 import getCurrentUser from "./actions/getCurrentUser";
-import getPosts from "./actions/getPosts";
+import prisma from "@/app/libs/prismadb";
 
 const HeaderNav = async () => {
     const currentUser = await getCurrentUser();
-    const posts = await getPosts();
+    const user = await prisma.user.findUnique({
+        where: {
+           id:currentUser?.id
+        }
+    })
+    
     return ( 
-        <NavigationBar data={currentUser}/>
+        <NavigationBar data={user}/>
      );
 }
  

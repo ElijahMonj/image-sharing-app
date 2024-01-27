@@ -89,6 +89,7 @@ model Notification{
     userName String
     userImage String
     createdAt DateTime @default(now())
+    link String
     type String
-    seen Boolean
+    seen Boolean @default(false)
 }

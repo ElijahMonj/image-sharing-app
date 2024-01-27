@@ -21,5 +21,6 @@ export const newComment = async (postId:string, userId:string,formData: FormData
             likes:[] 
         }
     })
+    //NOTIFICATION
     revalidatePath('/')
 }
