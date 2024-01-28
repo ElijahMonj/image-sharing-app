@@ -3,7 +3,7 @@ import prisma from "@/app/libs/prismadb";
 import Image from 'next/image'
 import Comments from './Comments';
 import defaultAvatar from '@/public/images/defaultAvatar.jpg'
-import ShareModal from "../ShareModal";
+import ShareModal from "../Sharing/ShareModal";
 
 
 interface PostModalProps {
@@ -36,7 +36,7 @@ const PostModal:React.FC<PostModalProps> = async ({currentUser,postId}) => {
         }
     })
     let taggedUser;
-    if(post?.tagged.length==0){
+    if((post?.tagged.length==0) || (post?.tagged[0]=="")){
         taggedUser=false
     }else{
         taggedUser = await prisma.user.findUnique({

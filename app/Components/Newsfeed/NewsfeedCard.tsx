@@ -8,7 +8,7 @@ import Link from "next/link"
 import NewsfeedActions from './NewsfeedActions'
 import prisma from "@/app/libs/prismadb";
 import PostModal from '../PostModal/PostModal'
-import ShareModal from '../ShareModal'
+import ShareModal from '../Sharing/ShareModal'
 interface NewsfeedCardProps{
     postId:string
     currentUser:any
@@ -26,7 +26,7 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = async ({ postId,currentUser }) 
         }
     })
     let taggedUser:any;
-    if(data?.tagged.length==0){
+    if((data?.tagged.length==0)|| (data?.tagged[0]=="")){
         taggedUser=false
     }else{
         taggedUser = await prisma.user.findUnique({
