@@ -1,27 +1,17 @@
+'use client'
 import { Dispatch, SetStateAction, FunctionComponent, useState, useEffect } from 'react';
 import {MdPersonSearch} from 'react-icons/md'
+import { FaLink } from "react-icons/fa6";
+import ShareButton from './ShareButton';
 
-import axios from 'axios';
-import Avatar from '../Avatar';
-
-
-interface TagModalProps{
-    setOpenTag:Dispatch<SetStateAction<boolean>>;
-    setTaggedUser:Dispatch<SetStateAction<any>>;
+interface ShareUserList{
     currentUser:any
+    postId:string
+    users:any[]
 }
 
-const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser}) => {
+const ShareUserList:React.FC<ShareUserList> = ({currentUser,postId,users}) => {
     const [searchInput,setSearchInput]=useState('')
-    const [users,setUsers]=useState<any[]>([])
-    
-    useEffect(() => {
-        axios.get("/api/getuser").then((data) => {
-          
-          setUsers(data?.data);
-          
-        });
-      }, []);
      
       useEffect(() => {
         console.log(searchInput)
@@ -42,20 +32,12 @@ const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser}
                     
                 </div>
                 <div className='h-32 overflow-auto'>
-                    <ul className="menu bg-base-200 w-full rounded-box ">
+                    <ul className="menu w-full rounded-box divide-y">
                     {users?.filter((uList) =>
                             uList.name?.toLowerCase().includes(searchInput)
                         )
                         ?.map((u) => 
-                        <li key={u.id} onClick={()=>{
-                            setTaggedUser(u.id)
-                            setOpenTag(false)
-                        }}>
-                            <a>
-                            <Avatar width={24} height={24} src={u?.image}/>
-                            {u.name}
-                            </a>
-                        </li>
+                            <ShareButton key={u.id} user={u} postId={postId} currentUser={currentUser}/>              
                         )
                     }                                 
                     </ul>
@@ -64,8 +46,8 @@ const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser}
                
       
             <div className='w-full flex justify-between'>
-                <button className='btn btn-sm mt-1 w-24' onClick={()=>setOpenTag(false)}>Cancel</button>
-                <button className='btn btn-sm mt-1 w-24' onClick={()=>setOpenTag(false)}>Done</button>
+                <button className='btn btn-sm mt-1'><FaLink />Share as link</button>
+                
             </div>
            
         </div>
@@ -73,4 +55,4 @@ const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser}
      );
 }
  
-export default TagModal;
+export default ShareUserList;

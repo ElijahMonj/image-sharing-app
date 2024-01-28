@@ -21,16 +21,15 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
       const data = {
         author: user.id,
         caption:caption,
-        tagged:[taggedUser.id as string],
+        tagged:[taggedUser as string],
         image:image,
         
       }
-      axios.post('/api/post',data)
+      axios.post('/api/post',data).then(()=>toast.success('Post created!'))
         .catch(()=>toast.error('Something went wrong!'))
         .finally(()=> {
             setPostButtonDisabled(false);
             document.getElementById('closePostModalBtn')?.click()
-            toast.success('Post created!');
         })
     }
     

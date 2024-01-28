@@ -108,7 +108,7 @@ const Notifications = async () => {
                 </form>
                 <h3 className="font-bold text-lg">Notifications</h3>
                 
-                {notifications.map((n) =>
+                {notifications.reverse().map((n) =>
                     <div className="w-full rounded-lg hover:bg-base-200" key={n.id} >
                         <a className="flex items-center p-2" href={n.link}>
                             <div className="relative inline-block shrink-0">
@@ -122,7 +122,6 @@ const Notifications = async () => {
                             </div>
                             <div className="w-2 h-2 bg-primary ms-auto me-3 rounded-full"></div>
                         </a>
-                       
                     </div>
                 )}
 

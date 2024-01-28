@@ -29,7 +29,7 @@ const Grid:React.FC<GridProps> = async ({currentUser}) => {
                 :
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
                     {/*@ts-ignore*/}
-                    {posts.map(post => {
+                    {posts.reverse().map(post => {
                         return (
                         <React.Fragment key={post.id}>
                             <PostCard post={post}/>

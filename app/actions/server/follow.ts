@@ -20,7 +20,7 @@ export async function follow(followingUserId:string,currentUserId:string){
             }
         }) 
     }
-    const otherUser  = await prisma.user.findUnique({
+    const otherUser = await prisma.user.findUnique({
         where:{
             id:followingUserId
         }
@@ -36,6 +36,15 @@ export async function follow(followingUserId:string,currentUserId:string){
                 }
             }
         })
+        await prisma.notification.create({
+            data: {
+                ownerId:otherUser?.id as string,
+                userName:currentUser?.name as string,
+                userImage:currentUser?.image as string,
+                link:`/profile/${currentUserId}`,
+                type:"follow",
+            },
+          })
     } 
     revalidatePath('/profile')
 }
