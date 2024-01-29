@@ -22,7 +22,7 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isT
     const likePost = like.bind(null,postData.id,currentUser.id)
     const savePost = save.bind(null,postData.id,currentUser.id)
     const unsavePost = unsave.bind(null,postData.id,currentUser.id)
-    const addComment = newComment.bind(null,postData.id,currentUser.id)
+    const addComment = newComment.bind(null,postData.id,postData.authorId,currentUser.id)
     
     const ref =useRef<HTMLFormElement>(null)
     const [optimisticComments,addOptimisticComments] = useOptimistic(postComments,(state, newCmmt)=>{

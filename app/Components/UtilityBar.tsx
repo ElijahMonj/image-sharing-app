@@ -7,7 +7,7 @@ import CreatePostModal from "./CreatePost/CreatePostModal"
 import { CldUploadButton } from "next-cloudinary"
 import { useState } from "react"
 import Avatar from "./Avatar"
-import Notifications from "./Notifications"
+import Notifications from "./Notifications/NotificationModal"
 interface UtilityBarProps{
     data:any
   }

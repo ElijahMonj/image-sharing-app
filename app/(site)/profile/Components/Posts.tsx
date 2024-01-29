@@ -16,7 +16,7 @@ const Posts:React.FC<PostsProps> = ({posts,currentUser}) => {
                     <div className="grid card rounded-box place-items-center ">
                         <BiImageAdd size={80} className="text-secondary"/>
                     </div>                       
-                    <div className="grid card rounded-box place-items-center text-center text-secondary">Your posts is empty.</div>
+                    <div className="grid card rounded-box place-items-center text-center text-secondary">This user hasn&apos;t posted anything yet.</div>
                 </div> 
                 :
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-1">

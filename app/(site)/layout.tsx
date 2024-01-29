@@ -5,7 +5,7 @@ import HeaderNav from '../HeaderNav'
 import { Suspense } from 'react'
 import LoadingSkeleton from '../Components/LoadingSkeleton'
 import SideNav from '../SideNav'
-import Notifications from '../Components/Notifications'
+import Notifications from '../Components/Notifications/NotificationModal'
 
 const inter = Inter({ subsets: ['latin'] })
 

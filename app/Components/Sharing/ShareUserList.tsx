@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, FunctionComponent, useState, useEffect } from
 import {MdPersonSearch} from 'react-icons/md'
 import { FaLink } from "react-icons/fa6";
 import ShareButton from './ShareButton';
+import toast from 'react-hot-toast';
 
 interface ShareUserList{
     currentUser:any
@@ -46,7 +47,10 @@ const ShareUserList:React.FC<ShareUserList> = ({currentUser,postId,users}) => {
                
       
             <div className='w-full flex justify-between'>
-                <button className='btn btn-sm mt-1'><FaLink />Share as link</button>
+                <button className='btn btn-sm mt-1' onClick={()=>{
+                    navigator.clipboard.writeText(window.location.origin+`/post/${postId}`);
+                    toast.success('Link copied!')
+                }}><FaLink />Share as link</button>
                 
             </div>
            
