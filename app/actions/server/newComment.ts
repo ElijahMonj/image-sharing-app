@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache"
 import prisma from "@/app/libs/prismadb";
 
-export const newComment = async (postId:string, userId:string,formData: FormData) =>{
+export const newComment = async (postId:string, postAuthorId:string,userId:string,formData: FormData) =>{
     const comment =formData.get(`comment_${postId}`)
     await prisma.comment.create({
         data:{            
@@ -21,6 +21,22 @@ export const newComment = async (postId:string, userId:string,formData: FormData
             likes:[] 
         }
     })
+    if(!(userId==postAuthorId)){
+        const user = await prisma.user.findUnique({
+            where:{
+                id:userId
+            }
+        })
+        await prisma.notification.create({
+            data: {
+                ownerId:postAuthorId as string,
+                userName:user?.name as string,
+                userImage:user?.image as string,
+                link:`/post/${postId}`,
+                type:"comment",
+            },
+          })
+    } 
     //NOTIFICATION
     revalidatePath('/')
 }

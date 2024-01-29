@@ -20,20 +20,22 @@ export async function like(postId:string,likerId:string){
             }
         }
         })
-        const liker = await prisma.user.findUnique({
-            where:{
-                id:likerId
-            }
-        })
-        await prisma.notification.create({
-            data: {
-                ownerId:post?.authorId as string,
-                userName:liker?.name as string,
-                userImage:liker?.image as string,
-                link:`/post/${postId}`,
-                type:"like",
-            },
-          })
+        if(!(likerId==post?.authorId)){
+            const liker = await prisma.user.findUnique({
+                where:{
+                    id:likerId
+                }
+            })
+            await prisma.notification.create({
+                data: {
+                    ownerId:post?.authorId as string,
+                    userName:liker?.name as string,
+                    userImage:liker?.image as string,
+                    link:`/post/${postId}`,
+                    type:"like",
+                },
+              })
+        }    
     }
     
     //NOTIFICATION

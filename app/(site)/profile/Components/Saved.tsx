@@ -17,7 +17,7 @@ const Saved:React.FC<SavedProps> = ({currentUser,savedPosts}) => {
                     <div className="grid card rounded-box place-items-center ">
                         <CiBookmarkPlus size={80} className="text-secondary"/>
                     </div>                       
-                    <div className="grid card rounded-box place-items-center text-center text-secondary">Your saved posts is empty.</div>
+                    <div className="grid card rounded-box place-items-center text-center text-secondary">This user hasn&apos;t saved any post yet.</div>
                 </div> 
                 :
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-1">

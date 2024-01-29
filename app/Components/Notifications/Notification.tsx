@@ -1,19 +1,19 @@
+'use client'
 import { PiPaperPlaneTiltFill } from "react-icons/pi";
-import Avatar from "./Avatar";
+import Avatar from "../Avatar";
 import { BsChatFill,BsHeartFill,BsChatTextFill  } from "react-icons/bs";
 import { MdNotifications,MdPersonAddAlt1 } from "react-icons/md";
-import prisma from "@/app/libs/prismadb";
-import { timeAgo } from "../actions/convertDate";
-import getCurrentUser from "../actions/getCurrentUser";
-import Link from "next/link";
-const Notifications = async () => {
-    const currentUser = await getCurrentUser();
-    const notifications= await prisma.notification.findMany({
-        where: {
-          ownerId:currentUser?.id
-        }
-      })
-      
+
+import { timeAgo } from "../../actions/convertDate";
+import axios from "axios";
+
+import { useState } from "react";
+
+interface NotificationProps{
+    data:any
+}
+
+const Notification:React.FC<NotificationProps> = ({data}) => {
     function notificationIcon(type:string) {
         if (type=="comment"){
             return (
@@ -98,36 +98,30 @@ const Notifications = async () => {
         }
         
     }
-
+    const [isSeen,setIsSeen]=useState(data.seen)
     return ( 
-        <dialog id="notification_modal" className="modal modal-bottom sm:modal-middle">
-            <div className="modal-box">
-                <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                </form>
-                <h3 className="font-bold text-lg">Notifications</h3>
-                
-                {notifications.reverse().map((n) =>
-                    <div className="w-full rounded-lg hover:bg-base-200" key={n.id} >
-                        <a className="flex items-center p-2" href={n.link}>
-                            <div className="relative inline-block shrink-0">
-                                <Avatar width={45} height={45} src={n.userImage}/>
-                                {notificationIcon(n.type)}
-                            </div>
-                            <div className="ms-3 text-sm font-normal">
-                                <div className="text-sm font-bold">{n.userName}</div>
-                                {notificationDescription(n.type)}
-                                <span className="text-xs font-medium text-secondary">{timeAgo(n.createdAt)}</span>   
-                            </div>
-                            <div className="w-2 h-2 bg-primary ms-auto me-3 rounded-full"></div>
-                        </a>
-                    </div>
-                )}
-
+        <a className="flex items-center p-2" href={data.link} onClick={()=>{
+            if(!isSeen){
+                const dt ={
+                    id:data.id
+                }
+                axios.post('/api/seen',dt).then(()=>setIsSeen(true))
+            }    
+        }}>
+            <div className="relative inline-block shrink-0">
+                <Avatar width={45} height={45} src={data.userImage}/>
+                {notificationIcon(data.type)}
             </div>
-        </dialog>
+            <div className="ms-3 text-sm font-normal">
+                <div className="text-sm font-bold">{data.userName}</div>
+                {notificationDescription(data.type)}
+                <span className="text-xs font-medium text-secondary" suppressHydrationWarning >{timeAgo(data.createdAt)}</span>   
+            </div>
+            {!isSeen ? <div className="w-2 h-2 bg-primary ms-auto me-3 rounded-full"></div>:
+            <div className=""></div>}
+            
+        </a>
      );
 }
  
-export default Notifications;
+export default Notification;
