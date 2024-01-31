@@ -1,24 +1,26 @@
 'use client'
 import { useSession, signIn, signOut } from "next-auth/react"
 import {MdOutlineHome,MdOutlineSearch,MdOutlineExplore,MdOutlineNotifications,MdOutlineMessage,MdOutlineAddBox,MdOutlineAccountCircle,MdOutlineSettings,MdOutlineLogout} from 'react-icons/md'
-import Image from "next/image"
+
 import Link from "next/link"
 import CreatePostModal from "./CreatePost/CreatePostModal"
 import { CldUploadButton } from "next-cloudinary"
 import { useState } from "react"
 import Avatar from "./Avatar"
-import Notifications from "./Notifications/NotificationModal"
+
 interface UtilityBarProps{
     data:any
+    notifications:any
   }
-  const UtilityBar:React.FC<UtilityBarProps> = ({data}) => {
+  const UtilityBar:React.FC<UtilityBarProps> = ({data,notifications}) => {
     const [image,setImage]=useState('');
-   const handleUpload=(result:any)=>{
-    setImage(result?.info?.secure_url)
-    //@ts-ignore
-    
-    document.getElementById('create_post_modal').showModal()
-   }
+    const newNotifications = notifications.filter((obj: { seen: boolean }) => obj.seen == false).length;
+
+    const handleUpload=(result:any)=>{
+        setImage(result?.info?.secure_url)
+        //@ts-ignore
+        document.getElementById('create_post_modal').showModal()
+    }
     return ( 
         <>
         {/*lg*/}
@@ -41,7 +43,14 @@ interface UtilityBarProps{
                 <li>
                     {/*@ts-ignore*/}
                     <a onClick={()=>document?.getElementById('notification_modal')?.showModal()}>
-                    <MdOutlineNotifications className="h-8 w-8" stroke="currentColor"/>  Notifications
+                        <div className="indicator">
+                            <MdOutlineNotifications className="h-8 w-8" stroke="currentColor"/>
+                            {newNotifications > 0 ?
+                                <span className="indicator-item badge text-xs badge-error w-6">{newNotifications}</span>
+                                :<div></div> 
+                            }
+                        </div>
+                         Notifications
                     </a>
                 </li>
                 <li>

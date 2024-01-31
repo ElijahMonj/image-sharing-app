@@ -8,24 +8,31 @@ interface GeneralProps{
     currentUser:any
 }
 const General:React.FC<GeneralProps> = ({currentUser}) => {
+    const [oldName, setOldName] = useState(currentUser.name);
+    const [oldImage, setOldImage] = useState(currentUser.image);
+    const [oldBio, setOldBio] = useState(currentUser.bio);
+
     const [name,setName]=useState(currentUser.name);
     const [image,setImage]=useState(currentUser.image);
     const [bio,setBio]=useState(currentUser.bio);
     const [isLoading,setIsLoading]=useState(false);
+    const [password,setPassword]=useState<undefined|string>("")
+    const [confirmPassword,setConfirmPassword]=useState<undefined|string>("")
     const isGoogleAvatar=currentUser?.image.includes("googleusercontent");
     let avatarSource=image;
     if(isGoogleAvatar){
         avatarSource = avatarSource.replace("=s96", "=s256");
     }
     function saveChanges(){
-
-        if((name==currentUser.name)&&(image==currentUser.image)&&(bio==currentUser.bio)){
+        
+        if((name==oldName)&&(image==oldImage)&&(bio==oldBio)){
             toast.error('There is nothing to be saved.');
             return
         }
         if(name.length<3){
             toast('Please enter a valid name.');
             document.getElementById('nameInput')?.classList.add("input-error")
+            return
         }
         if(bio.length==0){
             setBio("No information given.")
@@ -41,6 +48,9 @@ const General:React.FC<GeneralProps> = ({currentUser}) => {
         .then(()=>toast.success('Profile updated.'))
         .catch(()=>toast.error('Something went wrong!'))
         .finally(()=> {
+            setOldName(name)
+            setOldImage(image)
+            setOldBio(bio)
             setIsLoading(false)
         })
     }
@@ -48,6 +58,25 @@ const General:React.FC<GeneralProps> = ({currentUser}) => {
         setImage(result?.info?.secure_url)
         //@ts-ignore
        }
+    function handleSubmit(e:FormEvent){
+        e.preventDefault()
+        if(confirmPassword==password){
+            setIsLoading(true)
+            const data = {
+                id:currentUser.id,
+                password:password,
+            } 
+            axios.post('/api/settings/password',data).then(()=> toast.success('Password Changed.'))
+            .catch(()=>toast.error('Something went wrong!'))
+            .finally(()=> {
+                setIsLoading(false)
+            })
+        }else{
+            document.getElementById("confirmPassword")?.classList.add("input-error");
+            toast.error('Password do match match! Please confirm your password.')
+        }
+        
+    }
     return ( 
         <div className="w-full px-5">
             <h1 className="font-bold text-2xl my-5">Edit Profile</h1>
@@ -94,27 +123,38 @@ const General:React.FC<GeneralProps> = ({currentUser}) => {
 
 
             <h1 className="font-bold text-2xl my-5">Manage Account</h1>
-            <div className="font-semibold">Change Name</div>
-            <div className="collapse bg-base-200">
-                <input type="radio" name="my-accordion-1"/> 
-                <div className="collapse-title text-xl font-medium">
-                    Change Email
-                </div>
-                <div className="collapse-content"> 
-                    <p>hello</p>
-                </div>
-                </div>
-                <div className="collapse bg-base-200">
-                <input type="radio" name="my-accordion-1" /> 
-                <div className="collapse-title text-xl font-medium">
-                    Change Password
-                </div>
-                <div className="collapse-content"> 
-                    <p>hello</p>
-                </div>
-                </div>
-                <div className="collapse bg-base-200">
-            </div>      
+            <div className="font-semibold">Change Password</div>
+                <div className="bg-base-200 w-full p-5 rounded-lg">
+                   <form onSubmit={handleSubmit}>
+                    <input type="password" name="password" placeholder="Enter new password" className="input input-sm w-full mb-3"
+                    id="password"
+                    value={password}
+                    onChange={(e) =>{
+                        setPassword(e.target.value);
+                       
+                        }
+                    }
+                    maxLength={50}
+                    required/>
+                    <input type="password" name="confirmPassowrd" placeholder="Confirm password" className="input input-sm w-full"
+                    id="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) =>{
+                        setConfirmPassword(e.target.value);
+                        e.target.classList.remove("input-error");
+                        }
+                    }
+                    maxLength={50}
+                    required/>
+                    <div className="flex justify-end mt-2">
+                        <button className="btn btn-sm btn-neutral"
+                            disabled={isLoading}
+                            type="submit"
+                            >Save</button>
+                    </div> 
+                    </form>   
+                </div>   
+                
         </div>
      );
 }

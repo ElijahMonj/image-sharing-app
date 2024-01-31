@@ -12,15 +12,13 @@ const Settings = async () => {
     })
     return ( 
         <>
-        
-        
             <div className="w-full">
                 <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[35rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto mt-16">
                     <General currentUser={user}/>
                 </div>            
             </div>
             <Toaster />
-    </>
+        </>
      );
 }
  
