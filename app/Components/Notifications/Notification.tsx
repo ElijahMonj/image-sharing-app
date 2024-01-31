@@ -3,7 +3,7 @@ import { PiPaperPlaneTiltFill } from "react-icons/pi";
 import Avatar from "../Avatar";
 import { BsChatFill,BsHeartFill,BsChatTextFill  } from "react-icons/bs";
 import { MdNotifications,MdPersonAddAlt1 } from "react-icons/md";
-
+import Link from "next/link";
 import { timeAgo } from "../../actions/convertDate";
 import axios from "axios";
 
@@ -100,14 +100,16 @@ const Notification:React.FC<NotificationProps> = ({data}) => {
     }
     const [isSeen,setIsSeen]=useState(data.seen)
     return ( 
-        <a className="flex items-center p-2" href={data.link} onClick={()=>{
+        <Link className="flex items-center p-2" href={data.link} onClick={()=>{
             if(!isSeen){
+                setIsSeen(true) 
                 const dt ={
                     id:data.id
                 }
-                axios.post('/api/seen',dt).then(()=>setIsSeen(true))
+                axios.post('/api/seen',dt)
             }    
-        }}>
+            document?.getElementById('notificationClose')?.click()
+            }}>
             <div className="relative inline-block shrink-0">
                 <Avatar width={45} height={45} src={data.userImage}/>
                 {notificationIcon(data.type)}
@@ -120,7 +122,7 @@ const Notification:React.FC<NotificationProps> = ({data}) => {
             {!isSeen ? <div className="w-2 h-2 bg-primary ms-auto me-3 rounded-full"></div>:
             <div className=""></div>}
             
-        </a>
+        </Link>
      );
 }
  
