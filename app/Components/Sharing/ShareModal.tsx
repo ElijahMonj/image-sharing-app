@@ -32,6 +32,7 @@ const ShareModal:React.FC<ShareModalProps> = async ({currentUser,postId}) => {
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                 </form>
                 <h3 className="font-bold text-lg">Share Post</h3>
+               
                 <ShareUserList currentUser={currentUser} postId={postId} users={users}/>
             </div>
         </dialog>

@@ -13,11 +13,7 @@ interface ShareUserList{
 
 const ShareUserList:React.FC<ShareUserList> = ({currentUser,postId,users}) => {
     const [searchInput,setSearchInput]=useState('')
-     
-      useEffect(() => {
-        console.log(searchInput)
-       
-      }, [searchInput]);
+
     return ( 
         <div className='flex flex-col'>
             <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -33,6 +29,9 @@ const ShareUserList:React.FC<ShareUserList> = ({currentUser,postId,users}) => {
                     
                 </div>
                 <div className='h-32 overflow-auto'>
+                {users.length == 0 ? 
+                    <div className='h-full flex justify-center flex-col text-center text-sm font-thin'>No available users.</div>
+                :
                     <ul className="menu w-full rounded-box divide-y">
                     {users?.filter((uList) =>
                             uList.name?.toLowerCase().includes(searchInput)
@@ -42,6 +41,7 @@ const ShareUserList:React.FC<ShareUserList> = ({currentUser,postId,users}) => {
                         )
                     }                                 
                     </ul>
+                }   
                 </div>
                 
                
