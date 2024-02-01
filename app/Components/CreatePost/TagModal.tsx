@@ -13,13 +13,11 @@ interface TagModalProps{
 
 const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser}) => {
     const [searchInput,setSearchInput]=useState('')
-    const [users,setUsers]=useState<any[]>([])
+    const [users,setUsers]=useState<any>(null)
     
     useEffect(() => {
         axios.get("/api/getuser").then((data) => {
-          
           setUsers(data?.data);
-          
         });
       }, []);
      
@@ -42,23 +40,35 @@ const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser}
                     
                 </div>
                 <div className='h-32 overflow-auto'>
-                    <ul className="menu bg-base-200 w-full rounded-box ">
-                    {users?.filter((uList) =>
-                            uList.name?.toLowerCase().includes(searchInput)
-                        )
-                        ?.map((u) => 
-                        <li key={u.id} onClick={()=>{
-                            setTaggedUser(u.id)
-                            setOpenTag(false)
-                        }}>
-                            <a>
-                            <Avatar width={24} height={24} src={u?.image}/>
-                            {u.name}
-                            </a>
-                        </li>
-                        )
-                    }                                 
-                    </ul>
+                    {users == null ? 
+                    <div className='h-full flex justify-center flex-col text-center text-sm font-thin'>Loading...</div>
+                    :
+                    <>
+                        {users.length == 0 ? 
+                        <div className='h-full flex justify-center flex-col text-center text-sm font-thin'>No available users.</div>
+                        :
+                        <ul className="menu bg-base-200 w-full rounded-box ">
+                        {users?.filter((uList: { name: string; }) =>
+                                uList.name?.toLowerCase().includes(searchInput)
+                            )
+                            ?.map((u:any) => 
+                            <li key={u.id} onClick={()=>{
+                                setTaggedUser(u.id)
+                                setOpenTag(false)
+                            }}>
+                                <a>
+                                <Avatar width={24} height={24} src={u?.image}/>
+                                {u.name}
+                                </a>
+                            </li>
+                            )
+                        }                                 
+                        </ul>
+                        }  
+                    </>
+                    }
+                                                    
+                    
                 </div>
                 
                
