@@ -12,7 +12,6 @@ const OpenModal:React.FC<OpenModalProps> = ({postId}) => {
         <>
         <BsChat className="h-6 w-6 hover:cursor-pointer hover:fill-secondary" 
             onClick={()=>{
-              
                 // @ts-ignore
             document?.getElementById(`post_modal_${postId}`)?.showModal()
             }} />

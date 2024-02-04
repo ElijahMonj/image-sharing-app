@@ -66,7 +66,11 @@ const General:React.FC<GeneralProps> = ({currentUser}) => {
                 id:currentUser.id,
                 password:password,
             } 
-            axios.post('/api/settings/password',data).then(()=> toast.success('Password Changed.'))
+            axios.post('/api/settings/password',data).then(()=> {
+                setPassword("")
+                setConfirmPassword("")
+                toast.success('Password Changed.')
+            })
             .catch(()=>toast.error('Something went wrong!'))
             .finally(()=> {
                 setIsLoading(false)

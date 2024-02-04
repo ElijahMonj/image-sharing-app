@@ -6,6 +6,7 @@ export async function POST(request:Request){
     try {
         const body=await request.json();
         const {id,password}=body;
+        
         const hashedPassword=await bcrypt.hash(password,12);
         const updatedPassword = await prisma.user.update({
             where: {
