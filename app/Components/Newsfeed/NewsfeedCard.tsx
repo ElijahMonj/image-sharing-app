@@ -37,7 +37,7 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = async ({ postId,currentUser }) 
     }
 
     return ( 
-        <div className="grid lg:w-128 md:w-118 sm:w-96 w-full">
+        <div className="grid lg:w-128 md:w-118 sm:w-96 w-full px-2 md:px-0 lg:px-0">
                 <PostModal currentUser={currentUser} postId={postId}/> 
                  
                 <div className="flex items-center py-3 w-full">

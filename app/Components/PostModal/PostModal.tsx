@@ -5,7 +5,6 @@ import Comments from './Comments';
 import defaultAvatar from '@/public/images/defaultAvatar.jpg'
 import ShareModal from "../Sharing/ShareModal";
 
-
 interface PostModalProps {
     postId:string
     currentUser:any

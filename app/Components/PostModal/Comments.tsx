@@ -10,14 +10,19 @@ import { useEffect, experimental_useOptimistic as useOptimistic, useRef, useStat
 import convertDate from '@/app/actions/convertDate';
 import Link from 'next/link';
 
+import EmojiPicker from 'emoji-picker-react';
+
 interface CommentsProps{
     postData:any
     currentUser:any
     postComments:any
     isTagged:any
+    
 }
-const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isTagged}) => {
-       
+const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isTagged,}) => {
+    const [showPicker, setShowPicker] = useState(false);   
+    const [inputStr, setInputStr] = useState("");
+
     const dislikePost = unlike.bind(null,postData.id,currentUser.id)
     const likePost = like.bind(null,postData.id,currentUser.id)
     const savePost = save.bind(null,postData.id,currentUser.id)
@@ -50,6 +55,10 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isT
             return [...state, postData.id]
         }
     })
+    const onEmojiClick = (event: { emoji: string; }) => {
+        setInputStr((prevInput) => prevInput + event.emoji);
+        setShowPicker(false);
+      };
     
     return ( 
         <div className='h-full flex flex-col justify-between bg-base-100'>
@@ -80,8 +89,13 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isT
                     <div className='mb-2' key={comment.id}>
                     <div className="flex items-center">
                         <span className="inline-flex items-center mr-3 text-sm font-semibold gap-2">
-                            <Avatar width={24} height={24} src={comment?.author?.image}/>
-                            {comment?.author?.name}</span>
+                            <Link href={`/profile/${comment?.author.id}`}>
+                                <Avatar width={24} height={24} src={comment?.author?.image}/>
+                            </Link>
+                            <Link href={`/profile/${comment?.author.id}`}>
+                                {comment?.author?.name}
+                            </Link>
+                        </span>
                         <span className="text-xs"><div>{convertDate(comment.createdAt)}</div></span>
                     </div>
                     <span className='text-sm'>{comment.commentText}</span>
@@ -166,11 +180,17 @@ const Comments:React.FC<CommentsProps> = ({postData,currentUser,postComments,isT
                 })
                 await addComment(formData)
                 }}>
-                    <div className='btn btn-ghost btn-sm p-1'>
+                    <EmojiPicker
+                    open={!showPicker}
+                    width={350}
+                    height={450}
+                    className='absolute z-50'
+                    onEmojiClick={onEmojiClick}/>
+                    <div className='btn btn-ghost btn-sm p-1' onClick={() => setShowPicker((val) => !val)}>
                         <BiHappy className='h-5 w-5 '/>
                     </div>
-                    
-                    <input type="text" name={`comment_${postData.id}`} 
+
+                    <input type="text" name={`comment_${postData.id}`} value={inputStr}  onChange={(e) => setInputStr(e.target.value)}
                     placeholder="Add a comment..." id={`commentInput_${postData.id}`} className="input input-ghost input-sm w-full" required />
                     <button className='btn btn-ghost btn-sm'
                     type='submit'
