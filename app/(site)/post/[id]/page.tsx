@@ -2,7 +2,7 @@
 import NewsfeedCard from "@/app/Components/Newsfeed/NewsfeedCard";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import React from "react";
-
+import PostCard from "./PostCard";
 import prisma from "@/app/libs/prismadb";
 interface IParams {
     id: string;
@@ -28,13 +28,9 @@ const Post = async ({params}:{params:IParams}) => {
     
     return ( 
         <div className="flex flex-col w-full items-center h-min m-auto mt-20 absolute"> 
-
-        <NewsfeedCard
-        currentUser={user} 
-        key={post?.id}
-        postId={post?.id as string}
-        />
-                     
+            <PostCard
+            postData={post}
+            currentUser={user}/>
         </div>
      );
 }

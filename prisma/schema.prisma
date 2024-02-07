@@ -25,7 +25,6 @@ model User{
   password String?
   image String?
   
-  tagged String[] @default([])
   saved String[] @default([])
   followers String[] @default([])
   following String[] @default([])
@@ -33,7 +32,8 @@ model User{
   bio String @default("No information given.")
   theme String @default("corporate")
   
-  posts Post[]
+  posts Post[] @relation("author")
+  tagged Post[] @relation("tagged")
   comments Comment[]
   accounts Account[]
   notifications Notification[]
@@ -60,10 +60,11 @@ model Account {
 
 model Post{
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  author User @relation(fields: [authorId],references: [id])
+  author User @relation(fields: [authorId],references: [id], name:"author")
   authorId String @db.ObjectId
   caption String?
-  tagged String[]
+  tagged User? @relation(fields: [taggedId],references: [id], name:"tagged")
+  taggedId String? @db.ObjectId
   image String
   likes String[]
   createdAt DateTime @default(now())

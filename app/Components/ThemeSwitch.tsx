@@ -16,7 +16,7 @@ const ThemeSwitch:React.FC<ThemeSwitchProps> = ({theme,id}) => {
             theme:currentTheme
         }  
         axios.post('/api/theme',data)
-        console.log("Theme set to: "+currentTheme)
+        
         document.querySelector("html")?.setAttribute("data-theme", currentTheme)
     }, [currentTheme, id])
     function themeIcon(){

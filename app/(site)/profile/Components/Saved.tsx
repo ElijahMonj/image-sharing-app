@@ -1,18 +1,20 @@
-
+'use client'
 
 import PostModal from '@/app/Components/PostModal/PostModal';
 import { CiBookmarkPlus } from "react-icons/ci";
 import PostCard from './PostCard';
-import React from 'react';
+import React, { useState } from 'react';
 interface SavedProps{
+    posts:any
     currentUser:any
-    savedPosts:any
+    currentPost:any
+    setCurrentPost:any
 }
-const Saved:React.FC<SavedProps> = ({currentUser,savedPosts}) => {
-    
+const Saved:React.FC<SavedProps> = ({currentUser,posts,currentPost,setCurrentPost}) => {
+   
     return ( 
         <>        
-             {savedPosts.length==0 ?
+             {posts.length==0 ?
                 <div className="flex flex-col w-96 h-96 justify-center">
                     <div className="grid card rounded-box place-items-center ">
                         <CiBookmarkPlus size={80} className="text-secondary"/>
@@ -21,15 +23,16 @@ const Saved:React.FC<SavedProps> = ({currentUser,savedPosts}) => {
                 </div> 
                 :
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
-                 {/*@ts-ignore*/}
-                {savedPosts.reverse().map(post => {
-                    return (
-                    <React.Fragment key={post.id}>
-                        <PostCard post={post}/>
-                        <PostModal currentUser={currentUser} postId={post.id}/> 
-                    </React.Fragment> 
-                    );
-                })} 
+                 <>
+                        
+                        {/*@ts-ignore*/}
+                            {posts.map(post => {
+                            return (
+                                <PostCard post={post} key={post.id}
+                                setCurrentPost={setCurrentPost} currentPost={currentPost}/>
+                                );
+                            })}
+                    </>
                 </div>
              } 
         </>

@@ -1,11 +1,11 @@
+'use client'
 
-import { useState } from 'react';
-import {BsBookmark,BsImages,BsPersonBadge} from 'react-icons/bs'
 import Posts from './Posts';
-import clsx from "clsx";
 import Saved from './Saved';
 import Tagged from './Tagged';
 import Tabs from './Tabs';
+import { useState } from 'react';
+import PostModal from '@/app/Components/PostModal/PostModal';
 
 interface ProfileContentProps{
     posts:any
@@ -15,19 +15,23 @@ interface ProfileContentProps{
 }
 
 const ProfileContent:React.FC<ProfileContentProps> = ({posts,currentUser,savedPosts,taggedPosts}) => {
-    
+    const [currentPost,setCurrentPost]=useState(0);
+
     return ( 
         <>
         <Tabs />
         <div id='postSection' className='hidden'>
-            <Posts posts={posts} currentUser={currentUser}/>
+            <Posts posts={posts} currentUser={currentUser} currentPost={currentPost} setCurrentPost={setCurrentPost}/>
         </div>
         <div id='savedSection' className='hidden'>
-            <Saved currentUser={currentUser} savedPosts={savedPosts}/>
+            <Saved currentUser={currentUser} posts={savedPosts} currentPost={currentPost} setCurrentPost={setCurrentPost}/>
         </div>
         <div id='taggedSection' className='hidden'>
-            <Tagged taggedPosts={taggedPosts} currentUser={currentUser}/>
+            <Tagged posts={taggedPosts} currentUser={currentUser} currentPost={currentPost} setCurrentPost={setCurrentPost}/>
         </div>
+        <PostModal currentPost={currentPost} 
+                        setCurrentPost={setCurrentPost} 
+                        currentUser={currentUser} posts={posts}/>
         </>
      );
 }

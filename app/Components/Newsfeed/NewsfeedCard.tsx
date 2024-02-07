@@ -1,82 +1,60 @@
 
 import Image from 'next/image'
-
 import convertDate from '@/app/actions/convertDate'
 import Avatar from '../Avatar'
 import Link from "next/link"
-
 import NewsfeedActions from './NewsfeedActions'
-import prisma from "@/app/libs/prismadb";
+
 import PostModal from '../PostModal/PostModal'
-import ShareModal from '../Sharing/ShareModal'
+
 interface NewsfeedCardProps{
-    postId:string
+    post:any
     currentUser:any
+    setCurrentPost:any
 }
 
-const NewsfeedCard:React.FC<NewsfeedCardProps> = async ({ postId,currentUser }) => {
+const NewsfeedCard:React.FC<NewsfeedCardProps> = ({ post,currentUser,setCurrentPost }) => {
 
-    const data = await prisma.post.findUnique({
-        where:{
-            id:postId
-        },
-        include:{
-            author:true,
-            comments:true
-        }
-    })
-    let taggedUser:any;
-    if((data?.tagged.length==0)|| (data?.tagged[0]=="")){
-        taggedUser=false
-    }else{
-        taggedUser = await prisma.user.findUnique({
-            where:{
-                id:data?.tagged[0]
-            }
-        })
-    }
 
     return ( 
         <div className="grid lg:w-128 md:w-118 sm:w-96 w-full px-2 md:px-0 lg:px-0">
-                <PostModal currentUser={currentUser} postId={postId}/> 
                  
                 <div className="flex items-center py-3 w-full">
                     <div className='w-8'>
-                    <Link href={`/profile/${data?.author.id}`} >
+                    <Link href={`/profile/${post?.author.id}`} >
                     <Avatar 
                     width={256}
                     height={32}
-                    src={data?.author.image as string}
+                    src={post?.author.image as string}
                     />
                     </Link>
                     </div>
                    
                     <div className="ml-3">
                         <div className='flex'>
-                        <Link href={`/profile/${data?.author.id}`} className="text-sm font-semibold antialiased block leading-tight me-1">{data?.author.name}</Link>
-                        {taggedUser ? 
-                        <div className="text-sm antialiased block leading-tight"> is with {<Link href={`/profile/${taggedUser?.id}`} className="font-semibold">{taggedUser?.name}</Link>}</div> 
-                        : <></>}
+                        <Link href={`/profile/${post?.author.id}`} className="text-sm font-semibold antialiased block leading-tight me-1">{post?.author.name}</Link>
+                        {post.tagged == null ? <></>          
+                        : <div className="text-sm antialiased block leading-tight"> is with {<Link href={`/profile/${post.tagged.id}`} className="font-semibold">{post.tagged?.name}</Link>}</div> }
                         </div>
-                        <span className="text-xs block">{convertDate(data?.createdAt as Date)}</span>
+                        <span className="text-xs block">{convertDate(post?.createdAt as Date)}</span>
                     </div>
                 </div>
                 <Image
                 className='rounded-sm lg:w-128 md:w-118 sm:w-96 w-full '
-                src={data?.image as string}
+                src={post?.image as string}
                 width={999}
                 height={999}
                 style={{objectFit: "cover",maxHeight:"45rem"}}
                 alt="post"
-               
+                priority={true}           
                 />
 
-                <NewsfeedActions postData={data} currentUser={currentUser}/>
+                <NewsfeedActions post={post} currentUser={currentUser} setCurrentPost={setCurrentPost}/>
                 
                 
                 <div className="text-sm mt-2 mx-1">
-                    <span className='font-semibold me-1'>{data?.author.email}</span>
-                    {data?.caption}
+                    <span className='font-semibold me-1'>{post?.author.email}</span>
+                    {post?.caption}
                 </div>
                 
                 <div className="divider"></div> 

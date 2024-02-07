@@ -1,18 +1,21 @@
-
+'use client'
 
 import PostModal from '@/app/Components/PostModal/PostModal';
 import { BsPersonBadge } from "react-icons/bs";
 import PostCard from './PostCard';
-import React from 'react';
+import React, { useState } from 'react';
 interface TaggedProps{
+    posts:any
     currentUser:any
-    taggedPosts:any
+    currentPost:any
+    setCurrentPost:any
 }
 
-const Tagged:React.FC<TaggedProps> = ({currentUser,taggedPosts}) => {
+const Tagged:React.FC<TaggedProps> = ({currentUser,posts,currentPost,setCurrentPost}) => {
+    
     return ( 
         <>        
-             {taggedPosts.length==0 ?
+             {posts.length==0 ?
                 <div className="flex flex-col w-96 h-96 justify-center">
                     <div className="grid card rounded-box place-items-center ">
                         <BsPersonBadge size={70} className="text-secondary"/>
@@ -21,15 +24,16 @@ const Tagged:React.FC<TaggedProps> = ({currentUser,taggedPosts}) => {
                 </div> 
                 :
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
-                 {/*@ts-ignore*/}
-                {taggedPosts.reverse().map(post => {
-                    return (
-                    <React.Fragment key={post.id}>
-                        <PostCard post={post}/>
-                        <PostModal currentUser={currentUser} postId={post.id}/> 
-                    </React.Fragment> 
-                    );
-                })} 
+                 <>
+                        
+                        {/*@ts-ignore*/}
+                            {posts.map(post => {
+                            return (
+                                <PostCard post={post} key={post.id}
+                                setCurrentPost={setCurrentPost} currentPost={currentPost}/>
+                                );
+                            })}
+                    </>
                 </div>
              } 
         </>
