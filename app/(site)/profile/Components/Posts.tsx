@@ -1,13 +1,15 @@
-
+'use client'
 import PostModal from '@/app/Components/PostModal/PostModal';
 import { BiImageAdd } from "react-icons/bi";
 import PostCard from './PostCard';
-import React from 'react';
+import React, { useState } from 'react';
 interface PostsProps{
     posts:any
     currentUser:any
+    currentPost:any
+    setCurrentPost:any
 }
-const Posts:React.FC<PostsProps> = ({posts,currentUser}) => {
+const Posts:React.FC<PostsProps> = ({posts,currentUser,currentPost,setCurrentPost}) => {
     
     return ( 
         <>        
@@ -20,15 +22,17 @@ const Posts:React.FC<PostsProps> = ({posts,currentUser}) => {
                 </div> 
                 :
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
-                 {/*@ts-ignore*/}
-                {posts.reverse().map(post => {
-                    return (
-                    <React.Fragment key={post.id}>
-                        <PostCard post={post}/>
-                        <PostModal currentUser={currentUser} postId={post.id}/> 
-                    </React.Fragment> 
-                    );
-                })} 
+                    <>
+                        
+                        {/*@ts-ignore*/}
+                            {posts.map(post => {
+                            return (
+                                <PostCard post={post} key={post.id}
+                                setCurrentPost={setCurrentPost} currentPost={currentPost}/>
+                                );
+                            })}
+                    </>
+                  
                 </div>
              } 
         </>

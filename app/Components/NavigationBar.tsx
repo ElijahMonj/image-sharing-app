@@ -9,9 +9,7 @@ interface NavigationBarProps{
 
 const NavigationBar:React.FC<NavigationBarProps> = ({data}) => {
   const router = useRouter()
-  useEffect(() => {
-    console.log(data)
-  });
+ 
   const [search,setSearch] = useState('');
   function handleSubmit(e: FormEvent){
     e.preventDefault()

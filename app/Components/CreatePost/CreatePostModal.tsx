@@ -10,7 +10,7 @@ interface CreatePostModalProps{
   image:string
 }
 const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
-    const [taggedUser, setTaggedUser] = useState<any>('')
+    const [taggedUser, setTaggedUser] = useState<any>("")
     const [postButtonDisabled,setPostButtonDisabled]=useState(false);
     const [caption,setCaption]=useState('')
     const [openTag,setOpenTag]=useState(false);
@@ -19,11 +19,10 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
       e.preventDefault();
       setPostButtonDisabled(true)
       const data = {
-        author: user.id,
+        author:user.id,
         caption:caption,
-        tagged:[taggedUser as string],
-        image:image,
-        
+        tagged:taggedUser,
+        image:image,  
       }
       axios.post('/api/post',data).then(()=>toast.success('Post created!'))
         .catch(()=>toast.error('Something went wrong!'))
@@ -49,7 +48,7 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
                       <label htmlFor="createPost" className="sr-only">Caption</label>
                       <textarea id="createPost" maxLength={80} onChange={(e)=>setCaption(e.target.value)} value={caption} rows={3} className="w-full px-0 text-sm bg-base-100" placeholder="Add a caption..."/>
                   </div>
-                  {taggedUser=='' ? 
+                  {taggedUser=="" ? 
                   <div className="flex items-center justify-between px-3 py-2 border-t">
                     <div className='text-xs'>
                       Tag someone...                           

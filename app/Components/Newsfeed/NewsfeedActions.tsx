@@ -1,24 +1,25 @@
 'use client'
 
 import {BsBookmark,BsHeart,BsFillHeartFill,BsFillBookmarkFill} from 'react-icons/bs'
-
-import OpenModal from "./OpenModal";
+import { BsChat } from "react-icons/bs";
+import {PiPaperPlaneTilt} from 'react-icons/pi'
 import { experimental_useOptimistic as useOptimistic } from 'react';
 import { like, save, unlike, unsave } from "@/app/actions/server/interactions";
 
 interface NewsfeedActionsProps{
-    postData:any
+    post:any
     currentUser:any
+    setCurrentPost:any
 }
 
-const NewsfeedActions:React.FC<NewsfeedActionsProps> = ({postData,currentUser}) => {
+const NewsfeedActions:React.FC<NewsfeedActionsProps> = ({post,currentUser,setCurrentPost}) => {
     
-    const dislikePost = unlike.bind(null,postData.id,currentUser.id)
-    const likePost = like.bind(null,postData.id,currentUser.id)
-    const savePost = save.bind(null,postData.id,currentUser.id)
-    const unsavePost = unsave.bind(null,postData.id,currentUser.id)
+    const dislikePost = unlike.bind(null,post.id,currentUser.id)
+    const likePost = like.bind(null,post.id,currentUser.id)
+    const savePost = save.bind(null,post.id,currentUser.id)
+    const unsavePost = unsave.bind(null,post.id,currentUser.id)
     
-    const [optimisticLikes,addOptimisticLikes]=useOptimistic(postData.likes,(state, isLiking)=>{
+    const [optimisticLikes,addOptimisticLikes]=useOptimistic(post.likes,(state, isLiking)=>{
         if(!isLiking){       
             const index = state.indexOf(currentUser.id);
             state.splice(index, 1);
@@ -31,13 +32,13 @@ const NewsfeedActions:React.FC<NewsfeedActionsProps> = ({postData,currentUser}) 
     })
     const [optimisticSave,addOptimisticSave]=useOptimistic(currentUser.saved,(state, isSaving)=>{
         if(!isSaving){       
-            const index = state.indexOf(postData.id);
+            const index = state.indexOf(post.id);
             state.splice(index, 1);
             console.log(state)
             return state
         }else{
-            console.log([...state, postData.id])
-            return [...state, postData.id]
+            console.log([...state, post.id])
+            return [...state, post.id]
         }
     })
 
@@ -68,15 +69,21 @@ const NewsfeedActions:React.FC<NewsfeedActionsProps> = ({postData,currentUser}) 
                             </label>
                         </form>
                         }
-                         
                         
-                        <OpenModal postId={postData.id} currentUser={currentUser}/>
-                         
+                        <BsChat className="h-6 w-6 hover:cursor-pointer hover:fill-secondary" 
+                            onClick={()=>{
+                            setCurrentPost(post)
+                                // @ts-ignore
+                            document?.getElementById(`postmodal`)?.showModal()
+                            }} />
+                        <PiPaperPlaneTilt className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"
+                        //@ts-ignore
+                        onClick={()=>document?.getElementById(`sharemodal`)?.showModal()}/>
                         
                     </div>
                     <div className="flex">
                         
-                    {optimisticSave.includes(postData.id) ? 
+                    {optimisticSave.includes(post.id) ? 
                         <form action={async () =>{
                             
                             addOptimisticSave(false)

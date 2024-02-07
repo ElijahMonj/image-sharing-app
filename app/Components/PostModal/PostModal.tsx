@@ -1,4 +1,4 @@
-
+'use client'
 import prisma from "@/app/libs/prismadb";
 import Image from 'next/image'
 import Comments from './Comments';
@@ -6,58 +6,30 @@ import defaultAvatar from '@/public/images/defaultAvatar.jpg'
 import ShareModal from "../Sharing/ShareModal";
 
 interface PostModalProps {
-    postId:string
+    currentPost:any
+    setCurrentPost:any
     currentUser:any
+    posts:any
 }
 
-const PostModal:React.FC<PostModalProps> = async ({currentUser,postId}) => {
+const PostModal:React.FC<PostModalProps> = ({currentUser,currentPost,setCurrentPost,posts}) => {
 
-    const user = await prisma.user.findUnique({
-        where:{
-            id:currentUser.id
-        }
-    })
-    const post = await prisma.post.findUnique({
-        where:{
-            id:postId
-        },
-        include:{
-            author:true,
-            comments:true
-        }
-    })
-    const postComments = await prisma.comment.findMany({
-        where:{
-            postId:post?.id
-        }, 
-        include:{
-            author:true,
-        }
-    })
-    let taggedUser;
-    if((post?.tagged.length==0) || (post?.tagged[0]=="")){
-        taggedUser=false
-    }else{
-        taggedUser = await prisma.user.findUnique({
-            where:{
-                id:post?.tagged[0]
-            }
-        })
-    }
-     
     return ( 
-        <dialog id={`post_modal_${postId}`} className="modal">
+        <dialog id={`postmodal`} className="modal">
                 
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
                 </form>
+                
                 <div className="modal-box w-11/12 lg:w-max max-w-7xl h-auto p-0">
-                    
+                    {currentPost==0 ?
+                    <div>FUCK</div>
+                    :
                     <div className="flex flex-col lg:flex-row place-items-center items-stretch">
                         <div className='grid lg:w-max w-full bg-slate-950'>
                             
                             <Image 
-                            src={post?.image ? post?.image : defaultAvatar}
+                            src={currentPost?.image ? currentPost?.image : defaultAvatar}
                             style={{objectFit:"contain",maxHeight:"50rem"}}
                             alt="post"
                             width={999}
@@ -69,14 +41,14 @@ const PostModal:React.FC<PostModalProps> = async ({currentUser,postId}) => {
                        
                         <div className="grid lg:max-w-96 card bg-base-300 rounded-box">
                         
-                            <Comments postData={post} postComments={postComments} currentUser={user} isTagged={taggedUser}/>
+                            <Comments currentPost={currentPost} currentUser={currentUser} setCurrentPost={setCurrentPost} posts={posts}/>
                         
                         </div>
                     </div>
-                    
+                    }     
                    
                 </div>
-                <ShareModal currentUser={currentUser} postId={postId}/> 
+                 
             </dialog>
      );
 }

@@ -1,43 +1,35 @@
-
+'use client'
 import Image from 'next/image'
 import PostModal from "../../Components/PostModal/PostModal";
-import React from 'react';
+import React, { useState } from 'react';
 import PostCard from '../profile/Components/PostCard';
 import prisma from "@/app/libs/prismadb";
 import Empty from './Empty';
 interface GridProps{
     currentUser:any
+    posts:any
 }
 
-const Grid:React.FC<GridProps> = async ({currentUser}) => {
-    const posts = await prisma.post.findMany({
-        where: {
-            NOT:{
-                authorId:currentUser.id
-            }
-          },
-          include:{
-            author:true,
-            comments:true
-        }
-    })
-    
+const Grid:React.FC<GridProps> = ({currentUser,posts}) => {
+    const [currentPost,setCurrentPost]=useState(0);
     return ( 
         <>
             {posts.length==0 ?
                 <Empty/>
                 :
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
-                    {/*@ts-ignore*/}
-                    {posts.reverse().map(post => {
-                        return (
-                        <React.Fragment key={post.id}>
-                            <PostCard post={post}/>
-                            <PostModal currentUser={currentUser} postId={post.id}/> 
-                        </React.Fragment> 
-                        );
-                        
-                    })} 
+                    <>   
+                    <PostModal currentPost={currentPost} 
+                        setCurrentPost={setCurrentPost} 
+                        currentUser={currentUser} posts={posts}/>
+                        {/*@ts-ignore*/}
+                            {posts.map(post => {
+                            return (
+                                <PostCard post={post} key={post.id}
+                                setCurrentPost={setCurrentPost} currentPost={currentPost}/>
+                                );
+                            })}
+                    </>
                 </div>
             }
         </>
