@@ -6,10 +6,10 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 interface ShareButtonProps{
     user:any
-    postId:string
+    post:any
     currentUser:any
 }
-const ShareButton:React.FC<ShareButtonProps> = ({user,postId,currentUser}) => {
+const ShareButton:React.FC<ShareButtonProps> = ({user,post,currentUser}) => {
 
     const [isShared, setIsShared] = useState(false);
 
@@ -38,7 +38,7 @@ const ShareButton:React.FC<ShareButtonProps> = ({user,postId,currentUser}) => {
                         ownerId:user.id,
                         userName:currentUser.name,
                         userImage:currentUser.image,
-                        link:"/post/"+postId,
+                        link:"/post/"+post.id,
                     }
                     axios.post('/api/share',data)
                         .catch(()=>{

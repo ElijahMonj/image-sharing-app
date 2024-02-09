@@ -17,12 +17,13 @@ const NotificationModal = async () => {
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" id="notificationClose">✕</button>
                 </form>
                 <h3 className="font-bold text-lg">Notifications</h3>
-                
-                {notifications.reverse().map((n) =>
-                    <div className="w-full rounded-lg hover:bg-base-200" key={n.id} >
-                        <Notification data={n}/>
-                    </div>
-                )}
+                {notifications.length==0 ? <div className='h-24 flex justify-center flex-col text-center text-sm font-thin'>No notifications yet.</div> :<>
+                    {notifications.reverse().map((n) =>
+                        <div className="w-full rounded-lg hover:bg-base-200" key={n.id} >
+                            <Notification data={n}/>
+                        </div>
+                    )}
+                </>}  
 
             </div>
         </dialog>

@@ -77,8 +77,13 @@ const NewsfeedActions:React.FC<NewsfeedActionsProps> = ({post,currentUser,setCur
                             document?.getElementById(`postmodal`)?.showModal()
                             }} />
                         <PiPaperPlaneTilt className="h-6 w-6 hover:cursor-pointer hover:fill-secondary"
-                        //@ts-ignore
-                        onClick={()=>document?.getElementById(`sharemodal`)?.showModal()}/>
+                        
+                        onClick={()=>{
+                            setCurrentPost(post)
+                            //@ts-ignore
+                            document?.getElementById(`sharemodal`)?.showModal()}
+                            }
+                        />
                         
                     </div>
                     <div className="flex">

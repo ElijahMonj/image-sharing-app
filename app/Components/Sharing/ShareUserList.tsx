@@ -7,11 +7,11 @@ import toast from 'react-hot-toast';
 
 interface ShareUserList{
     currentUser:any
-    postId:string
+    post:any
     users:any[]
 }
 
-const ShareUserList:React.FC<ShareUserList> = ({currentUser,postId,users}) => {
+const ShareUserList:React.FC<ShareUserList> = ({currentUser,post,users}) => {
     const [searchInput,setSearchInput]=useState('')
 
     return ( 
@@ -37,7 +37,7 @@ const ShareUserList:React.FC<ShareUserList> = ({currentUser,postId,users}) => {
                             uList.name?.toLowerCase().includes(searchInput)
                         )
                         ?.map((u) => 
-                            <ShareButton key={u.id} user={u} postId={postId} currentUser={currentUser}/>              
+                            <ShareButton key={u.id} user={u} post={post} currentUser={currentUser}/>              
                         )
                     }                                 
                     </ul>
@@ -48,7 +48,7 @@ const ShareUserList:React.FC<ShareUserList> = ({currentUser,postId,users}) => {
       
             <div className='w-full flex justify-between'>
                 <button className='btn btn-sm mt-1' onClick={()=>{
-                    navigator.clipboard.writeText(window.location.origin+`/post/${postId}`);
+                    navigator.clipboard.writeText(window.location.origin+`/post/${post.id}`);
                     toast.success('Link copied!')
                 }}><FaLink />Share as link</button>
                 
