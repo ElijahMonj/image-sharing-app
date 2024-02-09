@@ -8,8 +8,9 @@ import ShareModal from "../Sharing/ShareModal";
 interface NewsfeedProps{
     currentUser:any
     posts:any
+    users:any
 }
-const Newsfeed:React.FC<NewsfeedProps> = ({currentUser,posts}) => {
+const Newsfeed:React.FC<NewsfeedProps> = ({currentUser,posts,users}) => {
     
     const [currentPost,setCurrentPost]=useState(0);
     
@@ -34,7 +35,7 @@ const Newsfeed:React.FC<NewsfeedProps> = ({currentUser,posts}) => {
                     post={post}
                     />
                 ))} 
-                {/*<ShareModal currentUser={currentUser} currentPost={currentPost}/> */}
+                <ShareModal currentUser={currentUser} post={currentPost} users={users}/>
             </>
             }           
         </div>

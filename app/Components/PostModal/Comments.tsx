@@ -9,18 +9,21 @@ import { newComment } from '@/app/actions/server/newComment';
 import { useEffect, experimental_useOptimistic as useOptimistic, useRef, useState } from 'react';
 import convertDate from '@/app/actions/convertDate';
 import Link from 'next/link';
-
+import { Theme } from 'emoji-picker-react';
 import EmojiPicker from 'emoji-picker-react';
-
+import { EmojiStyle } from 'emoji-picker-react';
 interface CommentsProps{
     currentPost:any
     setCurrentPost:any
     currentUser:any
     posts:any
+    showPicker:boolean
+    setShowPicker:any
 }
-const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPost,posts}) => {
-    const [showPicker, setShowPicker] = useState(false);   
-    const [inputStr, setInputStr] = useState("");
+
+const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPost,posts,showPicker,setShowPicker}) => {
+    
+    
     
     const dislikePost = unlike.bind(null,currentPost.id,currentUser.id)
     const likePost = like.bind(null,currentPost.id,currentUser.id)
@@ -55,16 +58,26 @@ const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPos
         }
     })
     const onEmojiClick = (event: { emoji: string; }) => {
-        setInputStr((prevInput) => prevInput + event.emoji);
-        setShowPicker(false);
+        let input = document.getElementById(`commentInput_${currentPost.id}`) as HTMLInputElement
+        input.value = input.value + event.emoji
       };
       useEffect(() => {
-        console.log("CHANGED!!!!!")
         setCurrentPost(posts.find((post:any)=>post.id==currentPost.id))
       },[currentPost.id, posts, setCurrentPost]);
-    console.log(currentPost.tagged)
+    function getTheme(){
+        const element = document.querySelector("html") 
+        const currentTheme = element?.getAttribute("data-theme"); 
+        if(currentTheme=='corporate'){
+            return Theme.LIGHT
+        }else if(currentTheme=='business'){
+            return Theme.DARK
+        }else{
+            return Theme.AUTO
+        }
+    }
     return ( 
         <div className='h-full flex flex-col justify-between bg-base-100'>
+            
             <div className="flex justify-between grow-0 p-4">
                 <div className='flex'>
                     <div className='w-8 me-2'>
@@ -139,7 +152,7 @@ const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPos
                         onClick={()=>document?.getElementById(`commentInput_${currentPost.id}`)?.focus()}/>
                         <PiPaperPlaneTilt className="h-6 w-6 hover:cursor-pointer hover:fill-secondary" 
                         //@ts-ignore
-                        onClick={()=>document?.getElementById(`share_${postData.id}`)?.showModal()}/>
+                        onClick={()=>document?.getElementById(`sharemodal`)?.showModal()}/>
                     </div>
                     <div className="flex">
                     {optimisticSave.includes(currentPost.id) ? 
@@ -171,8 +184,23 @@ const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPos
                    {optimisticLikes.length} Likes
                 </div>
              </div>
+                    <EmojiPicker
+                        open={showPicker}
+                        searchDisabled={true}
+                        width={280}
+                        emojiStyle={EmojiStyle.FACEBOOK}
+                        height={360}
+                        theme={getTheme()}
+                        className='absolute z-50'
+                        onEmojiClick={onEmojiClick}
+                        style={{position:"absolute", bottom:'60px'}}
+                        lazyLoadEmojis={true}
+                        skinTonesDisabled={true}
+                    />
              <form ref={ref} className='flex w-full grow-0 p-4 join gap-1' action={async (formData) =>{
+                
                 ref.current?.reset()
+                
                 addOptimisticComments({
                     id: Math.random(),
                     commentText: formData.get(`comment_${currentPost.id}`) as string,
@@ -182,25 +210,18 @@ const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPos
                         name:currentUser.name
                     }
                 })
+               
                 await addComment(formData)
                 
-                }}>
-                    {/** 
-                     
-                     <EmojiPicker
-                    open={!showPicker}
-                    width={350}
-                    height={450}
-                    className='absolute z-50'
-                    onEmojiClick={onEmojiClick}/>
-
-                     **/}
+                }}> 
                     
-                    <div className='btn btn-ghost btn-sm p-1' onClick={() => setShowPicker((val) => !val)}>
+
+                    <div className='btn btn-ghost btn-sm p-1' onClick={() => setShowPicker((val: any) => !val)}>
+                        
                         <BiHappy className='h-5 w-5 '/>
                     </div>
 
-                    <input type="text" name={`comment_${currentPost.id}`} value={inputStr} onChange={(e) => setInputStr(e.target.value)}
+                    <input type="text" name={`comment_${currentPost.id}`}
                     placeholder="Add a comment..." id={`commentInput_${currentPost.id}`} className="input input-ghost input-sm w-full" required />
                     <button className='btn btn-ghost btn-sm'
                     type='submit'

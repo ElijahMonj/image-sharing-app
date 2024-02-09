@@ -40,18 +40,22 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = ({ post,currentUser,setCurrentP
                     </div>
                 </div>
                 <Image
-                className='rounded-sm lg:w-128 md:w-118 sm:w-96 w-full '
+                className='rounded-sm lg:w-128 md:w-118 sm:w-96 w-full cursor-pointer'
                 src={post?.image as string}
                 width={999}
                 height={999}
                 style={{objectFit: "cover",maxHeight:"45rem"}}
                 alt="post"
-                priority={true}           
+                priority={true}  
+                onClick={()=>{
+                    setCurrentPost(post)
+                        // @ts-ignore
+                    document?.getElementById(`postmodal`)?.showModal()
+                    }}         
                 />
 
                 <NewsfeedActions post={post} currentUser={currentUser} setCurrentPost={setCurrentPost}/>
-                
-                
+                         
                 <div className="text-sm mt-2 mx-1">
                     <span className='font-semibold me-1'>{post?.author.email}</span>
                     {post?.caption}

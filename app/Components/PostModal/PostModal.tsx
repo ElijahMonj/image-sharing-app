@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Comments from './Comments';
 import defaultAvatar from '@/public/images/defaultAvatar.jpg'
 import ShareModal from "../Sharing/ShareModal";
-
+import { useEffect, useState } from "react";
 interface PostModalProps {
     currentPost:any
     setCurrentPost:any
@@ -13,9 +13,12 @@ interface PostModalProps {
 }
 
 const PostModal:React.FC<PostModalProps> = ({currentUser,currentPost,setCurrentPost,posts}) => {
-
+    const [showPicker, setShowPicker] = useState(false);   
     return ( 
-        <dialog id={`postmodal`} className="modal">
+        <dialog id={`postmodal`} className="modal" onClose={()=>{
+            setCurrentPost(0);
+            setShowPicker(false);
+            }}>
                 
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
@@ -41,7 +44,7 @@ const PostModal:React.FC<PostModalProps> = ({currentUser,currentPost,setCurrentP
                        
                         <div className="grid lg:max-w-96 card bg-base-300 rounded-box">
                         
-                            <Comments currentPost={currentPost} currentUser={currentUser} setCurrentPost={setCurrentPost} posts={posts}/>
+                            <Comments currentPost={currentPost} currentUser={currentUser} setCurrentPost={setCurrentPost} posts={posts} showPicker={showPicker} setShowPicker={setShowPicker}/>
                         
                         </div>
                     </div>

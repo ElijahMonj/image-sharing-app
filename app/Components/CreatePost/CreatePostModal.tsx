@@ -28,6 +28,7 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
         .catch(()=>toast.error('Something went wrong!'))
         .finally(()=> {
             setPostButtonDisabled(false);
+            setCaption('')
             document.getElementById('closePostModalBtn')?.click()
         })
     }

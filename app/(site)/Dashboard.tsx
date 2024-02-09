@@ -25,10 +25,15 @@ const Dashboard = async () => {
             tagged:true
         }
     })
+    const users = await prisma.user.findMany({
+        where:{
+            id: { in: userData?.following },
+        }
+    })
     return ( 
         <>    
             <div className="left-0 right-0 items-center m-auto w-full lg:w-3/6">
-                    <Newsfeed currentUser={userData} posts={posts.reverse()}/>
+                    <Newsfeed currentUser={userData} posts={posts.reverse()} users={users}/>
                 </div>
                
                  <div className="w-1/6 hidden lg:block">
