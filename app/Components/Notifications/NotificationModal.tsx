@@ -1,16 +1,15 @@
-
-import prisma from "@/app/libs/prismadb";
-import getCurrentUser from "../../actions/getCurrentUser";
+'use client'
 import Notification from "./Notification";
-const NotificationModal = async () => {
-    const currentUser = await getCurrentUser();
-    const notifications= await prisma.notification.findMany({
-        where: {
-          ownerId:currentUser?.id
-        }
-      })
+import { Key } from "react";
+
+interface NotificationProps{
+    notifications:any
+    setNewNotifications:any
+}
+const NotificationModal:React.FC<NotificationProps> = ({notifications,setNewNotifications}) => {
+    
     return ( 
-        <dialog id="notification_modal" className="modal modal-bottom sm:modal-middle">
+        <dialog id="notification_modal" className="modal modal-bottom sm:modal-middle" >
             <div className="modal-box">
                 <form method="dialog">
                 {/* if there is a button in form, it will close the modal */}
@@ -18,9 +17,9 @@ const NotificationModal = async () => {
                 </form>
                 <h3 className="font-bold text-lg">Notifications</h3>
                 {notifications.length==0 ? <div className='h-24 flex justify-center flex-col text-center text-sm font-thin'>No notifications yet.</div> :<>
-                    {notifications.reverse().map((n) =>
+                    {notifications.map((n: { id: Key | null | undefined; }) =>
                         <div className="w-full rounded-lg hover:bg-base-200" key={n.id} >
-                            <Notification data={n}/>
+                            <Notification data={n} setNewNotifications={setNewNotifications}/>
                         </div>
                     )}
                 </>}  

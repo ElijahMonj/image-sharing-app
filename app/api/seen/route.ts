@@ -1,6 +1,6 @@
 import prisma from "@/app/libs/prismadb"
 import { NextResponse } from "next/server"
-import { revalidatePath } from 'next/cache'
+
 export async function POST(request:Request){
     try {
         const body=await request.json();
@@ -13,7 +13,6 @@ export async function POST(request:Request){
               seen:true
             },
           })
-        revalidatePath('/', 'layout')
         return NextResponse.json(seen);
         
     } catch (error) {

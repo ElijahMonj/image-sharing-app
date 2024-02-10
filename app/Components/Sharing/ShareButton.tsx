@@ -17,16 +17,14 @@ const ShareButton:React.FC<ShareButtonProps> = ({user,post,currentUser}) => {
 
         <div key={user.id} className='flex flex-row justify-between py-1'>
             <div className='flex'>
-                <div className='w-8'>
-                    <Link href={`/profile/${user?.id}`} >
+                    <Link href={`/profile/${user?.id}`} className='avatar w-8'>
                     <Avatar 
                     width={256}
-                    height={32}
+                    height={256}
                     src={user?.image as string}
                     />
                     </Link>
-                </div>
-            <div className='font-semibold my-auto ms-3'>
+            <div className='font-semibold my-auto ms-2'>
                 {user.name}
             </div>
             

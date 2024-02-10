@@ -9,13 +9,13 @@ const SideNav = async () => {
            id:currentUser?.id
         }
     })
-    const notifications = await prisma.notification.findMany({
-        where:{
-            ownerId:user?.id
+    const notifications= await prisma.notification.findMany({
+        where: {
+          ownerId:currentUser?.id
         }
-    })
+      })
     return ( 
-        <UtilityBar data={user} notifications={notifications}/> 
+        <UtilityBar data={user} notifications={notifications.reverse()}/> 
      );
 }
  

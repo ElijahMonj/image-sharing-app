@@ -29,7 +29,7 @@ const ProfileHeader:React.FC<ProfileHeaderProps> = async ({data,isCurrentUser,cu
             <div className="grid lg:w-1/3 md:w-1/4 sm:w-1/4 w-1/4 place-items-center">
                 <div className="avatar">
                     <div className="rounded-full lg:w-36 md:w-32 sm:w-32 w-20">
-                        <Image className="rounded-full" quality={100} width={256} height={32} src={avatarSource as string} alt="user avatar"/>
+                        <Image className="rounded-full" quality={100} width={256} height={256} src={avatarSource as string} alt="user avatar"/>
                     </div>
                 </div>
             </div>

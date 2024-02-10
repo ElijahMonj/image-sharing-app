@@ -1,4 +1,5 @@
 
+import Avatar from "@/app/Components/Avatar";
 import Image from "next/image"
 import Link from "next/link";
 
@@ -23,8 +24,8 @@ const ModalFollowers:React.FC<ModalFollowersProps> = ({data,currentUser}) => {
                     {followers.map((f) =>
                         <li key={f.id}>
                         <Link className="flex items-center space-x-4" href={'/profile/'+f.id}>
-                            <div className="flex-shrink-0">
-                                <Image className="w-8 h-8 rounded-full" width={32} height={32} src={f?.image as string} alt="Neil image"/>
+                            <div className="flex-shrink-0 avatar w-10">
+                                <Avatar width={256} height={256} src={f?.image as string}/>
                             </div>
                             <div className="flex-1 min-w-0">
                                 <p className="text-sm font-medium truncate">

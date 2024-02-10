@@ -21,7 +21,7 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
       const data = {
         author:user.id,
         caption:caption,
-        tagged:taggedUser,
+        tagged:taggedUser.id,
         image:image,  
       }
       axios.post('/api/post',data).then(()=>toast.success('Post created!'))
@@ -34,7 +34,9 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
     }
     
     return ( 
-    <dialog id="create_post_modal" className="modal">
+    <dialog id="create_post_modal" className="modal" onClose={()=>{
+      setTaggedUser("")
+    }}>
       <div className="modal-box">
         <h4 className="font-bold text-lg">Create a new post</h4>
         {openTag &&(
@@ -62,7 +64,10 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
                   : 
                   <div className="flex items-center justify-between px-3 py-2 border-t">
                     <div className='flex gap-1 text-sm'>
-                      Posting with <strong>{taggedUser?.name}</strong> <Avatar width={20} height={20} src={taggedUser?.image}/>                                        
+                        Posting with <strong>{taggedUser?.name}</strong> 
+                      <div className='avatar w-6'>
+                      <Avatar width={256} height={256} src={taggedUser?.image}/> 
+                      </div>                                            
                     </div>
                       <button type="button" onClick={()=>setTaggedUser("")} className="btn btn-sm btn-ghost inline-flex justify-center items-center p-2 rounded cursor-pointer">
                             <FaUserSlash className="h-4 w-4" />

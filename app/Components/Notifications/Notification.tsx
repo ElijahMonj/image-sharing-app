@@ -11,9 +11,10 @@ import { useState } from "react";
 
 interface NotificationProps{
     data:any
+    setNewNotifications:any
 }
 
-const Notification:React.FC<NotificationProps> = ({data}) => {
+const Notification:React.FC<NotificationProps> = ({data,setNewNotifications}) => {
     function notificationIcon(type:string) {
         if (type=="comment"){
             return (
@@ -107,11 +108,13 @@ const Notification:React.FC<NotificationProps> = ({data}) => {
                     id:data.id
                 }
                 axios.post('/api/seen',dt)
+                setNewNotifications((value: number)=>value-1)
             }    
             document?.getElementById('notificationClose')?.click()
-            }}>
-            <div className="relative inline-block shrink-0">
-                <Avatar width={45} height={45} src={data.userImage}/>
+            }}
+             >
+            <div className="relative inline-block shrink-0 avatar w-12">
+                <Avatar width={256} height={256} src={data.userImage}/>
                 {notificationIcon(data.type)}
             </div>
             <div className="ms-3 text-sm font-normal">

@@ -1,4 +1,5 @@
 'use client'
+import Avatar from "@/app/Components/Avatar";
 import axios from "axios";
 import { CldUploadButton } from "next-cloudinary";
 import Image from "next/image";
@@ -99,16 +100,16 @@ const General:React.FC<GeneralProps> = ({currentUser}) => {
             </div>
             <div className="font-semibold">Change Avatar</div>
             <div className="flex justify-between bg-base-200 rounded-lg mb-5">
-                {/* <Avatar size={} width={} src={}/>*/}
-                <div className="avatar w-16 m-5">
-                    <Image className="rounded-full" quality={100} width={256} height={16} src={avatarSource as string} alt="user avatar"/>
+                
+                <div className="avatar w-16 m-5">       
+                    <Avatar width={256} height={256} src={avatarSource as string}/>
                 </div>
                 <CldUploadButton             
-                          options={{maxFiles:1}}
-                          onUpload={handleUpload}
-                          uploadPreset='rfrpttac'
-                          className="m-5 btn btn-sm btn-neutral my-auto"
-                          >Upload Avatar
+                    options={{maxFiles:1}}
+                    onUpload={handleUpload}
+                    uploadPreset='rfrpttac'
+                    className="m-5 btn btn-sm btn-neutral my-auto"
+                    >Upload Avatar
                 </CldUploadButton>
             </div>
             <div className="font-semibold">Change Bio</div>
@@ -154,7 +155,7 @@ const General:React.FC<GeneralProps> = ({currentUser}) => {
                         <button className="btn btn-sm btn-neutral"
                             disabled={isLoading}
                             type="submit"
-                            >Save</button>
+                            >Confirm</button>
                     </div> 
                     </form>   
                 </div>   

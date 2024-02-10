@@ -23,7 +23,8 @@ export default function RootLayout({
     <html lang="en" data-theme="corporate">
       
       <body className={inter.className}>
-        <HeaderNav/><Notifications/> 
+        <HeaderNav/>
+        
         <div className="flex justify-between w-full">  
             <SideNav/> 
             <Suspense fallback={<LoadingSkeleton/>}>
