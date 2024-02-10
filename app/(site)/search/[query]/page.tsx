@@ -3,6 +3,7 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 import React from "react";
 import prisma from "@/app/libs/prismadb";
 import Results from "./Results";
+import { Toaster } from "react-hot-toast";
 interface IParams {
     query: string;
 };
@@ -48,6 +49,7 @@ const Search = async ({params}:{params:IParams}) => {
                     users={users}
                 />        
             </div>
+            <Toaster />
         </>
      );
 }

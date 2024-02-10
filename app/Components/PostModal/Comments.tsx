@@ -1,4 +1,4 @@
-
+'use client'
 import {SlOptions} from 'react-icons/sl'
 import Avatar from '../Avatar';
 import {BsChat,BsBookmark,BsHeart, BsFillHeartFill, BsFillBookmarkFill} from 'react-icons/bs'
@@ -7,7 +7,7 @@ import {BiHappy} from 'react-icons/bi'
 import { like, unlike, save,unsave } from '@/app/actions/server/interactions';
 import { newComment } from '@/app/actions/server/newComment';
 import { useEffect, experimental_useOptimistic as useOptimistic, useRef, useState } from 'react';
-import convertDate from '@/app/actions/convertDate';
+import convertDate, { timeAgo } from '@/app/actions/convertDate';
 import Link from 'next/link';
 import { Theme } from 'emoji-picker-react';
 import EmojiPicker from 'emoji-picker-react';
@@ -22,9 +22,6 @@ interface CommentsProps{
 }
 
 const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPost,posts,showPicker,setShowPicker}) => {
-    
-    
-    
     const dislikePost = unlike.bind(null,currentPost.id,currentUser.id)
     const likePost = like.bind(null,currentPost.id,currentUser.id)
     const savePost = save.bind(null,currentPost.id,currentUser.id)
@@ -62,16 +59,21 @@ const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPos
         input.value = input.value + event.emoji
       };
       useEffect(() => {
-        setCurrentPost(posts.find((post:any)=>post.id==currentPost.id))
+        if(Array.isArray(posts)){
+            setCurrentPost(posts.find((post:any)=>post.id==currentPost.id))
+        }
       },[currentPost.id, posts, setCurrentPost]);
     function getTheme(){
-        const element = document.querySelector("html") 
-        const currentTheme = element?.getAttribute("data-theme"); 
-        if(currentTheme=='corporate'){
-            return Theme.LIGHT
-        }else if(currentTheme=='business'){
-            return Theme.DARK
-        }else{
+        if (typeof window !== "undefined") {
+            const element = document.querySelector("html") 
+            const currentTheme = element?.getAttribute("data-theme"); 
+            if(currentTheme=='corporate'){
+                return Theme.LIGHT
+            }else if(currentTheme=='business'){
+                return Theme.DARK
+            }
+        }
+        else{
             return Theme.AUTO
         }
     }
@@ -79,17 +81,24 @@ const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPos
         <div className='h-full flex flex-col justify-between bg-base-100'>
             
             <div className="flex justify-between grow-0 p-4">
-                <div className='flex'>
-                    <div className='w-8 me-2'>
-                        <Link href={`/profile/${currentPost?.author.id}`}>
-                            <Avatar width={256} height={32} src={currentPost?.author?.image}/>
-                        </Link>
-                    </div>
-                    <Link href={`/profile/${currentPost?.author.id}`} className="font-bold m-auto me-1">{currentPost?.author.name}</Link>
-                    {currentPost.tagged == null ?
-                    <></>
-                    : <div className="m-auto me-5">is with {<Link href={`/profile/${currentPost.tagged.id}`} className="font-bold">{currentPost.tagged.name}</Link>}</div>}
-                    
+                <div className='w-full flex gap-2 me-2'>
+                    <div className='my-auto'>
+                    <Link href={`/profile/${currentPost?.author.id}`} className='avatar w-12 my-auto'>
+                        <Avatar width={256} height={256} src={currentPost?.author?.image}/>
+                    </Link>
+                    </div>         
+                   
+                   {currentPost.tagged == null ?
+                        <p className='my-auto'>
+                            <Link href={`/profile/${currentPost?.author.id}`} className="font-bold m-auto">{currentPost?.author.name}</Link>
+                        </p>:
+                        <p className='my-auto pb-2'>
+                            <Link href={`/profile/${currentPost?.author.id}`} className="font-bold m-auto me-1">{currentPost?.author.name}</Link> 
+                            is with {<Link href={`/profile/${currentPost.tagged.id}`} className="font-bold">{currentPost.tagged.name}</Link>}     
+                        </p>
+                   }
+                          
+                        
                 </div>    
                 <div className='grid place-content-center'>
                     <SlOptions className="h-4 w-4 hover:cursor-pointer hover:fill-secondary"/>
@@ -105,14 +114,15 @@ const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPos
                     <div className='mb-2' key={comment.id}>
                     <div className="flex items-center">
                         <span className="inline-flex items-center mr-3 text-sm font-semibold gap-2">
-                            <Link href={`/profile/${comment?.author.id}`}>
-                                <Avatar width={24} height={24} src={comment?.author?.image}/>
+                            <Link href={`/profile/${comment?.author.id}`} className='avatar w-6'>
+                                <Avatar width={256} height={256} src={comment?.author?.image}/>
                             </Link>
                             <Link href={`/profile/${comment?.author.id}`}>
                                 {comment?.author?.name}
                             </Link>
                         </span>
-                        <span className="text-xs"><div>{convertDate(comment.createdAt)}</div></span>
+                        
+                        <span className="text-xs font-medium text-secondary block" suppressHydrationWarning >{timeAgo(comment.createdAt)}</span>
                     </div>
                     <span className='text-sm'>{comment.commentText}</span>
                     </div>

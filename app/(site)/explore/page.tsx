@@ -1,4 +1,5 @@
 
+import { Toaster } from "react-hot-toast";
 import getCurrentUser from "../../actions/getCurrentUser";
 
 import Grid from "./grid";
@@ -28,7 +29,7 @@ const Explore = async () => {
                     <Grid currentUser={currentUser} posts={posts.reverse()}/>
                 </div>            
             </div>
-        
+            <Toaster />
         </>
      );
 }

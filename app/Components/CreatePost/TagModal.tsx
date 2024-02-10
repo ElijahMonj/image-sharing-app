@@ -53,13 +53,19 @@ const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser}
                             )
                             ?.map((u:any) => 
                             <li key={u.id} onClick={()=>{
-                                setTaggedUser(u.id)
+                                setTaggedUser(u)
                                 setOpenTag(false)
                             }}>
-                                <a>
-                                <Avatar width={24} height={24} src={u?.image}/>
-                                {u.name}
-                                </a>
+                                <div className='w-full p-0 h-8'>
+                                    <div className='h-full flex gap-2 items-center'>
+                                        <div className='avatar w-8 '>
+                                            <Avatar width={256} height={256} src={u?.image}/>
+                                        </div> 
+                                        
+                                        {u.name}                             
+                                       
+                                    </div>
+                                </div>
                             </li>
                             )
                         }                                 

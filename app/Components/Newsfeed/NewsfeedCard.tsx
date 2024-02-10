@@ -1,6 +1,6 @@
 
 import Image from 'next/image'
-import convertDate from '@/app/actions/convertDate'
+import convertDate, { timeAgo } from '@/app/actions/convertDate'
 import Avatar from '../Avatar'
 import Link from "next/link"
 import NewsfeedActions from './NewsfeedActions'
@@ -20,15 +20,14 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = ({ post,currentUser,setCurrentP
         <div className="grid lg:w-128 md:w-118 sm:w-96 w-full px-2 md:px-0 lg:px-0">
                  
                 <div className="flex items-center py-3 w-full">
-                    <div className='w-8'>
-                    <Link href={`/profile/${post?.author.id}`} >
+                    
+                    <Link href={`/profile/${post?.author.id}`} className='avatar w-10'>
                     <Avatar 
                     width={256}
                     height={32}
                     src={post?.author.image as string}
                     />
                     </Link>
-                    </div>
                    
                     <div className="ml-3">
                         <div className='flex'>
@@ -36,7 +35,7 @@ const NewsfeedCard:React.FC<NewsfeedCardProps> = ({ post,currentUser,setCurrentP
                         {post.tagged == null ? <></>          
                         : <div className="text-sm antialiased block leading-tight"> is with {<Link href={`/profile/${post.tagged.id}`} className="font-semibold">{post.tagged?.name}</Link>}</div> }
                         </div>
-                        <span className="text-xs block">{convertDate(post?.createdAt as Date)}</span>
+                        <span className="text-xs font-medium text-secondary block" suppressHydrationWarning >{timeAgo(post?.createdAt)}</span>
                     </div>
                 </div>
                 <Image

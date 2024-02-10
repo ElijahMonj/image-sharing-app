@@ -37,7 +37,7 @@ const user = async ({params}:{params:IParams}) => {
         })
     const savedPosts = await prisma.post.findMany({
         where: {
-            id: { in: userData?.saved },
+            id: { in: userData?.saved }
         },
         include:{
             author:true,
@@ -51,7 +51,7 @@ const user = async ({params}:{params:IParams}) => {
     })
     const taggedPosts = await prisma.post.findMany({
         where: {
-            taggedId: currentUser?.id ,
+            taggedId: params.profileId
         },
         include:{
             author:true,
@@ -63,13 +63,14 @@ const user = async ({params}:{params:IParams}) => {
             tagged:true
         }
     })
+    const allPosts = userPosts.concat(savedPosts, taggedPosts);
     return ( 
          <>
             <div className="w-full">
                 <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto mt-16">
                     <ProfileHeader data={userData} isCurrentUser={params.profileId==currentUser?.id} currentUser={currentUser} />
                     <div className="divider mb-0 "></div>
-                        <ProfileContent posts={userPosts.reverse()} currentUser={currentUser} savedPosts={savedPosts.reverse()} taggedPosts={taggedPosts.reverse()}/>
+                        <ProfileContent allPosts={allPosts} userPosts={userPosts.reverse()} currentUser={currentUser} savedPosts={savedPosts.reverse()} taggedPosts={taggedPosts.reverse()}/>
                 </div>            
             </div>
             <Toaster />

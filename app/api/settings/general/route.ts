@@ -16,8 +16,8 @@ export async function POST(request:Request){
               bio
             },
           })
-        revalidatePath('/settings')
-        return NextResponse.json(updatedProfile);
+        revalidatePath('/')
+        return new NextResponse('Success', {status:200});
         
     } catch (error) {
         console.log(error,'POST_ERROR')
