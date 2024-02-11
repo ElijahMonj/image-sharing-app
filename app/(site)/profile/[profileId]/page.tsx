@@ -63,6 +63,11 @@ const user = async ({params}:{params:IParams}) => {
             tagged:true
         }
     })
+    const users = await prisma.user.findMany({
+        where:{
+            id: { in: userData?.following },
+        }
+    })
     const allPosts = userPosts.concat(savedPosts, taggedPosts);
     return ( 
          <>
@@ -70,7 +75,7 @@ const user = async ({params}:{params:IParams}) => {
                 <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto mt-16">
                     <ProfileHeader data={userData} isCurrentUser={params.profileId==currentUser?.id} currentUser={currentUser} />
                     <div className="divider mb-0 "></div>
-                        <ProfileContent allPosts={allPosts} userPosts={userPosts.reverse()} currentUser={currentUser} savedPosts={savedPosts.reverse()} taggedPosts={taggedPosts.reverse()}/>
+                        <ProfileContent users={users} allPosts={allPosts} userPosts={userPosts.reverse()} currentUser={currentUser} savedPosts={savedPosts.reverse()} taggedPosts={taggedPosts.reverse()}/>
                 </div>            
             </div>
             <Toaster />

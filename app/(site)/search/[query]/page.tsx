@@ -11,13 +11,14 @@ interface IParams {
 
 const Search = async ({params}:{params:IParams}) => {
     const currentUser = await getCurrentUser();
-    const posts = await prisma.post.findMany({
+    const searchedPosts = await prisma.post.findMany({
         where: {
             caption:
             { 
                 contains: params.query,
                 mode: 'insensitive', 
             }, 
+            authorId:{not: currentUser?.id}
         },
         include:{
             author:true,
@@ -30,22 +31,29 @@ const Search = async ({params}:{params:IParams}) => {
         }
         
     })
-    const users = await prisma.user.findMany({
+    const searchedUsers = await prisma.user.findMany({
         where: {
             name:
             { 
                 contains: params.query,
                 mode: 'insensitive', 
             },
+            id:{not: currentUser?.id}
         }
     })
-    
+    const users = await prisma.user.findMany({
+        where:{
+            id: { in: currentUser?.following },
+           
+        }
+    })
     return ( 
          <>
             <div className="w-full">
                 <Results 
                     currentUser={currentUser}
-                    posts={posts}
+                    searchedPosts={searchedPosts}
+                    searchedUsers={searchedUsers}
                     users={users}
                 />        
             </div>

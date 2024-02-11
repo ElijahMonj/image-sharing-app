@@ -5,12 +5,14 @@ import React, { useState } from 'react';
 import PostCard from '../profile/Components/PostCard';
 import prisma from "@/app/libs/prismadb";
 import Empty from './Empty';
+import ShareModal from '@/app/Components/Sharing/ShareModal';
 interface GridProps{
     currentUser:any
     posts:any
+    users:any
 }
 
-const Grid:React.FC<GridProps> = ({currentUser,posts}) => {
+const Grid:React.FC<GridProps> = ({currentUser,posts,users}) => {
     const [currentPost,setCurrentPost]=useState(0);
     return ( 
         <>
@@ -29,6 +31,7 @@ const Grid:React.FC<GridProps> = ({currentUser,posts}) => {
                                 setCurrentPost={setCurrentPost} currentPost={currentPost}/>
                                 );
                             })}
+                    <ShareModal currentUser={currentUser} post={currentPost} users={users}/>
                     </>
                 </div>
             }

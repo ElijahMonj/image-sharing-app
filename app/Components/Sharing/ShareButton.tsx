@@ -1,7 +1,7 @@
 import Avatar from '../Avatar';
 import { PiPaperPlaneTilt } from 'react-icons/pi';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 interface ShareButtonProps{
@@ -12,7 +12,9 @@ interface ShareButtonProps{
 const ShareButton:React.FC<ShareButtonProps> = ({user,post,currentUser}) => {
 
     const [isShared, setIsShared] = useState(false);
-
+    useEffect(() => {
+        setIsShared(false)
+      }, [post]);
     return ( 
 
         <div key={user.id} className='flex flex-row justify-between py-1'>
