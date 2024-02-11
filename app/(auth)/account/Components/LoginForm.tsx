@@ -36,18 +36,18 @@ const LoginForm = () => {
     return ( 
         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium">Email</label>
-                    <input type="email" name="email" id="email" 
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium">Email or Username</label>
+                    <input type="text" name="email" id="email" 
                     onChange={(e)=>setEmail(e.target.value)}
                     value={email}
-                    className= "sm:text-sm rounded-sm block w-full p-3" placeholder="name@company.com" required/>
+                    className= "sm:text-sm input block w-full p-3 input-bordered" placeholder="Enter your email or username" required/>
                 </div>
                 <div>
                     <label htmlFor="password" className="block mb-2 text-sm font-medium">Password</label>
                     <input type="password" name="password" id="password" placeholder="Enter your password" 
                     onChange={(e)=>setPassword(e.target.value)}
                     value={password}
-                    className="sm:text-sm rounded-sm block w-full p-3"required/>
+                    className="sm:text-sm input block w-full p-3 input-bordered"required/>
                 </div>
                 
                 <button type="submit" className="btn-block btn btn-neutral rounded-sm text-center" disabled={isLoading}>Sign-in</button>

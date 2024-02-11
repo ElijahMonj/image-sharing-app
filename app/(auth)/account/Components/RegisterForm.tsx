@@ -19,12 +19,22 @@ const RegisterForm = () => {
             password:password,
         }
         console.log(email)
-        axios.post('/api/register',data).then(()=> signIn('credentials', data))
-        .catch(()=>toast.error('Something went wrong!'))
-        .finally(()=> {
-            setIsLoading(false)
+        axios.post('/api/register',data).then(()=> {
+            signIn('credentials', data)
             toast.success('Account succesfully created!')
-            router.push('/')   
+            router.push('/') 
+        })
+        .catch((err)=>
+        {
+            if(err.response.data=='Email already in use'){
+                toast.error('Username or email is already in use.')
+                document.getElementById('email')?.classList.add("input-error")
+            }else{
+                toast.error('Something went wrong!')
+            }
+        })
+        .finally(()=> {
+            setIsLoading(false) 
         })
     }
     return ( 
@@ -34,25 +44,28 @@ const RegisterForm = () => {
                 <input type="text" name="name" id="name" 
                  onChange={(e)=>setName(e.target.value)}
                  value={name}
-                className= "sm:text-sm rounded-sm block w-full p-3" placeholder="John Doe" required/>
+                className= "sm:text-sm input block w-full p-3 input-bordered" placeholder="John Doe" required/>
             </div>
             <div>
-                <label htmlFor="email" className="block mb-2 text-sm font-medium">Your email</label>
-                <input type="email" name="email" id="email" 
-                 onChange={(e)=>setEmail(e.target.value)}
+                <label htmlFor="email" className="block mb-2 text-sm font-medium">Your email or username</label>
+                <input type="text" name="email" id="email" 
+                 onChange={(e)=>{
+                    setEmail(e.target.value)
+                    e.target.classList.remove("input-error");
+                 }}
                  value={email}
-                className= "sm:text-sm rounded-sm block w-full p-3" placeholder="name@company.com" required/>
+                className= "sm:text-sm input block w-full p-3 input-bordered" placeholder="name@company.com" required/>
             </div>
             <div>
                 <label htmlFor="password" className="block mb-2 text-sm font-medium">Password</label>
                 <input type="password" name="password" id="password" placeholder="Enter a unique password" 
                  onChange={(e)=>setPassword(e.target.value)}
                  value={password}
-                className="sm:text-sm rounded-sm block w-full p-3"required/>
+                className="sm:text-sm input block w-full p-3 input-bordered"required/>
             </div>
             <div>
                 <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium">Confirm password</label>
-                <input type="password" name="confirm-password" id="confirm-password" placeholder="Re-enter your password" className="sm:text-sm rounded-sm block w-full p-3" required/>
+                <input type="password" name="confirm-password" id="confirm-password" placeholder="Re-enter your password" className="sm:text-sm input block w-full p-3 input-bordered" required/>
             </div>
             <div className="flex items-start">
                 <div className="flex items-center h-5">

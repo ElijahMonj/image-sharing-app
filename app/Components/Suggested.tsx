@@ -21,7 +21,10 @@ const Suggested = async () => {
     const users = notFollowedUsers.filter(user => user.id != currentUser?.id);
     
     return ( 
-        <ul className="max-w-[280px] p-4">
+        <>
+            {users.length==0 ? 
+            <></>:
+            <ul className="max-w-[280px] p-4">
             <h1>Suggested</h1>
             <div className="divider"></div> 
                 {users?.slice(0,4).map(u => (
@@ -33,8 +36,11 @@ const Suggested = async () => {
                                 </Link>
                             </div>
                             <div className="flex-1 min-w-0">
-                                <Link href={`/profile/${u?.id}`} className="text-md font-bold truncate">
-                                    {u.name}
+                                <Link href={`/profile/${u?.id}`}>
+                                    <p className="truncate text-md font-bold">
+                                        {u.name}
+                                    </p>
+                                   
                                 </Link>
                                 <p className="text-sm truncate">
                                 {u?.email}
@@ -46,6 +52,10 @@ const Suggested = async () => {
                 ))} 
             
             </ul>
+            }
+        </>
+        
+       
      );
 }
  

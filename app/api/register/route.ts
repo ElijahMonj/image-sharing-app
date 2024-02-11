@@ -4,15 +4,27 @@ import bcrypt from 'bcrypt';
 
 
 export async function POST(request:Request){
-  
-    try {
-        
-        const body=await request.json();
+    const body=await request.json();
         const{
             name,
             email,
             password,
         }=body;
+    try {
+        const checkEmail = await prisma.user.findUnique({
+            where:{
+                email:email
+            }
+        })    
+        if(checkEmail!==null){
+            throw "Email already in use"
+        }    
+    } catch (error) {
+        return new NextResponse('Email already in use',{status:400})
+    }
+
+    try {
+           
        
         if(!email||!name||!password){
             return new NextResponse('Missing info',{status:400})
