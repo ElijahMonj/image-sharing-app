@@ -12,7 +12,9 @@ export async function POST(request:Request){
             image,
             
         }=body;
-        if(tagged==""){
+        console.log(tagged)
+        if((tagged=="")||(tagged==undefined)){
+            
             const post=await prisma.post.create({
                 data:{            
                     author:{

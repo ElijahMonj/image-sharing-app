@@ -6,7 +6,7 @@ import { signIn } from 'next-auth/react';
 import axios from 'axios';
 import RegisterForm from './RegisterForm';
 import LoginForm from './LoginForm';
-
+import { SiLens } from "react-icons/si";
 
 const Form = () => {
     const [isRegister,setIsRegister] = useState(false)
@@ -15,7 +15,8 @@ const Form = () => {
       if(!isRegister){
         return (
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tightmd:text-2xl">
+                <div className="normal-case text-3xl ms-auto me-auto w-full flex gap-2 font-semibold justify-center"><SiLens className="mt-1"/>Swiftsnap</div>
+            <h1 className="text-xl font-bold leading-tight tracking-tightmd:text-xl">
                 Sign-in
             </h1>
             <LoginForm/>
@@ -33,7 +34,7 @@ const Form = () => {
       } else{
         return(
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-xl font-bold leading-tight tracking-tightmd:text-2xl">
+                <h1 className="text-xl font-bold leading-tight tracking-tightmd:text-xl text-center">
                     Create and account
                 </h1>
                 <RegisterForm/>

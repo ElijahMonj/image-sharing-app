@@ -4,9 +4,11 @@ import axios from 'axios';
 import {toast} from 'react-hot-toast'
 import { signIn } from 'next-auth/react';
 import { useRouter } from "next/navigation";
+import Terms from './Terms';
 const RegisterForm = () => {
     const router = useRouter();
     const [isLoading,setIsLoading]=useState<boolean>(false);
+    const [boxDisabled,setBoxDisabled]=useState<boolean>(true)
     const [name,setName]=useState<undefined|string>("")
     const [email,setEmail]=useState<undefined|string>("")
     const [password,setPassword]=useState<undefined|string>("")
@@ -67,16 +69,24 @@ const RegisterForm = () => {
                 <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium">Confirm password</label>
                 <input type="password" name="confirm-password" id="confirm-password" placeholder="Re-enter your password" className="sm:text-sm input block w-full p-3 input-bordered" required/>
             </div>
-            <div className="flex items-start">
+            <div className="flex justify-center">
                 <div className="flex items-center h-5">
-                    <input id="terms" aria-describedby="terms" type="checkbox" className="w-4 h-4 border"required/>
+                    <input id="terms" aria-describedby="terms" type="checkbox" className="w-4 h-4 border"required disabled={boxDisabled}/>
                 </div>
-                <div className="ml-3 text-sm">
-                <label htmlFor="terms" className="font-light">I accept the <a className="font-medium hover:underline" href="#">Terms and Conditions</a></label>
+                <div className="ml-3 text-sm ">
+                <label htmlFor="terms" className="font-light">I accept the <a className="font-medium hover:underline" href="#"
+                onClick={()=>{
+                    setBoxDisabled(false)
+                    
+                    //@ts-ignore
+                    document.getElementById('termsmodal').showModal();
+                    //@ts-ignore
+                    document.getElementById('termstext').scrollTop = 0;}
+                    }>Terms and Conditions</a></label>
                 </div>
             </div>
             <button type="submit" className="btn-block btn btn-neutral rounded-sm text-center" disabled={isLoading}>Create an account</button>
-           
+            <Terms/>
         </form>
      );
 }

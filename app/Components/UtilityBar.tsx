@@ -8,6 +8,7 @@ import { CldUploadButton } from "next-cloudinary"
 import { useState } from "react"
 import Avatar from "./Avatar"
 import NotificationModal from "./Notifications/NotificationModal"
+import { SiLens } from "react-icons/si"
 
 interface UtilityBarProps{
     data:any
@@ -28,7 +29,7 @@ interface UtilityBarProps{
         <div className='w-1/6 hidden lg:block z-40 h-screen'>
         <ul className="menu p-2 bg-base-100 text-base-content menu-lg h-screen fixed">
             <div className="h-1/2">
-            <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">Eksdigram</a>
+            <Link href={'/'} className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full"><SiLens className="mt-1"/>Swiftsnap</Link>
             {/* Sidebar content here */}
                 <li>
                     <Link href={'/'}>
@@ -54,7 +55,7 @@ interface UtilityBarProps{
                          Notifications
                     </a>
                 </li>
-                <li>
+                <li className="hidden">
                     <a>
                     <MdOutlineMessage className="h-8 w-8" stroke="currentColor"/> Messages
                     </a>
@@ -105,7 +106,7 @@ interface UtilityBarProps{
         {/*md*/}
         <ul className="w-auto lg:hidden md:block hidden menu p-2 text-base-content menu-lg min-h-screen z-40 fixed">
             <div className="h-1/2">
-            <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">XD</a>
+            <Link href={'/'} className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full"><SiLens/></Link>
             {/* Sidebar content here */}
                 <li>
                  <Link href={'/'}>
@@ -130,7 +131,7 @@ interface UtilityBarProps{
                         </div>
                     </a>
                 </li>
-                <li>
+                <li className="hidden">
                     <a>
                     <MdOutlineMessage className="h-8 w-8" stroke="currentColor"/> 
                     </a>
@@ -182,7 +183,7 @@ interface UtilityBarProps{
         <div className="drawer-side">
             <label htmlFor="my-drawer" className="drawer-overlay"></label>
             <ul className="menu p-4 w-auto h-auto min-h-screen bg-base-200 text-base-content">
-            <a className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full">daisyUI</a>
+            <Link href={'/'} className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full"><SiLens className="mt-1"/>Swiftsnap</Link>
             {/* Sidebar content here */}
             <li>
             <Link href={'/'}>
@@ -208,7 +209,7 @@ interface UtilityBarProps{
                          Notifications
                     </a>
                 </li>
-                <li>
+                <li className="hidden">
                     <a>
                     <MdOutlineMessage className="h-8 w-8" stroke="currentColor"/> Messages
                     </a>

@@ -22,12 +22,12 @@ const ThemeSwitch:React.FC<ThemeSwitchProps> = ({theme,id}) => {
     function themeIcon(){
         if(currentTheme==="business"){
             return (
-                <MdOutlineDarkMode className="h-7 w-7" stroke="currentColor"/>
+                <MdOutlineDarkMode className="h-5 w-5" stroke="currentColor"/>
             )
         }
         if(currentTheme==="corporate"){
             return(
-                <MdOutlineWbSunny className="h-7 w-7" stroke="currentColor"/>
+                <MdOutlineWbSunny className="h-5 w-5" stroke="currentColor"/>
             )
         }
     }
@@ -40,7 +40,7 @@ const ThemeSwitch:React.FC<ThemeSwitchProps> = ({theme,id}) => {
         }
     }
     return ( 
-        <button className="btn btn-square rounded" onClick={()=>swapTheme()} >
+        <button className="btn btn-square rounded btn-sm me-2" onClick={()=>swapTheme()} >
             {themeIcon()}
         </button>
      );

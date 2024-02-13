@@ -16,7 +16,7 @@ const Tagged:React.FC<TaggedProps> = ({currentUser,posts,currentPost,setCurrentP
     return ( 
         <>        
              {posts.length==0 ?
-                <div className="flex flex-col w-96 h-96 justify-center">
+                <div className="flex flex-col w-96 max-w-full justify-center h-full my-auto">
                     <div className="grid card rounded-box place-items-center ">
                         <BsPersonBadge size={70} className="text-secondary"/>
                     </div>                       

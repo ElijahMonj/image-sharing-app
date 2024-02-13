@@ -129,7 +129,7 @@ const General:React.FC<GeneralProps> = ({currentUser}) => {
 
             <h1 className="font-bold text-2xl my-5">Manage Account</h1>
             <div className="font-semibold">Change Password</div>
-                <div className="bg-base-200 w-full p-5 rounded-lg">
+                <div className="bg-base-200 w-full p-5 rounded-lg mb-3">
                    <form onSubmit={handleSubmit}>
                     <input type="password" name="password" placeholder="Enter new password" className="input input-sm w-full mb-3"
                     id="password"
