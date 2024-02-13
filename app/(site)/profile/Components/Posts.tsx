@@ -14,7 +14,7 @@ const Posts:React.FC<PostsProps> = ({posts,currentUser,currentPost,setCurrentPos
     return ( 
         <>        
              {posts.length==0 ?
-                <div className="flex flex-col w-96 h-96 justify-center">
+                <div className="flex flex-col w-96 max-w-full justify-center h-full my-auto">
                     <div className="grid card rounded-box place-items-center ">
                         <BiImageAdd size={80} className="text-secondary"/>
                     </div>                       

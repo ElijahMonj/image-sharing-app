@@ -19,7 +19,7 @@ const Grid:React.FC<GridProps> = ({currentUser,posts,users}) => {
             {posts.length==0 ?
                 <Empty/>
                 :
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-1 mt-16">
                     <>   
                     <PostModal currentPost={currentPost} 
                         setCurrentPost={setCurrentPost} 

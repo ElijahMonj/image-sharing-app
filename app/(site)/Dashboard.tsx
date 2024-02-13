@@ -32,7 +32,7 @@ const Dashboard = async () => {
     })
     return ( 
         <>    
-            <div className="left-0 right-0 items-center m-auto w-full lg:w-3/6">
+            <div className="left-0 right-0 items-center m-auto w-full lg:w-3/6 h-screen">
                     <Newsfeed currentUser={userData} posts={posts.reverse()} users={users}/>
                 </div>
                

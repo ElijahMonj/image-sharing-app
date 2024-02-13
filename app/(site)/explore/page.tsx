@@ -30,7 +30,7 @@ const Explore = async () => {
     return ( 
         <>
             <div className="w-full">
-                <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto mt-16">
+                <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto min-h-screen">
                     <Grid currentUser={currentUser} posts={posts.reverse()} users={users}/>
                 </div>            
             </div>
