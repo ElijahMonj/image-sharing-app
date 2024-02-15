@@ -14,6 +14,7 @@ interface UtilityBarProps{
     data:any
     notifications:any
   }
+ 
   const UtilityBar:React.FC<UtilityBarProps> = ({data,notifications}) => {
     const [image,setImage]=useState('');
     const [newNotifications,setNewNotifications] =useState(notifications.filter((obj: { seen: boolean }) => obj.seen == false).length);
@@ -23,6 +24,7 @@ interface UtilityBarProps{
         //@ts-ignore
         document.getElementById('create_post_modal').showModal()
     }
+    const allowedFormats=["webp", "gif"]
     return ( 
         <>
         {/*lg*/}
@@ -61,12 +63,24 @@ interface UtilityBarProps{
                     </a>
                 </li>
                 <li>
-                    <CldUploadButton             
-                          options={{maxFiles:1}}
-                          onUpload={handleUpload}
-                          uploadPreset='rfrpttac'
-                          >
-                    {/*<a onClick={()=>document.getElementById('create_post_modal').showModal()}>*/}
+                    <CldUploadButton 
+                                   
+                        options={{
+                            maxFiles:1,
+                            sources: ['local'],
+                            cropping:true,
+                            resourceType:'image',
+                            minImageWidth:300,
+                            minImageHeight:300,
+                            theme:'minimal'
+                        }}
+                        onUpload={handleUpload}
+                        uploadPreset='rfrpttac'
+                        //@ts-ignore
+                        clientAllowedFormats= {['gif', 'mp4', 'mov']}
+                        
+                        >
+                    
                     <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"
                     
                     /> Create
