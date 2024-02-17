@@ -4,15 +4,16 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import './ImageSlider.css'; // Make sure to import your CSS file for styling
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import pic1 from '@/public/images/slideshow/test.png'
-import pic2 from '@/public/test/desktop.jpg'
-import pic3 from '@/public/test/long.jpg'
-import pic4 from '@/public/test/phone.jpg'
+import image1 from '@/public/images/slideshow/image1.png'
+import image2 from '@/public/images/slideshow/image2.png'
+import image3 from '@/public/images/slideshow/image3.png'
+import image4 from '@/public/images/slideshow/image4.png'
+
 import { MdBattery80, MdOutlineWifi, MdSignalCellularAlt } from "react-icons/md";
 
 const Phone = () => {
   const [index, setIndex] = useState(0);
-  const images=[pic1,pic2,pic3,pic4]
+  const images=[image1,image2,image3,image4]
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIndex(prevIndex => (prevIndex + 1) % images.length);

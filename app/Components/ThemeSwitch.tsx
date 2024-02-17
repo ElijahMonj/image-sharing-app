@@ -40,7 +40,7 @@ const ThemeSwitch:React.FC<ThemeSwitchProps> = ({theme,id}) => {
         }
     }
     return ( 
-        <button className="btn btn-square rounded btn-sm me-5 lg:me-2 md:me-3 sm:me-4" onClick={()=>swapTheme()} >
+        <button className="btn btn-square rounded btn-sm me-3 " onClick={()=>swapTheme()} >
             {themeIcon()}
         </button>
      );

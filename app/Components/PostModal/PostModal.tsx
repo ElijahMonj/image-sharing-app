@@ -26,7 +26,9 @@ const PostModal:React.FC<PostModalProps> = ({currentUser,currentPost,setCurrentP
                 
                 <div className="modal-box w-11/12 lg:w-max max-w-7xl h-auto p-0">
                     {currentPost==0 ?
-                    <div>FUCK</div>
+                    <div className="w-128 h-48 align-center flex justify-center">
+                        <span className="loading loading-spinner loading-lg"></span>
+                    </div>
                     :
                     <div className="flex flex-col lg:flex-row place-items-center items-stretch">
                         <div className='grid lg:w-max w-full bg-slate-950'>
