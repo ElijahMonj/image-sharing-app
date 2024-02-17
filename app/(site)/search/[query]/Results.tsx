@@ -42,7 +42,7 @@ const Results:React.FC<ResultsProps> = ({currentUser,searchedPosts,searchedUsers
                                             <p className="font-bold truncate">
                                             {user.name}
                                             </p>
-                                            <p className="text-sm">
+                                            <p className="text-sm truncate">
                                             {user.email}
                                             </p>
                                         </div>

@@ -5,7 +5,7 @@ import Form from "@/app/(auth)/account/Components/Form";
 import { getServerSession } from 'next-auth/next';
 import { Toaster } from 'react-hot-toast';
 import { authOptions } from "@/app/authOptions";
-import pic1 from '@/public/images/slideshow/test.png'
+import dark from '@/public/images/slideshow/dark.png'
 import Phone from './Components/Phone';
 import { MdOutlineSignalWifi4Bar, MdSignalCellular3Bar } from 'react-icons/md';
 import { IoCaretBack, IoMenu } from 'react-icons/io5';
@@ -51,7 +51,7 @@ export default async function AccountPage () {
                                 <div className="image-slider h-auto">
                                     <Image
                                         
-                                        src={pic1}
+                                        src={dark}
                                         alt="darkui"
                                         className='active object-cover w-full h-full'
                                     />

@@ -105,7 +105,15 @@ const General:React.FC<GeneralProps> = ({currentUser}) => {
                     <Avatar width={256} height={256} src={avatarSource as string}/>
                 </div>
                 <CldUploadButton             
-                    options={{maxFiles:1}}
+                    options={{
+                        maxFiles:1,
+                        sources: ['local'],
+                        cropping:true,
+                        resourceType:'image',
+                        minImageWidth:300,
+                        minImageHeight:300,
+                        theme:'minimal'
+                    }}
                     onUpload={handleUpload}
                     uploadPreset='rfrpttac'
                     className="m-5 btn btn-sm btn-neutral my-auto"

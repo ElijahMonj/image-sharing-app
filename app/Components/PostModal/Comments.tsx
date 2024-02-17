@@ -100,9 +100,7 @@ const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPos
                           
                         
                 </div>    
-                <div className='grid place-content-center'>
-                    <SlOptions className="h-4 w-4 hover:cursor-pointer hover:fill-secondary"/>
-                </div>
+                
             </div>
             
             <div className='grow-0 p-4'>{currentPost.caption}</div>
@@ -207,7 +205,7 @@ const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPos
                         lazyLoadEmojis={true}
                         skinTonesDisabled={true}
                     />
-             <form ref={ref} className='flex w-full grow-0 p-4 join gap-1' action={async (formData) =>{
+             <form ref={ref} className='flex w-full grow-0 p-4 join gap-1' onSubmit={()=>setShowPicker(false)} action={async (formData) =>{
                 
                 ref.current?.reset()
                 

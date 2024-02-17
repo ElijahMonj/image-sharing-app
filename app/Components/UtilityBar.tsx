@@ -74,12 +74,9 @@ interface UtilityBarProps{
                             minImageHeight:300,
                             theme:'minimal'
                         }}
+                
                         onUpload={handleUpload}
-                        uploadPreset='rfrpttac'
-                        //@ts-ignore
-                        clientAllowedFormats= {['gif', 'mp4', 'mov']}
-                        
-                        >
+                        uploadPreset='rfrpttac'>
                     
                     <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"
                     
@@ -151,11 +148,20 @@ interface UtilityBarProps{
                     </a>
                 </li>
                 <li>
-                    <CldUploadButton             
-                          options={{maxFiles:1}}
-                          onUpload={handleUpload}
-                          uploadPreset='rfrpttac'
-                          >
+                <CldUploadButton 
+                                   
+                    options={{
+                        maxFiles:1,
+                        sources: ['local'],
+                        cropping:true,
+                        resourceType:'image',
+                        minImageWidth:300,
+                        minImageHeight:300,
+                        theme:'minimal'
+                    }}
+            
+                    onUpload={handleUpload}
+                    uploadPreset='rfrpttac'>
                     {/*<a onClick={()=>document.getElementById('create_post_modal').showModal()}>*/}
                     <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"
                     
@@ -199,14 +205,14 @@ interface UtilityBarProps{
             <ul className="menu p-4 w-auto h-auto min-h-screen bg-base-200 text-base-content">
             <Link href={'/'} className="btn btn-ghost normal-case text-xl ms-auto me-auto w-full"><SiLens className="mt-1"/>Swiftsnap</Link>
             {/* Sidebar content here */}
-            <li>
-            <Link href={'/'}>
+            <li>{/*@ts-ignore*/}
+                <Link href={'/'} onClick={()=>document.getElementById("my-drawer").checked=false}>
                     <MdOutlineHome className="h-8 w-8" stroke="currentColor"/>
                     Home
                     </Link>
                 </li>
-                <li>
-                    <Link href={'/explore'}>
+                <li>{/*@ts-ignore*/}
+                    <Link href={'/explore'} onClick={()=>document.getElementById("my-drawer").checked=false}>
                     <MdOutlineExplore className="h-8 w-8" stroke="currentColor"/>    Explore
                     </Link>
                 </li>
@@ -229,19 +235,28 @@ interface UtilityBarProps{
                     </a>
                 </li>
                 <li>
-                <CldUploadButton             
-                          options={{maxFiles:1}}
-                          onUpload={handleUpload}
-                          uploadPreset='rfrpttac'
-                          >
+                <CldUploadButton 
+                                   
+                    options={{
+                        maxFiles:1,
+                        sources: ['local'],
+                        cropping:true,
+                        resourceType:'image',
+                        minImageWidth:300,
+                        minImageHeight:300,
+                        theme:'minimal'
+                    }}
+            
+                    onUpload={handleUpload}
+                    uploadPreset='rfrpttac'>
                     {/*<a onClick={()=>document.getElementById('create_post_modal').showModal()}>*/}
                     <MdOutlineAddBox className="h-8 w-8" stroke="currentColor"
                     
                     /> Create
                     </CldUploadButton>
                 </li>
-                <li>
-                <Link href={`/profile/${data.id}`}>
+                <li>{/*@ts-ignore*/}
+                <Link href={`/profile/${data.id}`} onClick={()=>document.getElementById("my-drawer").checked=false}>
                 <div className="w-8 avatar">
                     <Avatar 
                     width={256}
@@ -254,8 +269,8 @@ interface UtilityBarProps{
                 </li>
 
                 <div className="divider"></div> 
-                <li>
-                    <Link href={'/settings'}>
+                <li className="mt-auto">{/*@ts-ignore*/}
+                    <Link href={'/settings'} onClick={()=>document.getElementById("my-drawer").checked=false}>
                     <MdOutlineSettings className="h-8 w-8" stroke="currentColor"/> Settings
                     </Link>
                 </li>
