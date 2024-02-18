@@ -112,7 +112,8 @@ const General:React.FC<GeneralProps> = ({currentUser}) => {
                         resourceType:'image',
                         minImageWidth:300,
                         minImageHeight:300,
-                        theme:'minimal'
+                        theme:'minimal',
+                        croppingAspectRatio:1.0
                     }}
                     onUpload={handleUpload}
                     uploadPreset='rfrpttac'

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { experimental_useOptimistic as useOptimistic, useState} from "react";
 import ModalFollowing from "./ModalFollowing";
 import ModalFollowers from "./ModalFollowers";
+import { MdModeEdit, MdPersonAddAlt1,MdPersonRemoveAlt1  } from "react-icons/md";
 interface ProfileStatsProps{
     data:any
     currentUser:any
@@ -29,14 +30,14 @@ const ProfileStats:React.FC<ProfileStatsProps> = ({data,currentUser,isCurrentUse
     const unfollowUser = unfollow.bind(null, data.id,currentUser.id)
     
     return ( 
-        <div className="lg:w-1.5/2 flex gap-4 mt-1">
+        <div className="lg:w-1.5/2 flex gap-4 mt-1 w-auto">
             <div className="lg:text-sm text-xs text-center flex flex-col justify-center">{data.posts.length} Posts</div>
                 {/*@ts-ignore*/}
                 <p className="lg:text-sm text-xs text-center flex flex-col justify-center cursor-pointer" onClick={()=>document?.getElementById('modalfollowing')?.showModal()}>{data.following.length} Following</p>
                 {/*@ts-ignore*/}
                 <p className="lg:text-sm text-xs text-center flex flex-col justify-center cursor-pointer" onClick={()=>document?.getElementById('modalfollowers')?.showModal()} >{optimisticFollowing.length} Followers</p>
                 {isCurrentUser ? 
-                <Link className="btn lg:btn-sm md:btn-sm btn-xs" href="/settings">Edit</Link>
+                <Link className="btn lg:btn-sm md:btn-sm btn-xs" href="/settings"><MdModeEdit /></Link>
                 :  
                 <>
                     {optimisticFollowing.includes(currentUser.id) ? 
@@ -44,14 +45,18 @@ const ProfileStats:React.FC<ProfileStatsProps> = ({data,currentUser,isCurrentUse
                         setOptimisticFollowing(false)
                         await unfollowUser()
                     }}>
-                        <button className="btn lg:btn-sm md:btn-sm btn-xs" type="submit">Unfollow</button>
+                        <button className="btn btn-outline lg:btn-sm md:btn-sm btn-xs" type="submit">
+                            <MdPersonRemoveAlt1 />
+                        </button>
                     </form> 
                     : 
                     <form action={ async () =>{
                         setOptimisticFollowing(true)
                         await followUser()
                     }}>
-                         <button className="btn lg:btn-sm md:btn-sm btn-xs" type="submit">Follow</button>
+                         <button className="btn btn-neutral lg:btn-sm md:btn-sm btn-xs" type="submit">
+                            <MdPersonAddAlt1/>
+                         </button>
                     </form>
                    }
                 </>     

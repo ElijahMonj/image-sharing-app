@@ -7,6 +7,7 @@ import axios from 'axios';
 import RegisterForm from './RegisterForm';
 import LoginForm from './LoginForm';
 import { SiLens } from "react-icons/si";
+import SocialButtons from './SocialButtons';
 
 const Form = () => {
     const [isRegister,setIsRegister] = useState(false)
@@ -21,11 +22,7 @@ const Form = () => {
             </h1>
             <LoginForm/>
             <div className="divider">or continue with:</div>
-                <div className="grid grid-cols-3 place-content-center">
-                    <button className="btn btn-sm"><MdFacebook className="h-4 w-4"/>Facebook</button>
-                    <button className="btn btn-sm"  onClick={()=>signIn("google")}><AiFillGoogleCircle className="h-4 w-4"/>Google</button>
-                    <button className="btn btn-sm" onClick={()=>signIn("github")}><AiFillGithub className="h-4 w-4"/>Github</button>
-                </div>
+                <SocialButtons />
             <p className="text-sm font-light text-center">
                 Don&apos;t have an account? <a onClick={()=>setIsRegister(true)} className="cursor-pointer font-medium hover:underline">Create an account</a>
             </p>
@@ -39,11 +36,7 @@ const Form = () => {
                 </h1>
                 <RegisterForm/>
                 <div className="divider">or continue with:</div>
-                <div className="grid grid-cols-3 place-content-center">
-                    <button className="btn btn-sm"><MdFacebook className="h-4 w-4"/>Facebook</button>
-                    <button className="btn btn-sm"  onClick={()=>signIn("google")}><AiFillGoogleCircle className="h-4 w-4"/>Google</button>
-                    <button className="btn btn-sm" onClick={()=>signIn("github")}><AiFillGithub className="h-4 w-4"/>Github</button>
-                </div>
+                <SocialButtons />
                 <p className="text-sm font-light text-center">
                     Already have an account? <a onClick={()=>setIsRegister(false)} className="font-medium hover:underline cursor-pointer">Sign-in</a>
                 </p>
