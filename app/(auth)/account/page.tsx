@@ -20,7 +20,7 @@ export default async function AccountPage () {
     }
     return ( 
         <>
-        <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center mx-5 md:mx-0 md:my-0">
+        <section className="min-h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center mx-5 md:mx-0 md:my-0">
             <div className="flex flex-col w-full lg:flex-row">
                 <div className="flex-grow card rounded-box lg:w-1/2 justify-end lg:place-items-end place-items-center hidden lg:grid">
                     
@@ -69,7 +69,7 @@ export default async function AccountPage () {
                     </div>
                 </div> 
                 <div className="divider lg:divider-horizontal hidden lg:block"></div> 
-                <div className="grid flex-grow card rounded-box lg:w-1/2 lg:place-items-start place-items-center my-auto">
+                <div className="grid flex-grow card rounded-box lg:w-1/2 lg:place-items-start place-items-center my-auto mt-5 mb-5">
                     <Form/>
                 </div>
             </div>

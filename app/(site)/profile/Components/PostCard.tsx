@@ -14,7 +14,7 @@ const PostCard:React.FC<PostCardProps> = ({post,currentPost,setCurrentPost}) => 
                      // @ts-ignore
                      document?.getElementById(`postmodal`)?.showModal()
                  }}>
-                    <div className="z-50 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out cursor-pointer 
+                    <div className="z-39 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out cursor-pointer 
                     absolute from-black/80 to-transparent bg-gradient-to-t inset-x-0 -bottom-2 pt-30 text-white flex items-end">
                      <div>
                          <div

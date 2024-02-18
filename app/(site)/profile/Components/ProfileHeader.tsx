@@ -44,7 +44,7 @@ const ProfileHeader:React.FC<ProfileHeaderProps> = async ({data,isCurrentUser,cu
                 
                 <ProfileStats data={data} isCurrentUser={isCurrentUser} currentUser={currentUser} following={following} followers={followers}/>
                 
-                <div className="mt-2 w-60 lg:w-72 md:w-72 sm:w-72">
+                <div className="mt-2 w-40 lg:w-72 md:w-72 sm:w-72">
                     <p className="text-sm max-w-full text-wrap text-ellipsis overflow-hidden">{data.bio}</p>
                 </div>
             </div>
