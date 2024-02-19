@@ -1,10 +1,10 @@
 'use client'
 import { follow, unfollow } from "@/app/actions/server/follow";
 import Link from "next/link";
-import { useOptimistic } from "react";
-import { MdModeEdit, MdPersonAddAlt1, MdPersonRemoveAlt1 } from "react-icons/md";
-import ModalFollowers from "./ModalFollowers";
+import { experimental_useOptimistic as useOptimistic, useState} from "react";
 import ModalFollowing from "./ModalFollowing";
+import ModalFollowers from "./ModalFollowers";
+import { MdModeEdit, MdPersonAddAlt1,MdPersonRemoveAlt1  } from "react-icons/md";
 interface ProfileStatsProps{
     data:any
     currentUser:any

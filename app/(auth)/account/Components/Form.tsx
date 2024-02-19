@@ -1,8 +1,12 @@
 'use client'
-import { useState } from 'react';
-import { SiLens } from "react-icons/si";
-import LoginForm from './LoginForm';
+import {MdFacebook} from 'react-icons/md'
+import {AiFillGoogleCircle,AiFillGithub} from 'react-icons/ai'
+import { FormEvent, useState } from 'react';
+import { signIn } from 'next-auth/react';
+import axios from 'axios';
 import RegisterForm from './RegisterForm';
+import LoginForm from './LoginForm';
+import { SiLens } from "react-icons/si";
 import SocialButtons from './SocialButtons';
 
 const Form = () => {

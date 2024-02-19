@@ -1,25 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-
+    experimental: {
+        serverActions: true,
+      },
     images:{
-        remotePatterns: [
-            {
-                hostname: 'res.cloudinary.com',
-                port: '',
-            },
-            {
-                hostname: 'avatars.githubusercontent.com',
-                port: '',
-            },
-            {
-                hostname: 'lh3.googleusercontent.com',
-                port: '',
-            },
-            {
-                hostname: 'lh3.google.com',
-                port: '',
-            },
-          ],
+        domains:[
+            "res.cloudinary.com",
+            "avatars.githubusercontent.com",
+            "lh3.googleusercontent.com",
+            "lh3.google.com"
+        ]
     }
 }
 

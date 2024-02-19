@@ -1,6 +1,7 @@
+import getCurrentUser from "../actions/getCurrentUser";
+import Image from "next/image";
 import prisma from "@/app/libs/prismadb";
 import Link from "next/link";
-import getCurrentUser from "../actions/getCurrentUser";
 import Avatar from "./Avatar";
 
 const Suggested = async () => {

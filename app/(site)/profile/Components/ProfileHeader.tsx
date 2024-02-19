@@ -1,6 +1,6 @@
 
-import prisma from "@/app/libs/prismadb";
 import Image from "next/image";
+import prisma from "@/app/libs/prismadb";
 import ProfileStats from "./ProfileStats";
 interface ProfileHeaderProps{
     data:any

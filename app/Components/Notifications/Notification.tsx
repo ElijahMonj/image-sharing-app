@@ -1,11 +1,11 @@
 'use client'
-import axios from "axios";
-import Link from "next/link";
-import { BsChatFill, BsChatTextFill, BsHeartFill } from "react-icons/bs";
-import { MdNotifications, MdPersonAddAlt1 } from "react-icons/md";
 import { PiPaperPlaneTiltFill } from "react-icons/pi";
-import { timeAgo } from "../../actions/convertDate";
 import Avatar from "../Avatar";
+import { BsChatFill,BsHeartFill,BsChatTextFill  } from "react-icons/bs";
+import { MdNotifications,MdPersonAddAlt1 } from "react-icons/md";
+import Link from "next/link";
+import { timeAgo } from "../../actions/convertDate";
+import axios from "axios";
 
 import { useState } from "react";
 

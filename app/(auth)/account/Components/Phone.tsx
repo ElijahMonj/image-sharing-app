@@ -1,13 +1,13 @@
 'use client'
-import image1 from '@/public/images/slideshow/image1.png';
-import image2 from '@/public/images/slideshow/image2.png';
-import image3 from '@/public/images/slideshow/image3.png';
-import image4 from '@/public/images/slideshow/image4.png';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
 import { IoChevronBack, IoRadioButtonOffOutline, IoSquareOutline } from "react-icons/io5";
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import './ImageSlider.css'; // Make sure to import your CSS file for styling
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
+import image1 from '@/public/images/slideshow/image1.png'
+import image2 from '@/public/images/slideshow/image2.png'
+import image3 from '@/public/images/slideshow/image3.png'
+import image4 from '@/public/images/slideshow/image4.png'
 
 import { MdBattery80, MdOutlineWifi, MdSignalCellularAlt } from "react-icons/md";
 

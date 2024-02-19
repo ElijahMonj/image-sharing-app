@@ -1,6 +1,6 @@
 'use client'
-import { Key } from "react";
 import Notification from "./Notification";
+import { Key } from "react";
 
 interface NotificationProps{
     notifications:any

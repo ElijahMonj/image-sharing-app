@@ -1,8 +1,9 @@
 'use client'
 
-import React from 'react';
+import PostModal from '@/app/Components/PostModal/PostModal';
 import { BsPersonBadge } from "react-icons/bs";
 import PostCard from './PostCard';
+import React, { useState } from 'react';
 interface TaggedProps{
     posts:any
     currentUser:any

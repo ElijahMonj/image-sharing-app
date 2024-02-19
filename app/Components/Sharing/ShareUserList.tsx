@@ -1,9 +1,9 @@
 'use client'
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+import { Dispatch, SetStateAction, FunctionComponent, useState, useEffect } from 'react';
+import {MdPersonSearch} from 'react-icons/md'
 import { FaLink } from "react-icons/fa6";
-import { MdPersonSearch } from 'react-icons/md';
 import ShareButton from './ShareButton';
+import toast from 'react-hot-toast';
 
 interface ShareUserList{
     currentUser:any
