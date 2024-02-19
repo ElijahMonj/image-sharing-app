@@ -2,9 +2,8 @@
 import Avatar from "@/app/Components/Avatar";
 import axios from "axios";
 import { CldUploadButton } from "next-cloudinary";
-import Image from "next/image";
 import { FormEvent, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 interface GeneralProps{
     currentUser:any
 }

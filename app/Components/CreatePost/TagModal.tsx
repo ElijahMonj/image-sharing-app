@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction, FunctionComponent, useState, useEffect } from 'react';
-import {MdPersonSearch} from 'react-icons/md'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { MdPersonSearch } from 'react-icons/md';
 
 import axios from 'axios';
 import Avatar from '../Avatar';

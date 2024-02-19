@@ -1,17 +1,17 @@
 
-import {redirect} from 'next/navigation'
+import { redirect } from 'next/navigation';
 
 import Form from "@/app/(auth)/account/Components/Form";
-import { getServerSession } from 'next-auth/next';
-import { Toaster } from 'react-hot-toast';
 import { authOptions } from "@/app/authOptions";
-import dark from '@/public/images/slideshow/dark.png'
-import Phone from './Components/Phone';
-import { MdOutlineSignalWifi4Bar, MdSignalCellular3Bar } from 'react-icons/md';
-import { IoCaretBack, IoMenu } from 'react-icons/io5';
+import dark from '@/public/images/slideshow/dark.png';
+import { getServerSession } from 'next-auth/next';
 import Image from 'next/image';
+import { Toaster } from 'react-hot-toast';
 import { FaBatteryHalf } from 'react-icons/fa6';
+import { IoCaretBack, IoMenu } from 'react-icons/io5';
+import { MdOutlineSignalWifi4Bar, MdSignalCellular3Bar } from 'react-icons/md';
 import { RiHome2Fill } from "react-icons/ri";
+import Phone from './Components/Phone';
 export default async function AccountPage () {
     
     const session=await getServerSession(authOptions)
