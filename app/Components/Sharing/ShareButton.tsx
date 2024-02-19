@@ -1,9 +1,9 @@
-import Avatar from '../Avatar';
-import { PiPaperPlaneTilt } from 'react-icons/pi';
+import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import toast from 'react-hot-toast';
+import { PiPaperPlaneTilt } from 'react-icons/pi';
+import Avatar from '../Avatar';
 interface ShareButtonProps{
     user:any
     post:any

@@ -3,14 +3,10 @@ import {MdFacebook} from 'react-icons/md'
 import {AiFillGoogleCircle,AiFillGithub} from 'react-icons/ai'
 const ScoailButtons = () => {
     return ( 
-        <div className="grid grid-cols-3 place-content-center">
-            <button className="btn btn-sm hidden lg:inline-flex md:inline-flex sm:inline-flex"><MdFacebook className="h-4 w-4"/>Facebook</button>
-            <button className="btn btn-sm hidden lg:inline-flex md:inline-flex sm:inline-flex"  onClick={()=>signIn("google")}><AiFillGoogleCircle className="h-4 w-4"/>Google</button>
-            <button className="btn btn-sm hidden lg:inline-flex md:inline-flex sm:inline-flex" onClick={()=>signIn("github")}><AiFillGithub className="h-4 w-4"/>Github</button>
-
-            <button className="btn lg:hidden md:hidden sm:hidden"><MdFacebook className="h-8 w-8"/></button>
-            <button className="btn lg:hidden md:hidden sm:hidden"  onClick={()=>signIn("google")}><AiFillGoogleCircle className="h-8 w-8"/></button>
-            <button className="btn lg:hidden md:hidden sm:hidden" onClick={()=>signIn("github")}><AiFillGithub className="h-8 w-8"/></button>
+        <div className="grid grid-cols-2 place-content-center">
+            
+            <button className="btn" onClick={()=>signIn("google")}><AiFillGoogleCircle className="h-6 w-6"/>Google</button>
+            <button className="btn" onClick={()=>signIn("github")}><AiFillGithub className="h-6 w-6"/>Github</button>
         </div>
      );
 }

@@ -1,5 +1,5 @@
+import defaultAvatar from '@/public/images/defaultAvatar.jpg';
 import Image from "next/image";
-import defaultAvatar from '@/public/images/defaultAvatar.jpg'
 interface AvatarProps{
     width:number,
     height:number,

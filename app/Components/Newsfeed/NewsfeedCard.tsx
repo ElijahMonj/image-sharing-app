@@ -1,11 +1,10 @@
 
+import { timeAgo } from '@/app/actions/convertDate'
 import Image from 'next/image'
-import convertDate, { timeAgo } from '@/app/actions/convertDate'
-import Avatar from '../Avatar'
 import Link from "next/link"
+import Avatar from '../Avatar'
 import NewsfeedActions from './NewsfeedActions'
 
-import PostModal from '../PostModal/PostModal'
 
 interface NewsfeedCardProps{
     post:any

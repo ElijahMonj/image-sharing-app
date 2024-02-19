@@ -1,12 +1,12 @@
 'use client'
 
-import Posts from './Posts';
-import Saved from './Saved';
-import Tagged from './Tagged';
-import Tabs from './Tabs';
-import { useState } from 'react';
 import PostModal from '@/app/Components/PostModal/PostModal';
 import ShareModal from '@/app/Components/Sharing/ShareModal';
+import { useState } from 'react';
+import Posts from './Posts';
+import Saved from './Saved';
+import Tabs from './Tabs';
+import Tagged from './Tagged';
 
 interface ProfileContentProps{
     allPosts:any

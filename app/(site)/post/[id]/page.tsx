@@ -1,10 +1,8 @@
 
-import NewsfeedCard from "@/app/Components/Newsfeed/NewsfeedCard";
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import React from "react";
-import PostCard from "./PostCard";
 import prisma from "@/app/libs/prismadb";
 import { Toaster } from "react-hot-toast";
+import PostCard from "./PostCard";
 interface IParams {
     id: string;
 };
