@@ -1,9 +1,9 @@
 'use client'
-import { Key, useState } from "react";
+import NewsfeedCard from "./NewsfeedCard";
 import { GoPersonAdd } from "react-icons/go";
+import { Key, useEffect, useState } from "react";
 import PostModal from "../PostModal/PostModal";
 import ShareModal from "../Sharing/ShareModal";
-import NewsfeedCard from "./NewsfeedCard";
 
 interface NewsfeedProps{
     currentUser:any

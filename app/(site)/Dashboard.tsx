@@ -1,8 +1,9 @@
 
-import prisma from "@/app/libs/prismadb";
-import Newsfeed from '../Components/Newsfeed/Newsfeed';
 import Suggested from '../Components/Suggested';
+import Newsfeed from '../Components/Newsfeed/Newsfeed';
 import getCurrentUser from "../actions/getCurrentUser";
+import Notifications from '../Components/Notifications/NotificationModal';
+import prisma from "@/app/libs/prismadb";
 const Dashboard = async () => {
     const currentUser = await getCurrentUser();
     const userData = await prisma.user.findUnique({

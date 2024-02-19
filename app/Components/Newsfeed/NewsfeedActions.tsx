@@ -1,9 +1,10 @@
 'use client'
 
+import {BsBookmark,BsHeart,BsFillHeartFill,BsFillBookmarkFill} from 'react-icons/bs'
+import { BsChat } from "react-icons/bs";
+import {PiPaperPlaneTilt} from 'react-icons/pi'
+import { experimental_useOptimistic as useOptimistic } from 'react';
 import { like, save, unlike, unsave } from "@/app/actions/server/interactions";
-import { useOptimistic } from 'react';
-import { BsBookmark, BsChat, BsFillBookmarkFill, BsFillHeartFill, BsHeart } from 'react-icons/bs';
-import { PiPaperPlaneTilt } from 'react-icons/pi';
 
 interface NewsfeedActionsProps{
     post:any
@@ -18,7 +19,7 @@ const NewsfeedActions:React.FC<NewsfeedActionsProps> = ({post,currentUser,setCur
     const savePost = save.bind(null,post.id,currentUser.id)
     const unsavePost = unsave.bind(null,post.id,currentUser.id)
     
-    const [optimisticLikes,addOptimisticLikes]=useOptimistic(post.likes,(state: any[], isLiking: any)=>{
+    const [optimisticLikes,addOptimisticLikes]=useOptimistic(post.likes,(state, isLiking)=>{
         if(!isLiking){       
             const index = state.indexOf(currentUser.id);
             state.splice(index, 1);
@@ -29,7 +30,7 @@ const NewsfeedActions:React.FC<NewsfeedActionsProps> = ({post,currentUser,setCur
             return [...state, currentUser.id]
         }
     })
-    const [optimisticSave,addOptimisticSave]=useOptimistic(currentUser.saved,(state: any[], isSaving: any)=>{
+    const [optimisticSave,addOptimisticSave]=useOptimistic(currentUser.saved,(state, isSaving)=>{
         if(!isSaving){       
             const index = state.indexOf(post.id);
             state.splice(index, 1);

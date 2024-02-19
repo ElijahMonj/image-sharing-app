@@ -1,8 +1,9 @@
 'use client'
 
-import React from 'react';
+import PostModal from '@/app/Components/PostModal/PostModal';
 import { CiBookmarkPlus } from "react-icons/ci";
 import PostCard from './PostCard';
+import React, { useState } from 'react';
 interface SavedProps{
     posts:any
     currentUser:any

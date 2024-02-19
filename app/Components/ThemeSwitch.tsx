@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { MdOutlineDarkMode, MdOutlineWbSunny } from 'react-icons/md';
+import {MdOutlineDarkMode,MdOutlineWbSunny} from 'react-icons/md'
 interface ThemeSwitchProps{
     theme:string
     id:string

@@ -1,7 +1,8 @@
 'use client'
-import React from 'react';
+import PostModal from '@/app/Components/PostModal/PostModal';
 import { BiImageAdd } from "react-icons/bi";
 import PostCard from './PostCard';
+import React, { useState } from 'react';
 interface PostsProps{
     posts:any
     currentUser:any

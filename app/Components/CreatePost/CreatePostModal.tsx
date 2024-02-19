@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { FormEvent, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { FaUserSlash, FaUserTag } from 'react-icons/fa';
-import Avatar from '../Avatar';
+import {FaUserTag,FaUserSlash } from 'react-icons/fa'
 import TagModal from './TagModal';
+import {toast} from 'react-hot-toast'
+import axios from 'axios';
+import Avatar from '../Avatar';
 
 interface CreatePostModalProps{
   user:any,

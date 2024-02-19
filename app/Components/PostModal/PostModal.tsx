@@ -1,8 +1,10 @@
 'use client'
-import defaultAvatar from '@/public/images/defaultAvatar.jpg';
-import Image from 'next/image';
-import { useState } from "react";
+import prisma from "@/app/libs/prismadb";
+import Image from 'next/image'
 import Comments from './Comments';
+import defaultAvatar from '@/public/images/defaultAvatar.jpg'
+import ShareModal from "../Sharing/ShareModal";
+import { useEffect, useState } from "react";
 interface PostModalProps {
     currentPost:any
     setCurrentPost:any

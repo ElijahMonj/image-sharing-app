@@ -1,9 +1,9 @@
 
+import { FormEvent, useState } from 'react';
 import axios from 'axios';
+import {toast} from 'react-hot-toast'
 import { signIn } from 'next-auth/react';
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from 'react';
-import { toast } from 'react-hot-toast';
 import Terms from './Terms';
 const RegisterForm = () => {
     const router = useRouter();

@@ -1,9 +1,9 @@
 import '@/app/globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import HeaderNav from '../HeaderNav'
 import { Suspense } from 'react'
 import LoadingSkeleton from '../Components/LoadingSkeleton'
-import HeaderNav from '../HeaderNav'
 import SideNav from '../SideNav'
 
 const inter = Inter({ subsets: ['latin'] })
