@@ -23,10 +23,10 @@ const NewsfeedActions:React.FC<NewsfeedActionsProps> = ({post,currentUser,setCur
         if(!isLiking){       
             const index = state.indexOf(currentUser.id);
             state.splice(index, 1);
-            console.log(state.includes(currentUser.id))
+            
             return state
         }else{
-            console.log([...state, currentUser.id])
+            
             return [...state, currentUser.id]
         }
     })
@@ -34,10 +34,10 @@ const NewsfeedActions:React.FC<NewsfeedActionsProps> = ({post,currentUser,setCur
         if(!isSaving){       
             const index = state.indexOf(post.id);
             state.splice(index, 1);
-            console.log(state)
+           
             return state
         }else{
-            console.log([...state, post.id])
+            
             return [...state, post.id]
         }
     })

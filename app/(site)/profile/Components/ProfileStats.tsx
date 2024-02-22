@@ -16,12 +16,12 @@ const ProfileStats:React.FC<ProfileStatsProps> = ({data,currentUser,isCurrentUse
    
     const [optimisticFollowing,setOptimisticFollowing] = useOptimistic(data.followers,(state,action)=>{
         if(action){
-            console.log([...state,currentUser.id])
+           
             return [...state,currentUser.id]
         }else{
             const index = state.indexOf(currentUser.id);
             state.splice(index, 1);
-            console.log(state)
+           
             return state
         }
        

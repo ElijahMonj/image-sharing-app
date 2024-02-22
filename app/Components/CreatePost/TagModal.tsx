@@ -13,7 +13,6 @@ interface TagModalProps{
 
 const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser,taggableUsers}) => {
     const [searchInput,setSearchInput]=useState('')
-
     return ( 
         <div className='flex flex-col'>
             <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>

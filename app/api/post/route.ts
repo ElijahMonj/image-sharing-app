@@ -11,7 +11,7 @@ export async function POST(request:Request){
             image,
             
         }=body;
-        console.log(author)
+        
         if((tagged=="")||(tagged==undefined)){
             
             const post=await prisma.post.create({
