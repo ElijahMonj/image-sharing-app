@@ -5,17 +5,23 @@ export async function POST(request:Request){
         const body=await request.json();
         const{
             ownerId,
-            userName,
-            userImage,
-            link,
+            notifierId,
+            postId,
         }=body;
 
-        const share=await prisma.notification.create({
+        const share= await prisma.notification.create({
             data: {
-                ownerId:ownerId,
-                userName:userName,
-                userImage:userImage,
-                link:link,
+                owner:{
+                    connect:{
+                        id:ownerId
+                    }
+                },
+                notifier:{
+                    connect:{
+                        id:notifierId as string
+                    }
+                },
+                link:`/post/${postId}`,
                 type:"share",
             },
           })

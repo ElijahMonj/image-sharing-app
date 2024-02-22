@@ -1,10 +1,8 @@
 'use client'
-import prisma from "@/app/libs/prismadb";
-import Image from 'next/image'
+import defaultAvatar from '@/public/images/defaultAvatar.jpg';
+import Image from 'next/image';
+import { useState } from "react";
 import Comments from './Comments';
-import defaultAvatar from '@/public/images/defaultAvatar.jpg'
-import ShareModal from "../Sharing/ShareModal";
-import { useEffect, useState } from "react";
 interface PostModalProps {
     currentPost:any
     setCurrentPost:any
@@ -13,7 +11,8 @@ interface PostModalProps {
 }
 
 const PostModal:React.FC<PostModalProps> = ({currentUser,currentPost,setCurrentPost,posts}) => {
-    const [showPicker, setShowPicker] = useState(false);   
+    const [showPicker, setShowPicker] = useState(false); 
+    console.log(currentPost)  
     return ( 
         <dialog id={`postmodal`} className="modal" onClose={()=>{
             setCurrentPost(0);

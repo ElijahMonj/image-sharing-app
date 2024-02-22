@@ -12,11 +12,21 @@ const SideNav = async () => {
     const notifications= await prisma.notification.findMany({
         where: {
           ownerId:currentUser?.id
-        }
+        },
+        include: {
+            notifier: true,
+        },
       })
+    
+    const taggableUsers = await prisma.user.findMany({
+        where: {
+            id: { in: user?.followers.filter((u: any) => user?.following.includes(u)) },
+        }
+    })
+    
     return ( 
-        <UtilityBar data={user} notifications={notifications.reverse()}/> 
+        <UtilityBar currentUser={user}taggableUsers={taggableUsers} data={user} notifications={notifications.reverse()}/> 
      );
 }
- 
+
 export default SideNav;

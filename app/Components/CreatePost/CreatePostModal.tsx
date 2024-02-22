@@ -1,15 +1,16 @@
-import { FormEvent, useState } from 'react';
-import {FaUserTag,FaUserSlash } from 'react-icons/fa'
-import TagModal from './TagModal';
-import {toast} from 'react-hot-toast'
 import axios from 'axios';
+import { FormEvent, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { FaUserSlash, FaUserTag } from 'react-icons/fa';
 import Avatar from '../Avatar';
+import TagModal from './TagModal';
 
 interface CreatePostModalProps{
   user:any,
   image:string
+  taggableUsers:any
 }
-const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
+const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image,taggableUsers}) => {
     const [taggedUser, setTaggedUser] = useState<any>("")
     const [postButtonDisabled,setPostButtonDisabled]=useState(false);
     const [caption,setCaption]=useState('')
@@ -40,7 +41,7 @@ const CreatePostModal:React.FC<CreatePostModalProps> = ({user,image}) => {
       <div className="modal-box">
         <h4 className="font-bold text-lg">Create a new post</h4>
         {openTag &&(
-          <TagModal setOpenTag={setOpenTag} currentUser={user} setTaggedUser={setTaggedUser}/>
+          <TagModal setOpenTag={setOpenTag} currentUser={user} setTaggedUser={setTaggedUser} taggableUsers={taggableUsers}/>
           //<div onClick={()=>setOpenTag(false)}>open tag</div>
         )}
         {!openTag &&(

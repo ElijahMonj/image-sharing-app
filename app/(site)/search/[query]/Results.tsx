@@ -1,11 +1,11 @@
 'use client'
+import Avatar from "@/app/Components/Avatar";
+import PostModal from "@/app/Components/PostModal/PostModal";
+import ShareModal from "@/app/Components/Sharing/ShareModal";
+import Link from "next/link";
 import React, { useState } from "react";
 import PostCard from "../../profile/Components/PostCard";
-import PostModal from "@/app/Components/PostModal/PostModal";
 import Empty from "./Empty";
-import Link from "next/link";
-import Avatar from "@/app/Components/Avatar";
-import ShareModal from "@/app/Components/Sharing/ShareModal";
 
 interface ResultsProps{
     currentUser:any

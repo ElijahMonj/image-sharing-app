@@ -1,5 +1,4 @@
 import Avatar from "@/app/Components/Avatar";
-import Image from "next/image"
 import Link from "next/link";
 
 interface ModalFollowingProps{

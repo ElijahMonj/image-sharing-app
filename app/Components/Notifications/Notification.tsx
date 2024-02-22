@@ -1,11 +1,11 @@
 'use client'
-import { PiPaperPlaneTiltFill } from "react-icons/pi";
-import Avatar from "../Avatar";
-import { BsChatFill,BsHeartFill,BsChatTextFill  } from "react-icons/bs";
-import { MdNotifications,MdPersonAddAlt1 } from "react-icons/md";
-import Link from "next/link";
-import { timeAgo } from "../../actions/convertDate";
 import axios from "axios";
+import Link from "next/link";
+import { BsChatFill, BsChatTextFill, BsHeartFill } from "react-icons/bs";
+import { MdNotifications, MdPersonAddAlt1 } from "react-icons/md";
+import { PiPaperPlaneTiltFill } from "react-icons/pi";
+import { timeAgo } from "../../actions/convertDate";
+import Avatar from "../Avatar";
 
 import { useState } from "react";
 
@@ -114,11 +114,11 @@ const Notification:React.FC<NotificationProps> = ({data,setNewNotifications}) =>
             }}
              >
             <div className="relative inline-block shrink-0 avatar w-12">
-                <Avatar width={256} height={256} src={data.userImage}/>
+                <Avatar width={256} height={256} src={data.notifier.image}/>
                 {notificationIcon(data.type)}
             </div>
             <div className="ms-3 text-sm font-normal">
-                <div className="text-sm font-bold">{data.userName}</div>
+                <div className="text-sm font-bold">{data.notifier.name}</div>
                 {notificationDescription(data.type)}
                 <span className="text-xs font-medium text-secondary" suppressHydrationWarning >{timeAgo(data.createdAt)}</span>   
             </div>

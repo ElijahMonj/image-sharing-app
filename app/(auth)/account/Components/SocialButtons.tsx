@@ -1,6 +1,6 @@
 import { signIn } from 'next-auth/react';
-import {MdFacebook} from 'react-icons/md'
-import {AiFillGoogleCircle,AiFillGithub} from 'react-icons/ai'
+import { AiFillGithub, AiFillGoogleCircle } from 'react-icons/ai';
+import { MdFacebook } from 'react-icons/md';
 const ScoailButtons = () => {
     return ( 
         <div className="grid grid-cols-3 place-content-center">

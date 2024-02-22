@@ -1,10 +1,10 @@
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import ProfileHeader from "../Components/ProfileHeader";
 import ProfileContent from "../Components/ProfileContent";
+import ProfileHeader from "../Components/ProfileHeader";
 
-import { Toaster } from "react-hot-toast";
 import prisma from "@/app/libs/prismadb";
+import { Toaster } from "react-hot-toast";
 
 interface IParams {
     profileId: string;
@@ -65,7 +65,7 @@ const user = async ({params}:{params:IParams}) => {
     })
     const users = await prisma.user.findMany({
         where:{
-            id: { in: userData?.following },
+            id: { in: currentUser?.following },
         }
     })
     const allPosts = userPosts.concat(savedPosts, taggedPosts);

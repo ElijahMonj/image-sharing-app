@@ -38,9 +38,16 @@ export async function follow(followingUserId:string,currentUserId:string){
         })
         await prisma.notification.create({
             data: {
-                ownerId:otherUser?.id as string,
-                userName:currentUser?.name as string,
-                userImage:currentUser?.image as string,
+                owner:{
+                    connect:{
+                        id:otherUser?.id as string
+                    }
+                },
+                notifier:{
+                    connect:{
+                        id:currentUserId as string
+                    }
+                },
                 link:`/profile/${currentUserId}`,
                 type:"follow",
             },
