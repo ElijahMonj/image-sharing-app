@@ -1,8 +1,8 @@
 'use client'
 
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from "react";
 import ThemeSwitch from "./ThemeSwitch";
-import { FormEvent, useEffect, useState } from "react";
-import { useRouter } from 'next/navigation'
 interface NavigationBarProps{
   data:any
 }

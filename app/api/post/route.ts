@@ -2,8 +2,7 @@ import prisma from "@/app/libs/prismadb"
 import { NextResponse } from "next/server"
 export async function POST(request:Request){
     
-    try {
-        
+    try { 
         const body=await request.json();
         const{
             author,
@@ -12,7 +11,7 @@ export async function POST(request:Request){
             image,
             
         }=body;
-        console.log(tagged)
+        console.log(author)
         if((tagged=="")||(tagged==undefined)){
             
             const post=await prisma.post.create({

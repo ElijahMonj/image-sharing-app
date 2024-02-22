@@ -6,15 +6,15 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 interface ShareButtonProps{
     user:any
-    post:any
+    currentPost:any
     currentUser:any
 }
-const ShareButton:React.FC<ShareButtonProps> = ({user,post,currentUser}) => {
+const ShareButton:React.FC<ShareButtonProps> = ({user,currentPost,currentUser}) => {
 
     const [isShared, setIsShared] = useState(false);
     useEffect(() => {
         setIsShared(false)
-      }, [post]);
+      }, [currentPost]);
     return ( 
 
         <div key={user.id} className='flex flex-row justify-between py-1'>
@@ -36,9 +36,8 @@ const ShareButton:React.FC<ShareButtonProps> = ({user,post,currentUser}) => {
                     setIsShared(true)
                     const data = {
                         ownerId:user.id,
-                        userName:currentUser.name,
-                        userImage:currentUser.image,
-                        link:"/post/"+post.id,
+                        notifierId:currentUser.id,
+                        postId:currentPost.id,
                     }
                     axios.post('/api/share',data)
                         .catch(()=>{

@@ -23,16 +23,19 @@ export const newComment = async (postId:string, postAuthorId:string,userId:strin
             }
         })
         if(!(userId==postAuthorId)){
-            const user = await prisma.user.findUnique({
-                where:{
-                    id:userId
-                }
-            })
-            await prisma.notification.create({
+            
+              await prisma.notification.create({
                 data: {
-                    ownerId:postAuthorId as string,
-                    userName:user?.name as string,
-                    userImage:user?.image as string,
+                    owner:{
+                        connect:{
+                            id:postAuthorId as string
+                        }
+                    },
+                    notifier:{
+                        connect:{
+                            id:userId as string
+                        }
+                    },
                     link:`/post/${postId}`,
                     type:"comment",
                 },

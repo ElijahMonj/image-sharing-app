@@ -19,7 +19,7 @@ const PostCard:React.FC<PostCardProps> = ({currentUser,postData,users}) => {
             setCurrentPost={setCurrentPost}
             post={postData} 
             />    
-            <ShareModal currentUser={currentUser} post={currentPost} users={users}/>   
+            <ShareModal currentUser={currentUser} currentPost={currentPost} users={users}/>   
         </>
      );
 }

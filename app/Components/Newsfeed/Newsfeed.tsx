@@ -1,9 +1,9 @@
 'use client'
-import NewsfeedCard from "./NewsfeedCard";
+import { Key, useState } from "react";
 import { GoPersonAdd } from "react-icons/go";
-import { Key, useEffect, useState } from "react";
 import PostModal from "../PostModal/PostModal";
 import ShareModal from "../Sharing/ShareModal";
+import NewsfeedCard from "./NewsfeedCard";
 
 interface NewsfeedProps{
     currentUser:any
@@ -34,7 +34,7 @@ const Newsfeed:React.FC<NewsfeedProps> = ({currentUser,posts,users}) => {
                     post={post}
                     />
                 ))} 
-                <ShareModal currentUser={currentUser} post={currentPost} users={users}/>
+                <ShareModal currentUser={currentUser} currentPost={currentPost} users={users}/>
             </div>
             }           
         </div>

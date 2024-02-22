@@ -2,8 +2,8 @@
 import { Toaster } from "react-hot-toast";
 import getCurrentUser from "../../actions/getCurrentUser";
 
-import Grid from "./grid";
 import prisma from "@/app/libs/prismadb";
+import Grid from "./grid";
 const Explore = async () => {
     const currentUser = await getCurrentUser();
     const posts = await prisma.post.findMany({

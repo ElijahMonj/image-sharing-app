@@ -1,7 +1,6 @@
-import { Dispatch, SetStateAction, FunctionComponent, useState, useEffect } from 'react';
-import {MdPersonSearch} from 'react-icons/md'
+import { Dispatch, SetStateAction, useState } from 'react';
+import { MdPersonSearch } from 'react-icons/md';
 
-import axios from 'axios';
 import Avatar from '../Avatar';
 
 
@@ -9,22 +8,12 @@ interface TagModalProps{
     setOpenTag:Dispatch<SetStateAction<boolean>>;
     setTaggedUser:Dispatch<SetStateAction<any>>;
     currentUser:any
+    taggableUsers:any
 }
 
-const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser}) => {
+const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser,taggableUsers}) => {
     const [searchInput,setSearchInput]=useState('')
-    const [users,setUsers]=useState<any>(null)
-    
-    useEffect(() => {
-        axios.get("/api/getuser").then((data) => {
-          setUsers(data?.data);
-        });
-      }, []);
-     
-      useEffect(() => {
-        console.log(searchInput)
-       
-      }, [searchInput]);
+
     return ( 
         <div className='flex flex-col'>
             <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -40,15 +29,15 @@ const TagModal:React.FC<TagModalProps> = ({setOpenTag,currentUser,setTaggedUser}
                     
                 </div>
                 <div className='h-32 overflow-auto'>
-                    {users == null ? 
+                    {taggableUsers == null ? 
                     <div className='h-full flex justify-center flex-col text-center text-sm font-thin'>Loading...</div>
                     :
                     <>
-                        {users.length == 0 ? 
+                        {taggableUsers.length == 0 ? 
                         <div className='h-full flex justify-center flex-col text-center text-sm font-thin'>No available users.</div>
                         :
                         <ul className="menu bg-base-200 w-full rounded-box ">
-                        {users?.filter((uList: { name: string; }) =>
+                        {taggableUsers?.filter((uList: { name: string; }) =>
                                 uList.name?.toLowerCase().includes(searchInput)
                             )
                             ?.map((u:any) => 

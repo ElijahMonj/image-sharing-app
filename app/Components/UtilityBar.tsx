@@ -1,21 +1,23 @@
 'use client'
-import { useSession, signIn, signOut } from "next-auth/react"
-import {MdOutlineHome,MdOutlineSearch,MdOutlineExplore,MdOutlineNotifications,MdOutlineMessage,MdOutlineAddBox,MdOutlineAccountCircle,MdOutlineSettings,MdOutlineLogout} from 'react-icons/md'
+import { signOut } from "next-auth/react"
+import { MdOutlineAddBox, MdOutlineExplore, MdOutlineHome, MdOutlineLogout, MdOutlineMessage, MdOutlineNotifications, MdOutlineSettings } from 'react-icons/md'
 
-import Link from "next/link"
-import CreatePostModal from "./CreatePost/CreatePostModal"
 import { CldUploadButton } from "next-cloudinary"
+import Link from "next/link"
 import { useState } from "react"
-import Avatar from "./Avatar"
-import NotificationModal from "./Notifications/NotificationModal"
 import { SiLens } from "react-icons/si"
+import Avatar from "./Avatar"
+import CreatePostModal from "./CreatePost/CreatePostModal"
+import NotificationModal from "./Notifications/NotificationModal"
 
 interface UtilityBarProps{
     data:any
     notifications:any
+    taggableUsers:any
+    currentUser:any
   }
  
-  const UtilityBar:React.FC<UtilityBarProps> = ({data,notifications}) => {
+  const UtilityBar:React.FC<UtilityBarProps> = ({data,notifications,taggableUsers,currentUser}) => {
     const [image,setImage]=useState('');
     const [newNotifications,setNewNotifications] =useState(notifications.filter((obj: { seen: boolean }) => obj.seen == false).length);
 
@@ -284,7 +286,7 @@ interface UtilityBarProps{
         </div>
         </div>
 
-        <CreatePostModal user={data} image={image}/>
+        <CreatePostModal user={currentUser} image={image} taggableUsers={taggableUsers}/>
         <NotificationModal notifications={notifications} setNewNotifications={setNewNotifications}/>
         </>
      );

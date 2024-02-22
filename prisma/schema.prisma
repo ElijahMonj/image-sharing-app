@@ -36,7 +36,8 @@ model User{
   tagged Post[] @relation("tagged")
   comments Comment[]
   accounts Account[]
-  notifications Notification[]
+  notificationOwner Notification[] @relation("owner")
+  notificationSender Notification[] @relation("notifier")
 }
 
 model Account {
@@ -85,10 +86,10 @@ model Comment{
 
 model Notification{
     id String @id @default(auto()) @map("_id") @db.ObjectId
-    owner User @relation(fields: [ownerId],references: [id])
+    owner User @relation(fields: [ownerId],references: [id], name:"owner")
     ownerId String @db.ObjectId
-    userName String
-    userImage String
+    notifier User @relation(fields: [notifierId],references: [id], name:"notifier")
+    notifierId String @db.ObjectId
     createdAt DateTime @default(now())
     link String
     type String

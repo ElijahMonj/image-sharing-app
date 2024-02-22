@@ -1,11 +1,9 @@
 'use client'
-import Image from 'next/image'
-import PostModal from "../../Components/PostModal/PostModal";
-import React, { useState } from 'react';
-import PostCard from '../profile/Components/PostCard';
-import prisma from "@/app/libs/prismadb";
-import Empty from './Empty';
 import ShareModal from '@/app/Components/Sharing/ShareModal';
+import React, { useState } from 'react';
+import PostModal from "../../Components/PostModal/PostModal";
+import PostCard from '../profile/Components/PostCard';
+import Empty from './Empty';
 interface GridProps{
     currentUser:any
     posts:any

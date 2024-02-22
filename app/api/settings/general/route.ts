@@ -1,7 +1,7 @@
 
-import prisma from "@/app/libs/prismadb"
-import { NextResponse } from "next/server"
-import { revalidatePath } from 'next/cache'
+import prisma from "@/app/libs/prismadb";
+import { revalidatePath } from 'next/cache';
+import { NextResponse } from "next/server";
 export async function POST(request:Request){
     try {
         const body=await request.json();

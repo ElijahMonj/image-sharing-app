@@ -26,11 +26,18 @@ export async function like(postId:string,likerId:string){
                     id:likerId
                 }
             })
-            await prisma.notification.create({
+              await prisma.notification.create({
                 data: {
-                    ownerId:post?.authorId as string,
-                    userName:liker?.name as string,
-                    userImage:liker?.image as string,
+                    owner:{
+                        connect:{
+                            id:post?.authorId as string
+                        }
+                    },
+                    notifier:{
+                        connect:{
+                            id:liker?.id as string
+                        }
+                    },
                     link:`/post/${postId}`,
                     type:"like",
                 },
