@@ -44,10 +44,10 @@ const Comments:React.FC<CommentsProps> = ({currentPost,currentUser,setCurrentPos
         if(!isSaving){       
             const index = state.indexOf(currentPost.id);
             state.splice(index, 1);
-            console.log(state)
+            
             return state
         }else{
-            console.log([...state, currentPost.id])
+           
             return [...state, currentPost.id]
         }
     })

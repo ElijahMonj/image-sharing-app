@@ -20,7 +20,7 @@ const RegisterForm = () => {
             email:email,
             password:password,
         }
-        console.log(email)
+       
         axios.post('/api/register',data).then(()=> {
             signIn('credentials', data)
             toast.success('Account succesfully created!')
