@@ -29,7 +29,7 @@ const Grid:React.FC<GridProps> = ({currentUser,posts,users}) => {
                                 setCurrentPost={setCurrentPost} currentPost={currentPost}/>
                                 );
                             })}
-                    <ShareModal currentUser={currentUser} post={currentPost} users={users}/>
+                    <ShareModal currentUser={currentUser} currentPost={currentPost} users={users}/>
                     </>
                 </div>
             }

@@ -12,7 +12,7 @@ interface PostModalProps {
 
 const PostModal:React.FC<PostModalProps> = ({currentUser,currentPost,setCurrentPost,posts}) => {
     const [showPicker, setShowPicker] = useState(false); 
-    console.log(currentPost)  
+    
     return ( 
         <dialog id={`postmodal`} className="modal" onClose={()=>{
             setCurrentPost(0);

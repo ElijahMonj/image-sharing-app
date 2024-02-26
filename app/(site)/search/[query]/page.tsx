@@ -3,18 +3,21 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 import { Toaster } from "react-hot-toast";
 import Results from "./Results";
+
 interface IParams {
     query: string;
 };
 
-
 const Search = async ({params}:{params:IParams}) => {
+    
     const currentUser = await getCurrentUser();
+    const query = decodeURIComponent(params.query).replace(/[&\/\\#,+()$~%.'"*?<>{}]/g, "") 
+    
     const searchedPosts = await prisma.post.findMany({
         where: {
             caption:
             { 
-                contains: params.query,
+                contains: query as string,
                 mode: 'insensitive', 
             }, 
             authorId:{not: currentUser?.id}
@@ -27,14 +30,13 @@ const Search = async ({params}:{params:IParams}) => {
                 }
             },
             tagged:true
-        }
-        
+        }  
     })
     const searchedUsers = await prisma.user.findMany({
         where: {
             name:
             { 
-                contains: params.query,
+                contains: query as string,
                 mode: 'insensitive', 
             },
             id:{not: currentUser?.id}
