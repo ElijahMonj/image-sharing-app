@@ -17,15 +17,15 @@ const Results:React.FC<ResultsProps> = ({currentUser,searchedPosts,searchedUsers
     const [currentPost,setCurrentPost]=useState(0);
     return ( 
         <div className="flex flex-col w-full lg:max-w-[40rem] lg:absolute md:max-w-[40rem] sm:max-w-[40rem] left-0 right-0 items-center m-auto min-h-screen">
-                    
+                    <div className="mt-16"></div>
                     <>
                     {(searchedPosts.length==0 && searchedUsers.length==0) ? 
                         <Empty/>
                         :
                         <>
                         {searchedUsers.length==0 ? <></>:
-                        <>
-                            <div className="w-full text-xs mb-1 mt-16 px-2">People</div>
+                        <>  
+                            <div className="w-full text-xs mb-1 px-2">People</div>
                             {searchedUsers.map((user: { id: React.Key | null | undefined; image: string; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; email: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => {
                                 return (
                                     <div key={user.id} className="w-full bg-base-200 flex my-1 p-3 gap-2 rounded-lg">
@@ -69,7 +69,7 @@ const Results:React.FC<ResultsProps> = ({currentUser,searchedPosts,searchedUsers
                             })}
                         </div>
                         <div className="divider"></div>
-                        <ShareModal currentUser={currentUser} post={currentPost} users={users}/>
+                        <ShareModal currentUser={currentUser} currentPost={currentPost} users={users}/>
                         </>
                         }
                         

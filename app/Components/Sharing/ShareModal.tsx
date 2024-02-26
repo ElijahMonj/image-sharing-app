@@ -9,12 +9,12 @@ interface ShareModalProps{
 
 const ShareModal:React.FC<ShareModalProps> = ({currentUser,currentPost,users}) => {
     const [shareableUsers,setShareableUsers] = useState(users);
-    console.log(currentPost)
+    
     useEffect(()=>{
         setShareableUsers(users.filter((user: { id: number; }) => {
             return user.id !== currentPost?.authorId;
         }))
-        console.log(shareableUsers)
+        
     }, [currentPost,users]);
 
     return ( 
