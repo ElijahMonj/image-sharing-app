@@ -3,11 +3,15 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 import { Toaster } from "react-hot-toast";
 import General from "./components/General";
+import getSession from "@/app/actions/getSession";
 const Settings = async () => {
-    const currentUser = await getCurrentUser();
+    const session = await getSession();
+    if(!session?.user?.email){
+        return null;
+    }
     const user = await prisma.user.findUnique({
         where: {
-           id:currentUser?.id
+            email: session.user.email as string
         }
     })
     return ( 
