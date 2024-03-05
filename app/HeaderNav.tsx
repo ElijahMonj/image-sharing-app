@@ -1,13 +1,11 @@
 import NavigationBar from "./Components/NavigationBar";
 import getCurrentUser from "./actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
-import {getServerSession} from 'next-auth';
-import { authOptions } from '@/app/authOptions'
+import getSession from "./actions/getSession";
         
 const HeaderNav = async () => {
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
     if(!session?.user?.email){
-        console.log("ELIJAH NULL")
         return null;
     }
     const user = await prisma.user.findUnique({

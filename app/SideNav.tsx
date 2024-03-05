@@ -2,16 +2,20 @@
 import UtilityBar from "./Components/UtilityBar";
 import getCurrentUser from "./actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
+import getSession from "./actions/getSession";
 const SideNav = async () => {
-    const currentUser = await getCurrentUser();
+    const session = await getSession();
+    if(!session?.user?.email){
+        return null;
+    }
     const user = await prisma.user.findUnique({
         where: {
-           id:currentUser?.id
+            email: session.user.email as string
         }
     })
     const notifications= await prisma.notification.findMany({
         where: {
-          ownerId:currentUser?.id
+          ownerId:user?.id
         },
         include: {
             notifier: true,
