@@ -8,6 +8,7 @@ interface GeneralProps{
     currentUser:any
 }
 const General:React.FC<GeneralProps> = ({currentUser}) => {
+    console.log(currentUser.password)
     const [oldName, setOldName] = useState(currentUser.name);
     const [oldImage, setOldImage] = useState(currentUser.image);
     const [oldBio, setOldBio] = useState(currentUser.bio);
@@ -134,7 +135,8 @@ const General:React.FC<GeneralProps> = ({currentUser}) => {
                  >Save</button>
             </div>
 
-
+            {currentUser.password ? 
+            <>
             <h1 className="font-bold text-2xl my-5">Manage Account</h1>
             <div className="font-semibold">Change Password</div>
                 <div className="bg-base-200 w-full p-5 rounded-lg mb-3">
@@ -166,7 +168,12 @@ const General:React.FC<GeneralProps> = ({currentUser}) => {
                             >Confirm</button>
                     </div> 
                     </form>   
-                </div>   
+                </div> 
+            </>
+            :
+            <></>
+            }
+              
                 
         </div>
      );
