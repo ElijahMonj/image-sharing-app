@@ -3,13 +3,13 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 import { Toaster } from "react-hot-toast";
 import PostCard from "./PostCard";
+import getSession from "@/app/actions/getSession";
 interface IParams {
     id: string;
 };
 
 const Post = async ({params}:{params:IParams}) => {
     
-    const currentUser = await getCurrentUser();
     const post = await prisma.post.findUnique({
         where: {
             id: params.id,
@@ -24,9 +24,13 @@ const Post = async ({params}:{params:IParams}) => {
             tagged:true
         }
     })
+    const session = await getSession();
+    if(!session?.user?.email){
+        return null;
+    }
     const user = await prisma.user.findUnique({
-        where:{
-            id:currentUser?.id
+        where: {
+            email: session.user.email as string
         }
     })
     const users = await prisma.user.findMany({

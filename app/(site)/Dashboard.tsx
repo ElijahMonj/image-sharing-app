@@ -3,16 +3,20 @@ import prisma from "@/app/libs/prismadb";
 import Newsfeed from '../Components/Newsfeed/Newsfeed';
 import Suggested from '../Components/Suggested';
 import getCurrentUser from "../actions/getCurrentUser";
+import getSession from "@/app/actions/getSession";
 const Dashboard = async () => {
-    const currentUser = await getCurrentUser();
+    const session = await getSession();
+    if(!session?.user?.email){
+        return null;
+    }
     const userData = await prisma.user.findUnique({
-        where:{
-            id: currentUser?.id
+        where: {
+            email: session.user.email as string
         }
-    });
+    })
     const posts = await prisma.post.findMany({
         where:{
-            authorId: {in: currentUser?.following }
+            authorId: {in: userData?.following }
         },
         include:{
             author:true,
